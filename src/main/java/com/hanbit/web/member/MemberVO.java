@@ -1,27 +1,16 @@
-/**
- * 
- */
 package com.hanbit.web.member;
-
 import java.io.Serializable;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-
-/**
- * @date   :2016. 6. 16. 
- * @author :pakjkwan@gmail.com
- * @file   :Student.java
- * @story  :
-*/
-public class MemberBean implements Serializable{
+public class MemberVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id,pw,name,regDate,gender,ssn,
 		profileImg,email,phone; 
 	private int birth;
 	
-	public MemberBean() {}
+	public MemberVO() {}
 	
-	public MemberBean(String id,String pw,String name,String ssn) {
+	public MemberVO(String id,String pw,String name,String ssn) {
 		this.id = id;
 		this.pw = pw;
 		this.name = name;

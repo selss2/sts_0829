@@ -31,7 +31,7 @@ public class SubjectDAO {
 	public static SubjectDAO getInstance() {
 		return instance;
 	}
-	public void insert(SubjectBean sub){
+	public void insert(SubjectVO sub){
 		String sql = "insert into subject(subj_seq,id,major,subjects)"
 				+ " values(subj_seq.nextval,?,?,?)";
 		int result = 0;
@@ -52,8 +52,8 @@ public class SubjectDAO {
 		}
 		
 	}
-	public SubjectBean findById(String id){
-		SubjectBean s = null;
+	public SubjectVO findById(String id){
+		SubjectVO s = null;
 		String sql = "select "
 				+ "id as id, "
 				+ "major as major, "
@@ -64,7 +64,7 @@ public class SubjectDAO {
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			if(rs.next()){
-				s = new SubjectBean();
+				s = new SubjectVO();
 				s.setId(rs.getString("id"));
 				s.setMajor(rs.getString("major"));
 				s.setSubjects(rs.getString("sub"));

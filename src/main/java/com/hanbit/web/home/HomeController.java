@@ -36,9 +36,12 @@ public class HomeController {
 		
 		return "public:global/content.tiles";
 	}
-	@RequestMapping("/global/school_info")
+	@RequestMapping("/school_info")
 	public String schoolInfo(){
-		return "global/school_info.tiles";
+		return "public:global/school_info.tiles";
 	}
-	
+	@RequestMapping("/school_map")
+	public String schoolMap(){
+		return "public:global/school_map.tiles";
+	}
 }

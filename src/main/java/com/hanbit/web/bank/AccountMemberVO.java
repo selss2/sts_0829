@@ -1,6 +1,6 @@
 package com.hanbit.web.bank;
 
-public class AccountMemberBean {
+public class AccountMemberVO {
 	private int accountNo,money; // 인스턴스 변수는 초기화를 하지 않는다
 	private String name,id,pw,regDate,gender,ssn,birth;
 	public int getAccountNo() {

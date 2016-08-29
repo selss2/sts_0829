@@ -1,6 +1,6 @@
 package com.hanbit.web.grade;
 
-public class GradeMemberBean {
+public class GradeMemberVO {
 	private String id,grade,seq,examDate, 
 		subjectpw,name,regDate,gender,ssn;
 	private int java,sql,html,js, score,birth;

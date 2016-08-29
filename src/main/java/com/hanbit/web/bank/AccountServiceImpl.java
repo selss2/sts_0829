@@ -23,7 +23,7 @@ public class AccountServiceImpl implements AccountService {
 		return instance;
 	}
 	private AccountServiceImpl() {
-		map = new HashMap<String,AccountMemberBean>();
+		map = new HashMap<String,AccountMemberVO>();
 	}
 	@Override
 	public String openAccount(String id) {
@@ -85,7 +85,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public List<?> list() {
-		List<AccountMemberBean> list = dao.selectAll();
+		List<AccountMemberVO> list = dao.selectAll();
 		
 		return list;
 	}
@@ -114,7 +114,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 	@Override
 	public Map<?,?> map() {
-		map = new HashMap<String,AccountMemberBean>();
+		map = new HashMap<String,AccountMemberVO>();
 		map = dao.selectMap();
 		return map;
 	}

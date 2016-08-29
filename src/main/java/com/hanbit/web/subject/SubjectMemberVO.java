@@ -2,7 +2,7 @@ package com.hanbit.web.subject;
 
 import java.io.Serializable;
 
-public class SubjectMember implements Serializable{
+public class SubjectMemberVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id,pw,name,reg,ssn,email,img,
 	phone,major,subjects;

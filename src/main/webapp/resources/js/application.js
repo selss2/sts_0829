@@ -30,6 +30,7 @@ var app = (function(){
 		$('#a_grade').click(function(){controller.move('grade','main');});
 		$('#a_account').click(function(){controller.move('account','main');});
 		$('#a_shool').click(function(){controller.move('global','school_info');});
+		$('#a_map').click(function(){controller.move('global','school_map');});
 	};
 	
 	return {

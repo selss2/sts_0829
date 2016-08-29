@@ -5,14 +5,13 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 public interface MemberDAO {
-	public int insert(MemberBean mem);
-	public int update(MemberBean mem);
-	public int exeUpdate(String sql);
-	public List<MemberBean> list();
-	public MemberBean findById(String pk);
-	public List<MemberBean> findByName(String name);
+	public int insert(MemberVO mem);
+	public int update(MemberVO mem);
+	public List<MemberVO> list();
+	public MemberVO findById(String pk);
+	public List<MemberVO> findByName(String name);
 	public int count();
-	public int delete(MemberBean member);
-	public boolean login(MemberBean param);
+	public int delete(MemberVO member);
+	public boolean login(MemberVO param);
 	public boolean existId(String id);
 }

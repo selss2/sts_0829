@@ -24,7 +24,6 @@ public class JDBCTest {
 					Constants.USER_ID,
 					Constants.USER_PW);
 			stmt = con.createStatement();
-			// rs = stmt.executeQuery(sql);
 			rs = stmt.executeQuery(sql);
 			if(rs.next()){
 				result = rs.getString(1);

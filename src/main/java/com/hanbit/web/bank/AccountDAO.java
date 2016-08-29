@@ -77,8 +77,8 @@ public class AccountDAO {
 	public void withdraw(AccountBean acc) {
 		this.deposit(acc);
 	}
-	public List<AccountMemberBean> selectAll() {
-		List<AccountMemberBean> list = new ArrayList<AccountMemberBean>();
+	public List<AccountMemberVO> selectAll() {
+		List<AccountMemberVO> list = new ArrayList<AccountMemberVO>();
 		String sql= "select "
 				+ "account_no as acc,"
 				+ "id as id,"
@@ -91,7 +91,7 @@ public class AccountDAO {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				AccountMemberBean acc = new AccountMemberBean();
+				AccountMemberVO acc = new AccountMemberVO();
 				acc.setAccountNo(rs.getInt("ACC"));
 				acc.setId(rs.getString("ID"));
 				acc.setName(rs.getString("NAME"));
@@ -106,13 +106,13 @@ public class AccountDAO {
 		return list;
 	}
 	public Map<?, ?> selectMap() {
-		Map<String,AccountMemberBean> map = new HashMap<String,AccountMemberBean>();
+		Map<String,AccountMemberVO> map = new HashMap<String,AccountMemberVO>();
 		String sql = "select * from account_member";
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				AccountMemberBean am = new AccountMemberBean();
+				AccountMemberVO am = new AccountMemberVO();
 				am.setAccountNo(rs.getInt("ACCOUNT_NO"));
 				am.setId(rs.getString("ID"));
 				am.setMoney(rs.getInt("MONEY"));
