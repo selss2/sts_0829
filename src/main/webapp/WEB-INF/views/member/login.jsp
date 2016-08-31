@@ -18,7 +18,6 @@
 	$(function(){
 		$('#member_login_form').attr('action',app.context()+'/member/login/execute');
 		$('#member_login_form input[type="submit"]').click(function() {
-			// 
 			$('#member_login_form').submit();
 		});
 	});

@@ -1,11 +1,14 @@
 package com.hanbit.web.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.hanbit.web.member.MemberServiceImpl;
 import com.hanbit.web.member.MemberVO;
 
 public class Test {
+	@Autowired MemberServiceImpl service;
 	public String test(){
-		MemberVO m = MemberServiceImpl.getInstance().findById("hong");
+		MemberVO m = service.findById("hong");
 	   return m.getName();
 	}
 	public static void main(String[] args) {

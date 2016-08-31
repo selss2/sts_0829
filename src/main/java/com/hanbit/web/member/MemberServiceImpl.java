@@ -6,27 +6,22 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hanbit.web.bank.AccountService;
 import com.hanbit.web.bank.AccountServiceImpl;
-import com.hanbit.web.subject.SubjectVO;
 import com.hanbit.web.subject.SubjectDAOImpl;
 import com.hanbit.web.subject.SubjectMemberVO;
+import com.hanbit.web.subject.SubjectVO;
 @Service
 public class MemberServiceImpl implements MemberService{
 	private MemberDAOImpl dao;
-	private SubjectDAOImpl subjDao = SubjectDAOImpl.getInstance();
-	private AccountService accService = AccountServiceImpl.getInstance();
-	private MemberVO session;
+	private SubjectDAOImpl subjDao;
+	@Autowired private MemberVO member;
+	@Autowired private SubjectVO sb;
+	@Autowired private SubjectMemberVO sm;
+	@Autowired private AccountServiceImpl accService;
 	
-	private static MemberServiceImpl instance = new MemberServiceImpl();
-	
-	public static MemberServiceImpl getInstance() {
-		return instance;
-	}
-
-	
-	private MemberServiceImpl() {
+	public MemberServiceImpl() {
 		dao = MemberDAOImpl.getInstance();
+		subjDao = SubjectDAOImpl.getInstance();
 	}
 	
 	@Override
@@ -61,7 +56,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	@Override
 	public MemberVO show() {
-		return session;
+		return member;
 	}
 	@Override
 	public void delete(MemberVO member) {
@@ -103,22 +98,20 @@ public class MemberServiceImpl implements MemberService{
 	}
 	@Override
 	public SubjectMemberVO login(MemberVO member) {
-		SubjectMemberVO sm = new SubjectMemberVO();
-		SubjectVO sb =new SubjectVO();
-		// 2.로그인
 			if (dao.login(member)) {
-				session = dao.findById(member.getId());
-				accService.map();
+				member = dao.findById(member.getId());
+				System.out.println("서비스 로그인 하는 중..ID"+member.getId());
+				/*accService.map();*/
 				sb = subjDao.findById(member.getId());
-				sm.setEmail(session.getEmail());
-				sm.setId(session.getId());
-				sm.setImg(session.getProfileImg());
+				sm.setEmail(member.getEmail());
+				sm.setId(member.getId());
+				sm.setImg(member.getProfileImg());
 				sm.setMajor(sb.getMajor());
-				sm.setName(session.getName());
-				sm.setPhone(session.getPhone());
-				sm.setPw(session.getPw());
-				sm.setReg(session.getRegDate());
-				sm.setSsn(session.getSsn());
+				sm.setName(member.getName());
+				sm.setPhone(member.getPhone());
+				sm.setPw(member.getPw());
+				sm.setReg(member.getRegDate());
+				sm.setSsn(member.getSsn());
 				sm.setSubjects(sb.getSubjects());
 				
 			}else{
@@ -131,9 +124,9 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void logout(MemberVO member) {
-		if (member.getId().equals(session.getId()) 
-				&& member.getPw().equals(session.getPw())) {
-			session = null;
+		if (member.getId().equals(member.getId()) 
+				&& member.getPw().equals(member.getPw())) {
+			member = null;
 		}
 		
 	}

@@ -1,18 +1,18 @@
 package com.hanbit.web.member;
 
-import org.apache.catalina.connector.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.hanbit.web.home.HomeController;
+import com.hanbit.web.subject.SubjectMemberVO;
 
 @Controller
+@SessionAttributes("user")
 @RequestMapping("/member")
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -36,10 +36,18 @@ public class MemberController {
 	}
 	@RequestMapping("/login/execute")
 	public String executeLogin(@RequestParam("id") String id,
-			@RequestParam("pw")String pw) {
+			@RequestParam("pw")String pw,
+			Model model) {
 		logger.info("MemberController ! login() ");
-		System.out.println("로그인시 넘어온 id");
-		System.out.println("로그인시 넘어온 pw");
+		System.out.println("TRYING TO LOGIN  ID :"+id);
+		System.out.println("TRYING TO LOGIN  PW :"+pw);
+		MemberVO member = new MemberVO();
+		System.out.println("======new MemberVO() ====");
+		member.setId(id);
+		member.setPw(pw);
+		System.out.println("======서비스 login 가기 직전 ====");
+		SubjectMemberVO sm = service.login(member);
+		model.addAttribute("user",sm);
 		return "user:user/content.tiles";
 	}
 	// --- MOVE ---

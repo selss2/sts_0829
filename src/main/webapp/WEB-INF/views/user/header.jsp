@@ -42,7 +42,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li style="text-align:right; margin-top:14px;">${user.name}님 환영합니다</li>
-        <li><a id="exit"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>로그아웃</a></li>
+        <li><a id="logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>로그아웃</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>  <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -59,7 +59,6 @@
 $(function(){
 	$('#user_header').css('height','50px');
 	$('.navbar-header').css('height','50px');
-	$('#user_header #exit').addClass('cursor');
-	$('#user_header #exit').click(function() {controller.home();});
+	$('#user_header #logout').addClass('cursor').click(function() {controller.home();});
 });
 </script>

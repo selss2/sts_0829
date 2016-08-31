@@ -77,10 +77,11 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	@Override
 	public boolean login(MemberVO param) {
+		System.out.println("======login ===="+param.getId());
 		boolean loginOk= false;
 		if(param.getId()!=null 
 				&& param.getPw()!=null 
-				&& this.existId(param.getId())){
+				&& this.existId(param)){
 			MemberVO member = this.findById(param.getId());
 			if(member.getPw().equals(param.getPw())){
 				loginOk = true;
@@ -90,10 +91,19 @@ public class MemberDAOImpl implements MemberDAO{
 		return  false;
 	}
 	@Override
-	public boolean existId(String id){
+	public boolean existId(MemberVO id){
+		boolean flag=false;
+		int count = 0;
+		System.out.println("======BEFORE TRY IN ===="+id.getId());
 		SqlSession session = sqlSessionFactory.openSession();
-		int temp = session.selectOne("",id);
-		return false; 
+		try {
+			System.out.println("======AFTER TRY IN ===="+id.getId());
+			count = session.selectOne("mapper.member.existid", id);
+			if(count==1){flag = true;}
+		} finally {
+			session.close();
+		}
+		return flag; 
 	}
 }
 
