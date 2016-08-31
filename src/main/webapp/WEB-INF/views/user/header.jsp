@@ -30,18 +30,16 @@
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
+      </div>
+     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">학교 소개</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>나가기</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>  <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">비밀번호 변경</a></li>
+          </ul>
+        </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">오시는 길</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
 </nav>

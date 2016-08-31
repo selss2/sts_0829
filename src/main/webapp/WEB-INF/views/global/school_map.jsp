@@ -8,8 +8,8 @@
 </head>
 <body>
 	<div class="box">
-	<h1>찾아오시는 길</h1>
+	<h1>찾아 오시는 길</h1>
+	<div><img id="img_hell"></div>
 	</div>
 </body>
 </html>
-

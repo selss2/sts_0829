@@ -30,7 +30,6 @@ var app = (function(){
 		$('#a_grade').click(function(){controller.move('grade','main');});
 		$('#a_account').click(function(){controller.move('account','main');});
 		$('#a_shool').click(function(){controller.move('global','school_info');});
-		$('#a_map').click(function(){controller.move('global','school_map');});
 	};
 	
 	return {
@@ -160,6 +159,11 @@ var member = (function(){
 		$('#member_regist #rd_major > label:gt(1)').addClass('radio-inline');
 		$('#member_regist #ck_subject').addClass('checkbox');
 		$('#member_regist #ck_subject > label').addClass('checkbox-inline');
+		$('#member_find_form').attr('action',app.context()+'/member/search');
+		$('#member_find_form input[type="hidden"]')
+		.attr('name','context')
+		.attr('value',app.context());
+		
 	};
 	var onCreate = function(){
 		setContentView();
@@ -172,6 +176,7 @@ var member = (function(){
 		$('#list').click(function(){controller.move('member','list');});
 		$('#find_by').click(function(){controller.move('member','find_by');});
 		$('#count').click(function(){controller.move('member','count');});
+		$('#member_find_form input[type="submit"]').click(function(){$('#member_find_form').submit();});
 	};
 	return {
 		setSSN : setSSN,

@@ -1,26 +1,40 @@
 package com.hanbit.web.member;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.hanbit.web.util.Constants;
 @Repository
 public class MemberDAOImpl implements MemberDAO{
-	private SqlSessionFactory sqlSessionFactory = null;
-    public MemberDAOImpl(SqlSessionFactory sqlSessionFactory) {
-	  this.sqlSessionFactory = sqlSessionFactory;
-    }
+	private static final Logger logger = LoggerFactory.getLogger(MemberDAOImpl.class);
+	private static MemberDAOImpl instance;
+	private static final String NAMESPACE = "mapper.member.";
+	private SqlSessionFactory sqlSessionFactory;
+	private MemberDAOImpl() {
+		try {
+			InputStream is = Resources.getResourceAsStream("config/mybatis-config.xml");
+			sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
+		} catch (IOException e) {
+			logger.info("session build fail");
+		}
+	}
+
+	public static MemberDAOImpl getInstance() {
+		if (instance == null){
+			logger.info("MemberDAOImpl instance is created !!");
+			instance = new MemberDAOImpl();
+		}
+		return instance;
+	}
+
 	@Override
 	public int insert(MemberVO member){
 		SqlSession session = sqlSessionFactory.openSession();
@@ -40,7 +54,11 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public MemberVO findById(String id) {
 		SqlSession session = sqlSessionFactory.openSession();
-		return session.selectOne("",id);
+		try {
+			return session.selectOne(NAMESPACE + "findById", id);
+		} finally {
+			session.close();
+		}
 	}
 	@Override
 	public List<MemberVO> findByName(String name) {
@@ -68,7 +86,7 @@ public class MemberDAOImpl implements MemberDAO{
 				loginOk = true;
 			}
 		}
-		System.out.println("LOGIN_OK ?"+loginOk);
+		System.out.println("LOGIN OK ?"+loginOk);
 		return  false;
 	}
 	@Override
@@ -78,6 +96,11 @@ public class MemberDAOImpl implements MemberDAO{
 		return false; 
 	}
 }
+
+
+
+
+
 
 
 

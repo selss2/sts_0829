@@ -3,16 +3,18 @@ package com.hanbit.web.member;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.hanbit.web.bank.AccountService;
 import com.hanbit.web.bank.AccountServiceImpl;
-import com.hanbit.web.subject.SubjectDAO;
-import com.hanbit.web.subject.SubjectMemberVO;
 import com.hanbit.web.subject.SubjectVO;
-
+import com.hanbit.web.subject.SubjectDAOImpl;
+import com.hanbit.web.subject.SubjectMemberVO;
+@Service
 public class MemberServiceImpl implements MemberService{
-	
-	private MemberDAOImpl dao = null;
-	private SubjectDAO subjDao = SubjectDAO.getInstance();
+	private MemberDAOImpl dao;
+	private SubjectDAOImpl subjDao = SubjectDAOImpl.getInstance();
 	private AccountService accService = AccountServiceImpl.getInstance();
 	private MemberVO session;
 	
@@ -24,7 +26,7 @@ public class MemberServiceImpl implements MemberService{
 
 	
 	private MemberServiceImpl() {
-		session = new MemberVO();
+		dao = MemberDAOImpl.getInstance();
 	}
 	
 	@Override

@@ -7,15 +7,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 /**
  * @date   :2016. 6. 20. 
  * @author :pakjkwan@gmail.com
  * @file   :AccountServiceImpl.java
  * @story  :계좌 인터페이스
 */
+@Service
 public class AccountServiceImpl implements AccountService {
 	
-	AccountDAO dao = AccountDAO.getInstance();
+	AccountDAOImpl dao = AccountDAOImpl.getInstance();
 	private Map<?,?> map ;
 	private static AccountServiceImpl instance = new AccountServiceImpl();
 	
@@ -27,7 +30,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 	@Override
 	public String openAccount(String id) {
-		AccountBean acc = new AccountBean();
+		AccountVO acc = new AccountVO();
 		acc.setAccountNo();
 		acc.setId(id);
 		acc.setMoney(0);
@@ -44,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public void deposit(String depositInfo) {
 		String[] arr = depositInfo.split(",");
-		AccountBean acc = new AccountBean();
+		AccountVO acc = new AccountVO();
 		acc.setAccountNo(Integer.parseInt(arr[0]));
 		int money = this.restMoney(Integer.parseInt(arr[0])) 
 				+ Integer.parseInt(arr[1]);
@@ -56,7 +59,7 @@ public class AccountServiceImpl implements AccountService {
 	public String withdraw(String withdrawInfo) {
 		String result = "";
 		String[] arr = withdrawInfo.split(",");
-		AccountBean acc = new AccountBean();
+		AccountVO acc = new AccountVO();
 		acc.setAccountNo(Integer.parseInt(arr[0]));
 		int restMoney = this.restMoney(Integer.parseInt(arr[0]));
 		int withdrawMoney = Integer.parseInt(arr[1]);
@@ -72,7 +75,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public String updateAccount(AccountBean acc) {
+	public String updateAccount(AccountVO acc) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -91,7 +94,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public AccountBean findByAccountNo(String accNo) {
+	public AccountVO findByAccountNo(String accNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

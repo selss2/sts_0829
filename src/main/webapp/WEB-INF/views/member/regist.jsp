@@ -23,12 +23,10 @@
   	</div>
   	<div id="rd_major">
   		<label for="exampleInputEmail1">전 공</label><br>
-  		<div>
 		<label ><input type="radio" name="major" value="computer" checked> 컴공학부</label>
 		<label ><input type="radio" name="major" value="mgmt"> 경영학부</label>
 		<label ><input type="radio" name="major" value="math"> 수학부</label> 
 		<label ><input type="radio" name="major" value="eng"> 영문학부</label> 
-  	</div>
   	</div>
   	<div>
   		<label for="exampleInputEmail1">수강과목</label><br>
@@ -49,5 +47,3 @@
 		<button id="bt_cancel" type="reset" value="취소" >CANCEL</button>
 	</form>
 </section>
-
-
