@@ -59,5 +59,7 @@
 $(function(){
 	$('#user_header').css('height','50px');
 	$('.navbar-header').css('height','50px');
+	$('#user_header #exit').addClass('cursor');
+	$('#user_header #exit').click(function() {controller.home();});
 });
 </script>
