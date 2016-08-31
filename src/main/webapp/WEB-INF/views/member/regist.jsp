@@ -47,3 +47,5 @@
 		<button id="bt_cancel" type="reset" value="취소" >CANCEL</button>
 	</form>
 </section>
+
+

@@ -13,26 +13,21 @@
 				<td class="font_bold bg_color_yellow">이 름</td>
 				<td>${member.name}</td>
 			</tr>
-			
 			<tr>
-				
 				<td class="font_bold bg_color_yellow">성 별</td>
 				<td>남</td>
 			</tr>
 			<tr>
-				
 				<td class="font_bold bg_color_yellow">이메일</td>
 				<td>${member.email}</td>
 			</tr>
 			<tr>
-				
 				<td class="font_bold bg_color_yellow">전공과목</td>
 				<td></td>
 			</tr>
 			<tr>
 				<td class="font_bold bg_color_yellow">수강과목</td>
 				<td colspan="2"></td>
-				
 			</tr>
 			<tr>
 				<td class="font_bold bg_color_yellow">생년월일</td>
@@ -41,7 +36,6 @@
 			<tr>
 				<td class="font_bold bg_color_yellow">등록일</td>
 				<td colspan="2"></td>
-				
 			</tr>
 		</table>
 		

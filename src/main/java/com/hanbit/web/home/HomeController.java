@@ -34,11 +34,11 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "public:global/content.tiles";
+		return "public:public/content.tiles";
 	}
 	@RequestMapping("/global/school_info")
 	public String schoolInfo(){
-		return "global/school_info.tiles";
+		return "public/school_info.tiles";
 	}
 	
 }

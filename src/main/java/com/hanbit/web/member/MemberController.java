@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.hanbit.web.home.HomeController;
 
 @Controller
@@ -34,18 +35,14 @@ public class MemberController {
 		return "admin:member/detail.tiles";
 	}
 	@RequestMapping("/login/execute")
-	public String excuteLogin(@RequestParam("id")String id,
-			@RequestParam("pw")String password) {
+	public String executeLogin(@RequestParam("id") String id,
+			@RequestParam("pw")String pw) {
 		logger.info("MemberController ! login() ");
 		System.out.println("로그인시 넘어온 id");
 		System.out.println("로그인시 넘어온 pw");
-		return "user:user/main.tiles";
+		return "user:user/content.tiles";
 	}
-	@RequestMapping("/login")
-	public String moveLogin() {
-		logger.info("MemberController ! login() ");
-		return "public:member/login.tiles";
-	}
+	// --- MOVE ---
 	@RequestMapping("/main")
 	public String moveMain() {
 		logger.info("MemberController ! goMain() ");	
@@ -71,7 +68,11 @@ public class MemberController {
 		logger.info("MemberController ! delete() ");
 		return "member/delete.tiles";
 	}
-
+	@RequestMapping("/login")
+	public String moveLogin() {
+		logger.info("MemberController ! login() ");
+		return "public:member/login.tiles";
+	}
 	@RequestMapping("/logout")
 	public String moveLogout() {
 		logger.info("MemberController ! logout() ");

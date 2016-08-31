@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.hanbit.web.bank;
 
 import java.io.Serializable;
@@ -8,13 +5,6 @@ import java.io.Serializable;
 import com.hanbit.web.util.Constants;
 
 
-
-/**
- * @date   :2016. 6. 16. 
- * @author :pakjkwan@gmail.com
- * @file   :Account.java
- * @story  :
-*/
 public class AccountBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int accountNo,money; // 인스턴스 변수는 초기화를 하지 않는다
