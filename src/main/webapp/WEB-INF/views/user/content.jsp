@@ -56,17 +56,15 @@
    </div>
    <div class="cut cut-bottom"></div>
 </section>
-</br></br></br>
-<section id="team" class="section gray-bg">
+<section id="user_content_subject" class="section gray-bg">
    <div class="container">
-      <div class="row">
          <div class="row title text-center">
             <h2 class="margin-top">MAJOR SUBJECT</h2>
             <h4 class="margin-top">TOP 3</h4>
          </div>
+               <div class="row">
          <div class="col-md-4">
-            <div id="major_subject_1" class="team text-center">
-
+            <div id="major_subject_1" class="team text-center" value="java">
                <div class="cover"
                   style="background:url('${img}/team/bears_cover.jpg'); background-size:cover;">
                   <div class="overlay text-center">
@@ -79,13 +77,13 @@
                   <h4>Java</h4>
                   <h5 class="muted regular">Server Program Language</h5>
                </div>
-               <input type="hidden" name='major_subject_1'>
+               <input type="hidden" name='major_subject_1' value="java">
                <input type="button" data-toggle="modal" data-target="#modal1"
                   class="btn btn-blue-fill" value="과목 정보 보기"/>
             </div>
          </div>
          <div class="col-md-4">
-            <div id="major_subject_2" class="team text-center">
+            <div id="major_subject_2" class="team text-center" value="javascript">
                <div class="cover"
                   style="background:url('${img}/team/tigers_cover.jpg'); background-size:cover;">
                   <div class="overlay text-center">
@@ -98,13 +96,13 @@
                   <h4>Java script</h4>
                   <h5 class="muted regular">UI Program Language</h5>
                </div>
-               <input type="hidden" name='major_subject_2'>
+               <input type="hidden" name='major_subject_2' value="javascript">
                <input type="button" data-toggle="modal" data-target="#modal1"
                   class="btn btn-blue-fill" value="과목 정보 보기"/>
             </div>
          </div>
          <div class="col-md-4">
-            <div id="major_subject_3" class="team text-center">
+            <div id="major_subject_3" class="team text-center" value="spring">
                <div class="cover"
                   style="background:url('${img}/team/twins_cover.jpg'); background-size:cover;">
                   <div class="overlay text-center">
@@ -117,7 +115,7 @@
                   <h4>Spring</h4>
                   <h5 class="muted regular">그냥 어려움</h5>
                </div>
-               <input type="hidden" name='major_subject_3'>
+               <input type="hidden" name='major_subject_3' value="spring">
                <input type="button" data-toggle="modal" data-target="#modal1"
                   class="btn btn-blue-fill" value="과목 정보 보기"/>
             </div>
@@ -131,13 +129,14 @@
 <script src="${js}/jquery.onepagenav.js"></script>
 <script src="${js}/main.js"></script>
 <script type="text/javascript">
-   $(function(){
-      $('#user_content #kaup').addClass('cursor').click(function(){controller.move('member','kaup');});
-      $('#user_content #rock_sissor_paper').addClass('cursor').click(function(){controller.move('member','rock_sissor_paper');});
-      $('#user_content #lotto').addClass('cursor').click(function(){controller.move('member','lotto');});
-      var key = $('')
-      $('#user_content #major_subject_1').click(function(){controller.moveWithKey('subject','detail','');});
-      $('#user_content #major_subject_2').click(function(){});
-      $('#user_content #major_subject_3').click(function(){});
-   });
-</script>   
+$(function(){
+	$('#user_content #kaup').addClass('cursor').click(function(){controller.move('member','kaup');});
+	$('#user_content #rock_sissor_paper').addClass('cursor').click(function(){controller.move('member','rock_sissor_paper');});
+	$('#user_content #lotto').addClass('cursor').click(function(){controller.move('member','lotto');});
+	
+	var key = $('#user_content_subject #major_subject_1 input[type="hidden"]').val();
+	$('#user_content_subject #major_subject_1 input[type="button"]').click(function(){alert('***');controller.moveWithKey('subject','detail',key)});
+	$('#user_content_subject #major_subject_2').click(function(){});
+	$('#user_content_subject #major_subject_3').click(function(){});
+});
+</script>

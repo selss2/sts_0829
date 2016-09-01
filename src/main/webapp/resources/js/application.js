@@ -61,6 +61,9 @@ var user = (function(){
 		$('#a_count').click(function(){controller.move('account','count');});
 		$('#a_search').click(function(){controller.move('account','search');});
 		$('#a_delete').click(function(){controller.move('account','delete');});
+		$('#a_school_info').click(function() {controller.move('global','school_info');});
+		$('#a_school_map').click(function() {controller.move('global','school_map');});
+
 	};
 	return {
 		init : init
@@ -189,41 +192,6 @@ var member = (function(){
 		getGender : getGender,
 		init : init,
 		spec : function (){
-			/*console.log('SET SSN'+document.querySelector('#ssn').value);
-			setSSN(document.querySelector('#ssn').value);
-			console.log('GET SSN'+getSSN());
-			setName(document.querySelector('#name').value);
-			var now = new Date().getFullYear();
-			var ssnArr = getSSN().split("-");
-			var ageResult1 = ssnArr[0];
-			var genderResult = Number(ssnArr[1]);
-			var ageResult0 = 0;
-			switch (genderResult) {
-			case 1: case 5: 
-				setGender("남"); 
-				ageResult0 = now - 1900-(ageResult1/10000);
-				setAge(ageResult0.toString().split(".")[0]);
-				break;
-			case 3: case 7:
-				setGender("남");
-				ageResult0 = now - 2000-(ageResult1/10000);
-				setAge(ageResult0.toString().split(".")[0]);
-				break;
-			case 2: case 6:
-				setGender("여");
-				ageResult0 = now - 1900-(ageResult1/10000);
-				setAge(ageResult0.toString().split(".")[0]);
-				break;
-			case 4: case 8:
-				setGender("여");
-				ageResult0 = now - 2000-(ageResult1/10000);
-				setAge(ageResult0.toString().split(".")[0]);
-				break;
-
-		}	
-			document.querySelector('#result_name').innerHTML = getName();
-			document.querySelector('#result_age').innerHTML = getAge();
-			document.querySelector('#result_gender').innerHTML = getGender();*/
 		}
 		
 	};	
@@ -371,7 +339,7 @@ var controller = (function(){
 		setDirectory : setDirectory,
 		getDirectory : getDirectory,
 		
-		moveWithKey : function(directory,page){
+		moveWithKey : function(directory,page,key){
 			setDirectory(directory);
 			setPage(page);
 			location.href = app.context()+'/'+getDirectory()+'/'+getPage()+'?key='+getKey();
@@ -411,9 +379,3 @@ var nav = (function(){
 		init : init
 	};
 })();
-
-
-
-
-
-

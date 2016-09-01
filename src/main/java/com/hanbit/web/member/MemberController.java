@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.hanbit.web.subject.SubjectMemberVO;
-
 @Controller
 @SessionAttributes("user")
 @RequestMapping("/member")
