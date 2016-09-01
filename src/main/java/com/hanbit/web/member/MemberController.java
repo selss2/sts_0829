@@ -37,68 +37,73 @@ public class MemberController {
 	@RequestMapping("/login/execute")
 	public String executeLogin(@RequestParam("id") String id,
 			@RequestParam("pw")String pw,
+			@RequestParam("context")String context,
 			Model model) {
 		logger.info("MemberController ! login() ");
 		System.out.println("TRYING TO LOGIN  ID :"+id);
-		System.out.println("TRYING TO LOGIN  PW :"+pw);
+		System.out.println("CONTEXT :"+context);
 		MemberVO member = new MemberVO();
 		System.out.println("======new MemberVO() ====");
 		member.setId(id);
 		member.setPw(pw);
+		
 		System.out.println("======서비스 login 가기 직전 ====");
 		SubjectMemberVO sm = service.login(member);
 		model.addAttribute("user",sm);
+		model.addAttribute("js", context+"/resources/js");
+		model.addAttribute("css", context+"/resources/css");
+		model.addAttribute("img", context+"/resources/img");
 		return "user:user/content.tiles";
 	}
 	// --- MOVE ---
 	@RequestMapping("/main")
 	public String moveMain() {
-		logger.info("MemberController ! goMain() ");	
+		logger.info("GO TO {}", "main");	
 		return "admin:member/content.tiles";
 	}
 	@RequestMapping("/regist")
 	public String moveRegist() {
-		logger.info("MemberController ! regist() ");
+		logger.info("GO TO Member {}", "regist");
 		return "public:member/regist.tiles";
 	}
 	@RequestMapping("/detail")
 	public String moveDetail() {
-		logger.info("MemberController ! detail() ");
+		logger.info("GO TO Member {}", "detail");
 		return "member/detail.tiles";
 	}
 	@RequestMapping("/update")
 	public String moveUpdate() {
-		logger.info("MemberController ! update() ");
+		logger.info("GO TO Member {}", "update");
 		return "member/update.tiles";
 	}
 	@RequestMapping("/delete")
 	public String moveDelete() {
-		logger.info("MemberController ! delete() ");
+		logger.info("GO TO Member {}", "delete");
 		return "member/delete.tiles";
 	}
 	@RequestMapping("/login")
 	public String moveLogin() {
-		logger.info("MemberController ! login() ");
+		logger.info("GO TO Member {}", "login");
 		return "public:member/login.tiles";
 	}
 	@RequestMapping("/logout")
 	public String moveLogout() {
-		logger.info("MemberController ! logout() ");
+		logger.info("GO TO Member {}", "logout");
 		return "member/logout.tiles";
 	}
 	@RequestMapping("/list")
 	public String moveList() {
-		logger.info("MemberController ! list() ");
+		logger.info("GO TO Member {}", "list");
 		return "admin:member/list.tiles";
 	}
 	@RequestMapping("/find")
 	public String moveFindBy() {
-		logger.info("MemberController ! find_by() ");
+		logger.info("GO TO Member {}", "find");
 		return "admin:member/find_by.tiles";
 	}
 	@RequestMapping("/count")
 	public String moveCount() {
-		logger.info("MemberController ! count() ");
+		logger.info("GO TO Member {}", "count");
 		return "admin:member/count.tiles";
 	}
 }

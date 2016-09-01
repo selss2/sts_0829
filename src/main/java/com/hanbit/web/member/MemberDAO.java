@@ -13,5 +13,5 @@ public interface MemberDAO {
 	public int count();
 	public int delete(MemberVO member);
 	public boolean login(MemberVO param);
-	public boolean existId(MemberVO m);
+	public boolean existId(String id);
 }

@@ -6,18 +6,19 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hanbit.web.bank.AccountService;
 import com.hanbit.web.bank.AccountServiceImpl;
+import com.hanbit.web.subject.SubjectVO;
 import com.hanbit.web.subject.SubjectDAOImpl;
 import com.hanbit.web.subject.SubjectMemberVO;
-import com.hanbit.web.subject.SubjectVO;
 @Service
 public class MemberServiceImpl implements MemberService{
 	private MemberDAOImpl dao;
 	private SubjectDAOImpl subjDao;
 	@Autowired private MemberVO member;
-	@Autowired private SubjectVO sb;
-	@Autowired private SubjectMemberVO sm;
-	@Autowired private AccountServiceImpl accService;
+	@Autowired private SubjectVO subject;
+	@Autowired private SubjectMemberVO subjectMember;
+	private AccountServiceImpl accService;
 	
 	public MemberServiceImpl() {
 		dao = MemberDAOImpl.getInstance();
@@ -101,24 +102,24 @@ public class MemberServiceImpl implements MemberService{
 			if (dao.login(member)) {
 				member = dao.findById(member.getId());
 				System.out.println("서비스 로그인 하는 중..ID"+member.getId());
-				/*accService.map();*/
-				sb = subjDao.findById(member.getId());
-				sm.setEmail(member.getEmail());
-				sm.setId(member.getId());
-				sm.setImg(member.getProfileImg());
-				sm.setMajor(sb.getMajor());
-				sm.setName(member.getName());
-				sm.setPhone(member.getPhone());
-				sm.setPw(member.getPw());
-				sm.setReg(member.getRegDate());
-				sm.setSsn(member.getSsn());
-				sm.setSubjects(sb.getSubjects());
+			//	accService.map();
+				subject = subjDao.findById(member.getId());
+				subjectMember.setEmail(member.getEmail());
+				subjectMember.setId(member.getId());
+				subjectMember.setImg(member.getProfileImg());
+		/*		subjectMember.setMajor(subject.getMajor());*/
+				subjectMember.setName(member.getName());
+				subjectMember.setPhone(member.getPhone());
+				subjectMember.setPw(member.getPw());
+				subjectMember.setReg(member.getRegDate());
+				subjectMember.setSsn(member.getSsn());
+				/*subjectMember.setSubjects(subject.getSubjects());*/
 				
 			}else{
-				sm.setId("fail");
+				subjectMember.setId("fail");
 			}
-		System.out.println("서비스로그인결과?"+sm.getId());
-		return sm;
+		System.out.println("서비스로그인결과?"+subjectMember.getId());
+		return subjectMember;
 	}
 
 
