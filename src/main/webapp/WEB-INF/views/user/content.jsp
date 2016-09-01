@@ -58,7 +58,7 @@
 	<section id="team" class="section gray-bg">
 		<div class="container">
 			<div class="row title text-center">
-				<h2 class="margin-top">MAJOR SUBJECT</h2>
+				<h2 class="margin-top">KBO 리그</h2>
 				<h4 class="light muted">TOP 3</h4>
 			</div>
 			<div class="row">
