@@ -1,21 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<link rel="stylesheet" href="../../css/member.css" />
 <div class="box">
-		<form action="${context}/member/result/delete_result.jsp" method = "post">
-	<input type="text" name ="confirm" value="" />
-	<input type="hidden" name="id" value="" />
-	
-	<input type="submit" value="탈퇴" />
-		<input type="reset" value="취소" />
-	</form>
-	<embed src="../../img/starwars.gif">
-		<h1>탈퇴</h1> 
-	<a href="../../index.jsp">
-		<img src="../../img/home.png" alt="home" style="width: 30px"/>
-	</a>
-	<a href="../member_controller.jsp">
-		<img src="../../img/member.jpg" alt="member" style="width: 30px"/>
-	</a>
-	</div>
+<h3>탈퇴하시려면 비밀번호를 다시 입력해 주세요</h3>
+<div style="padding:20px"></div>
+	<form id="member_delete_form" class="navbar-form navbar-center" role="search">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="PASSWORD">
+  </div>
+  <button type="submit" class="btn btn-default" value="탈 퇴">Submit</button>
+</form>
+</div>

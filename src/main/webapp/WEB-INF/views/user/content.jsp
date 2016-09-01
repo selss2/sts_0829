@@ -68,8 +68,8 @@
                <div class="cover"
                   style="background:url('${img}/team/bears_cover.jpg'); background-size:cover;">
                   <div class="overlay text-center">
-                     <h3 class="white">Hello</h3>
-                     <h5 class="light light-white">Nice to meet you</h5>
+                     <h3 class="white">자바</h3>
+                     <h5 class="light light-white">자바</h5>
                   </div>
                </div>
                <img src="${img}/team/team_bears.png" alt="Team Image" class="avatar">
@@ -135,7 +135,7 @@ $(function(){
 	$('#user_content #lotto').addClass('cursor').click(function(){controller.move('member','lotto');});
 	
 	var key = $('#user_content_subject #major_subject_1 input[type="hidden"]').val();
-	$('#user_content_subject #major_subject_1 input[type="button"]').click(function(){alert('***');controller.moveWithKey('subject','detail',key)});
+	$('#user_content_subject #major_subject_1 input[type="button"]').click(function(){alert('자바페이지');controller.moveWithKey('subject','detail',key)});
 	$('#user_content_subject #major_subject_2').click(function(){});
 	$('#user_content_subject #major_subject_3').click(function(){});
 });
