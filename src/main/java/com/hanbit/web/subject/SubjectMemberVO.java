@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class SubjectMemberVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id,pw,name,reg,ssn,email,img,
-	phone,major/*,subjects*/;
+	phone,major,subject;
 
 	public String getId() {
 		return id;
@@ -81,13 +81,12 @@ public class SubjectMemberVO implements Serializable{
 		this.major = major;
 	}
 
-
-/*	public String getSubjects() {
-		return subjects;
-	}*/
-
-/*	public void setSubjects(String subjects) {
-		this.subjects = subjects;
+	public String getSubject() {
+		return subject;
 	}
-	*/
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	
 }

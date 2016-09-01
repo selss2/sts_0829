@@ -21,7 +21,7 @@ select
     m.id as id,
     m.pw as pw,
     m.name as name,
-    m.reg_date as reg_date,
+    m.reg as reg,
     m.ssn as ssn
 from 
 	member m, account a

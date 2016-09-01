@@ -32,14 +32,14 @@ public class SubjectDAOImpl {
 		return instance;
 	}
 	public void insert(SubjectVO sub){
-		String sql = "insert into subject(subj_seq,id,major,subjects)"
+		String sql = "insert into subject(subj_seq,id,major,subject)"
 				+ " values(subj_seq.nextval,?,?,?)";
 		int result = 0;
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, sub.getId());
 			pstmt.setString(2, sub.getMajor());
-			pstmt.setString(3, sub.getSubjects());
+			pstmt.setString(3, sub.getSubject());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -57,7 +57,7 @@ public class SubjectDAOImpl {
 		String sql = "select "
 				+ "id as id, "
 				+ "major as major, "
-				+ "subjects as sub "
+				+ "subject as subject "
 				+ "from subject where id = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -67,7 +67,7 @@ public class SubjectDAOImpl {
 				s = new SubjectVO();
 				s.setId(rs.getString("id"));
 				s.setMajor(rs.getString("major"));
-				s.setSubjects(rs.getString("sub"));
+				s.setSubject(rs.getString("sub"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -76,5 +76,3 @@ public class SubjectDAOImpl {
 		return s;
 	}
 }
-
-

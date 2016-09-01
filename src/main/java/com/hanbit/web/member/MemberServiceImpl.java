@@ -18,7 +18,6 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired private MemberVO member;
 	@Autowired private SubjectVO subject;
 	@Autowired private SubjectMemberVO subjectMember;
-	private AccountServiceImpl accService;
 	
 	public MemberServiceImpl() {
 		dao = MemberDAOImpl.getInstance();
@@ -67,7 +66,6 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int count() {
-		// TODO Auto-generated method stub
 		return dao.count();
 	}
 
@@ -87,7 +85,6 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public List<?> findBy(String keyword) {
-		// TODO Auto-generated method stub
 		return dao.findByName(keyword);
 	}
 
@@ -97,29 +94,18 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public SubjectMemberVO login(MemberVO member) {
+	
+	public String login(MemberVO member) {
+		String result = "";
 			if (dao.login(member)) {
 				member = dao.findById(member.getId());
-			//	accService.map();
-				subject = subjDao.findById(member.getId());
-				subjectMember.setEmail(member.getEmail());
-				subjectMember.setId(member.getId());
-				subjectMember.setImg(member.getProfileImg());
-		/*		subjectMember.setMajor(subject.getMajor());*/
-				subjectMember.setName(member.getName());
-				subjectMember.setPhone(member.getPhone());
-				subjectMember.setPw(member.getPw());
-				subjectMember.setReg(member.getRegDate());
-				subjectMember.setSsn(member.getSsn());
-				/*subjectMember.setSubjects(subject.getSubjects());*/
-				
+				result = member.getName();
+				//accService.map();
 			}else{
-				subjectMember.setId("fail");
+				result = "";
 			}
-		return subjectMember;
+		return result;
 	}
-
 
 	@Override
 	public void logout(MemberVO member) {

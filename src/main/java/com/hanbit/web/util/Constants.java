@@ -1,11 +1,5 @@
 package com.hanbit.web.util;
 
-/**
- * @date   :2016. 6. 17. 
- * @author :pakjkwan@gmail.com
- * @file   :Constants.java
- * @story  :
-*/
 public class Constants {
 	public final static String SCHOOL_NAME="한빛학원";
 	public final static String BANK_NAME="한빛은행";

@@ -42,7 +42,7 @@ public class MemberController {
 		member.setId(id);
 		member.setPw(pw);
 		
-		SubjectMemberVO sm = service.login(member);
+		String sm = service.login(member);
 		model.addAttribute("user",sm);
 		model.addAttribute("context",context);
 		model.addAttribute("js", context+"/resources/js");
@@ -102,12 +102,17 @@ public class MemberController {
 		logger.info("GO TO Member {}", "count");
 		return "admin:member/count.tiles";
 	}
+	@RequestMapping("/content")
+	public String moveUserContent() {
+		logger.info("GO TO User {}", "content");
+		return "user:user/content.tiles";
+	}
 	@RequestMapping("/kaup")
 	public String moveKaup() {
 		logger.info("GO TO User {}", "kaup");
 		return "user:user/kaup.tiles";
 	}
-	@RequestMapping("/count")
+	@RequestMapping("/rock_sissor_paper")
 	public String moveRock_sissor_paper() {
 		logger.info("GO TO User {}", "rock_sissor_paper");
 		return "user:user/rock_sissor_paper.tiles";

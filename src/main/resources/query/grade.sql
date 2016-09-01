@@ -19,9 +19,6 @@ create table grade(
 alter table grade add exam_date varchar2(10);
 -- create
 insert into grade(seq,grade,java,sql,html,javascript,id,exam_date)values(seq.nextval,'C',75,78,72,70,'hong','2016-06');
-	
-
-	
 
 -- read : list
 select * from grade;
@@ -36,7 +33,7 @@ update grade set exam_date = '2016-05' where seq = 1000;
 -- delete : delete
 delete from grade where seq = '1000';
 
-
+select * from subject;
 -----------------------------------
 
 -- 뷰 권한주기
@@ -64,7 +61,7 @@ select
 	m.id as id,
 	m.pw as pw,
 	m.name as name,
-	m.reg_date as reg_date,
+	m.reg as reg,
 	m.ssn as ssn
 from member m,grade g
 where m.id = g.id;
