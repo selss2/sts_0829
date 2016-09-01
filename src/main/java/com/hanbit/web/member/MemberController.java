@@ -102,4 +102,19 @@ public class MemberController {
 		logger.info("GO TO Member {}", "count");
 		return "admin:member/count.tiles";
 	}
+	@RequestMapping("/kaup")
+	public String moveKaup() {
+		logger.info("GO TO User {}", "kaup");
+		return "user:user/kaup.tiles";
+	}
+	@RequestMapping("/count")
+	public String moveRock_sissor_paper() {
+		logger.info("GO TO User {}", "rock_sissor_paper");
+		return "user:user/rock_sissor_paper.tiles";
+	}
+	@RequestMapping("/lotto")
+	public String moveLotto() {
+		logger.info("GO TO User {}", "lotto");
+		return "user:user/lotto.tiles";
+	}
 }
