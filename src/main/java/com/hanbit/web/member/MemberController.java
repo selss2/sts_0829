@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -24,32 +25,26 @@ public class MemberController {
 			@RequestParam("context")String context,
 			Model model){
 		logger.info("MemberController ! findById : {}","??");
-		System.out.println("검색어:"+keyword);
-		System.out.println("옵션 :"+option);
-		System.out.println("context :"+context);
 		MemberVO member = (MemberVO) service.findById(keyword);
-		System.out.println("NAME : "+member.getName());
-		System.out.println("이미지:"+member.getProfileImg());
 		model.addAttribute("member", member);
 		model.addAttribute("img", context+"/resources/img");
 		return "admin:member/detail.tiles";
 	}
-	@RequestMapping("/login/execute")
-	public String executeLogin(@RequestParam("id") String id,
+	@RequestMapping (value="/login", method=RequestMethod.POST)
+	public String login(@RequestParam("id") String id,
 			@RequestParam("pw")String pw,
 			@RequestParam("context")String context,
 			Model model) {
-		logger.info("MemberController ! login() ");
-		System.out.println("TRYING TO LOGIN  ID :"+id);
-		System.out.println("CONTEXT :"+context);
+		logger.info("TO LOGIN ID {}",id);
+		logger.info("TO LOGIN PW {}",pw);
+		logger.info("CONTEXT : {}",context);
 		MemberVO member = new MemberVO();
-		System.out.println("======new MemberVO() ====");
 		member.setId(id);
 		member.setPw(pw);
 		
-		System.out.println("======서비스 login 가기 직전 ====");
 		SubjectMemberVO sm = service.login(member);
 		model.addAttribute("user",sm);
+		model.addAttribute("context",context);
 		model.addAttribute("js", context+"/resources/js");
 		model.addAttribute("css", context+"/resources/css");
 		model.addAttribute("img", context+"/resources/img");
@@ -60,6 +55,11 @@ public class MemberController {
 	public String moveMain() {
 		logger.info("GO TO {}", "main");	
 		return "admin:member/content.tiles";
+	}
+	@RequestMapping("/login")
+	public String login() {
+		logger.info("GO TO Member {}", "login");
+		return "public:member/login.tiles";
 	}
 	@RequestMapping("/regist")
 	public String moveRegist() {
@@ -81,11 +81,7 @@ public class MemberController {
 		logger.info("GO TO Member {}", "delete");
 		return "member/delete.tiles";
 	}
-	@RequestMapping("/login")
-	public String moveLogin() {
-		logger.info("GO TO Member {}", "login");
-		return "public:member/login.tiles";
-	}
+
 	@RequestMapping("/logout")
 	public String moveLogout() {
 		logger.info("GO TO Member {}", "logout");

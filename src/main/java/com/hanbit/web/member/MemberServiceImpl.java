@@ -101,7 +101,6 @@ public class MemberServiceImpl implements MemberService{
 	public SubjectMemberVO login(MemberVO member) {
 			if (dao.login(member)) {
 				member = dao.findById(member.getId());
-				System.out.println("서비스 로그인 하는 중..ID"+member.getId());
 			//	accService.map();
 				subject = subjDao.findById(member.getId());
 				subjectMember.setEmail(member.getEmail());
@@ -118,7 +117,6 @@ public class MemberServiceImpl implements MemberService{
 			}else{
 				subjectMember.setId("fail");
 			}
-		System.out.println("서비스로그인결과?"+subjectMember.getId());
 		return subjectMember;
 	}
 

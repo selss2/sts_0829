@@ -77,7 +77,6 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	@Override
 	public boolean login(MemberVO param) {
-		System.out.println("======login ===="+param.getId());
 		boolean loginOk= false;
 		if(param.getId()!=null 
 				&& param.getPw()!=null 
@@ -87,7 +86,6 @@ public class MemberDAOImpl implements MemberDAO{
 				loginOk = true;
 			}
 		}
-		System.out.println("LOGIN OK ?"+loginOk);
 		return  loginOk;
 	}
 	@Override
@@ -104,12 +102,3 @@ public class MemberDAOImpl implements MemberDAO{
 		return flag; 
 	}
 }
-
-
-
-
-
-
-
-
-
