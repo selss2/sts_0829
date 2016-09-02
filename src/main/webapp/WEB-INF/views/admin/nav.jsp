@@ -33,12 +33,6 @@
 </ul>
 <script type="text/javascript">
 $(function(){
-	$('#g_regist').click(function () {alert('등록하시려면 회원리스트로 이동해 주세요');controller.move('member','list');});
-	$('#g_update').click(function () {alert('수정하시려면 회원리스트로 이동해 주세요');controller.move('member','list');});
-	$('#admin_nav').css('height','50px');
-	$('#account_mgmt #list').click(function () {controller.move('account','list');});
-	$('#account_mgmt #find').click(function () {controller.move('account','find');});
-	$('#account_mgmt #count').click(function () {controller.move('account','count');});
-
+	
 });
 </script>

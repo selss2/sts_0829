@@ -11,9 +11,6 @@
 		<li><a href="#" id="g_find">검색 </a></li>
 	</ol>
 	</article>
-	<a href="../index.jsp">
-		<img id="img_home" src="${img}/home.png" alt="home"/>
-	</a>
 </section>
 
 

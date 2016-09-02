@@ -22,6 +22,13 @@ var app = (function(){
 		$('#global_content_a_regist').text('SIGN UP').click(function(){controller.move('member','regist');});
 		$('#global_content_a_login').text('LOG IN').click(function(){controller.move('member','login');});
 		$('#global_content_a_admin').text('ADMIN MODE').click(function(){admin.check();});
+		$("#member_list_table .name").click(function(){alert('!!!');controller.moveWithKey('member','a_detail','hong');});	
+		$("#member_list_table .regist").click(function(){alert('@@@');controller.moveWithKey('account','regist','hong');});	
+		$("#member_list_table .update").click(function(){controller.moveWithKey('account','update','hong');});
+		$('#go_public_home').click(function(){controller.home();});
+		$('#a_school_info').click(function(){controller.move('public','school_info');});
+		$('#a_school_map').click(function(){controller.move('public','school_map');});
+		$('#free_board').click(function(){controller.move('public','free_board');});
 	};
 	var onCreate = function(){
 		setContentView();
@@ -29,6 +36,8 @@ var app = (function(){
 		$('#a_member').click(function(){controller.move('member','main');});
 		$('#a_grade').click(function(){controller.move('grade','main');});
 		$('#a_account').click(function(){controller.move('account','main');});
+		$('#test').click(function(){controller.move('public','slider');});
+
 	};
 	
 	return {
@@ -60,6 +69,26 @@ var user = (function(){
 		$('#a_count').click(function(){controller.move('account','count');});
 		$('#a_search').click(function(){controller.move('account','search');});
 		$('#a_delete').click(function(){controller.move('account','delete');});
+		$('#user_content #kaup').addClass('cursor').click(function(){controller.move('member','kaup');});
+		$('#user_content #rock_sissor_paper').addClass('cursor').click(function(){controller.move('member','rock_sissor_paper');});
+		$('#user_content #lotto').addClass('cursor').click(function(){controller.move('member','lotto');});
+		$('#go_user_home').click(function(){controller.move('member','content');});
+		$('#user_header #logout').addClass('cursor').click(function() {controller.home();});
+		$('#user_header #a_mypage').addClass('cursor').click(function() {controller.move('member','content');});
+		$('#user_header #a_detail').addClass('cursor').click(function() {controller.move('member','detail');});
+		$('#user_header #a_update').addClass('cursor').click(function() {controller.move('member','update');});
+		$('#user_header #a_delete').addClass('cursor').click(function() {controller.move('member','delete');});
+		$("#user_header #account li:eq(0) a").click(function(){controller.move('account','detail');});	
+		$("#user_header #account li:eq(1) a").click(function(){controller.move('account','open');});	
+		$("#user_header #account li:eq(2) a").click(function(){controller.move('account','transaction');});	
+		$("#user_header #account li:eq(3) a").click(function(){controller.move('account','delete');});	
+		$("#user_header #grade li:eq(0) a").click(function(){alert('성적 목록'); controller.move('grade','detail');});	
+		$("#user_header #grade li:eq(1) a").click(function(){controller.move('grade','find');});	
+		
+		var key = $('#user_content_subject #major_subject_1 input[type="hidden"]').val();
+		$('#user_content_subject #major_subject_1 input[type="button"]').click(function(){alert('자바페이지');controller.moveWithKey('subject','detail',key)});
+		$('#user_content_subject #major_subject_2').click(function(){});
+		$('#user_content_subject #major_subject_3').click(function(){});
 	};
 	return {
 		init : init
@@ -75,7 +104,9 @@ var account = (function(){
 	var setContentView = function(){};
 	var onCreate = function(){
 		setContentView();
-
+		$("#member_list_table .name").click(function(){alert('!!!');controller.moveWithKey('member','a_detail','hong');});	
+		$("#member_list_table .regist").click(function(){alert('@@@');controller.moveWithKey('account','regist','hong');});	
+		$("#member_list_table .update").click(function(){controller.moveWithKey('account','update','hong');});
 	};
 	return {
 		setAccountNo : setAccountNo,
@@ -156,7 +187,12 @@ var member = (function(){
 		$('#member_find_form input[type="hidden"]')
 		.attr('name','context')
 		.attr('value',app.context());
-		
+		$("#member_list_table .name").click(function(){alert('!!!');controller.moveWithKey('member','a_detail','hong');});
+		$('#member_login_form').attr('method','post').attr('action',app.context()+'/member/login');
+		$('#member_login_form input[type="hidden"]').attr('value',app.context());
+		$('#member_login_form input[type="submit"]').click(function() {
+			$('#member_login_form').submit();
+		});
 	};
 	var onCreate = function(){
 		setContentView();
@@ -169,6 +205,9 @@ var member = (function(){
 		$('#list').click(function(){controller.move('member','list');});
 		$('#find_by').click(function(){controller.move('member','find_by');});
 		$('#count').click(function(){controller.move('member','count');});
+		$("#member_list_table .name").click(function(){controller.moveWithKey('member','a_detail','hong');});	
+		$("#member_list_table .regist").click(function(){controller.moveWithKey('grade','regist','hong');});	
+		$("#member_list_table .update").click(function(){controller.moveWithKey('grade','update','hong');});	
 		$('#member_find_form input[type="submit"]').click(function(){$('#member_find_form').submit();});
 	};
 	return {
@@ -243,6 +282,26 @@ var grade = (function(){
 		$('#a_list').click(function() {location.href = "${context}/grade/list.do";});
 		$('#a_count').click(function() {location.href = "${context}/grade/count.do";});
 		$('#a_find').click(function() {location.href = "${context}/grade/search.do";});
+		$("#member_list_table .regist").click(function(){alert('@@@');controller.moveWithKey('grade','regist','hong');});	
+		$("#member_list_table .update").click(function(){controller.moveWithKey('grade','update','hong');});
+		$('#grade_regist').addClass('box').css('padding-top','0');
+		$('#grade_regist #bt_send').addClass('btn').addClass(' btn-primary');
+		$('#grade_regist #bt_cancel').addClass('btn').addClass(' btn-danger');
+		$('#grade_regist_form').addClass('form-horizontal');
+		$('#grade_regist_form > div').addClass('form-group').addClass('form-group-lg');
+		$('#grade_regist_form > div > label').addClass('col-sm-2').addClass('control-label');
+		$('#grade_regist_form > div > div').addClass('col-sm-10');
+		$('#grade_regist_form > div > div > input').addClass('form-control');
+		$('#grade_regist #rd_major > label:gt(1)').addClass('radio-inline');
+		$('#grade_update').addClass('box').css('padding-top','0');
+		$('#grade_update #bt_send').addClass('btn').addClass(' btn-primary');
+		$('#grade_update #bt_cancel').addClass('btn').addClass(' btn-danger');
+		$('#grade_update_form').addClass('form-horizontal');
+		$('#grade_update_form > div').addClass('form-group').addClass('form-group-lg');
+		$('#grade_update_form > div > label').addClass('col-sm-2').addClass('control-label');
+		$('#grade_update_form > div > div').addClass('col-sm-10');
+		$('#grade_update_form > div > div > input').addClass('form-control');
+		$('#grade_update #rd_major > label:gt(1)').addClass('radio-inline');
 	};
 	return {
 		init : init,
@@ -270,6 +329,11 @@ var admin = (function() {
     	$('#admin_nav #account_mgmt #delete').click(function(){controller.move('account','delete');});
     	$('#admin_nav #account_mgmt #find').click(function(){controller.move('account','find');});
     	$('#admin_nav #account_mgmt #count').click(function(){controller.move('account','count');});
+    	$('#go_admin_home').click(function(){controller.move('admin','main');});
+    	$('#admin_header').css('height','50px');
+    	$('.navbar-header').css('height','50px');
+    	$('#admin_header #exit').addClass('cursor');
+    	$('#admin_header #exit').click(function() {controller.home();});
     };
     return {
     	getPass : getPass,
@@ -364,6 +428,12 @@ var nav = (function(){
 	};
 	var onCreate = function(){
 		setContentView();
+		$('#g_regist').click(function () {alert('등록하시려면 회원리스트로 이동해 주세요');controller.move('member','list');});
+		$('#g_update').click(function () {alert('수정하시려면 회원리스트로 이동해 주세요');controller.move('member','list');});
+		$('#admin_nav').css('height','50px');
+		$('#account_mgmt #list').click(function () {controller.move('account','list');});
+		$('#account_mgmt #find').click(function () {controller.move('account','find');});
+		$('#account_mgmt #count').click(function () {controller.move('account','count');});
 	};
 	return {
 		init : init

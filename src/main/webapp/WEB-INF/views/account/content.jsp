@@ -17,9 +17,6 @@
 		<li><a href="${context}/account/count.do">통장수</a></li>
 	</ol>
 	</div>
-	<a href="../home.jsp">
-		<img src="../img/home.png" alt="home" style="width: 30px"/>
-	</a>
 </div>
 
 

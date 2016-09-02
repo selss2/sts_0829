@@ -60,19 +60,3 @@
     
   </div>
 </nav>
-<script type="text/javascript">
-$(function(){
-	$('#go_user_home').click(function(){controller.move('member','content');});
-	$('#user_header #logout').addClass('cursor').click(function() {controller.home();});
-	$('#user_header #a_mypage').addClass('cursor').click(function() {controller.move('member','content');});
-	$('#user_header #a_detail').addClass('cursor').click(function() {controller.move('member','detail');});
-	$('#user_header #a_update').addClass('cursor').click(function() {controller.move('member','update');});
-	$('#user_header #a_delete').addClass('cursor').click(function() {controller.move('member','delete');});
-	$("#user_header #account li:eq(0) a").click(function(){controller.move('account','detail');});	
-	$("#user_header #account li:eq(1) a").click(function(){controller.move('account','open');});	
-	$("#user_header #account li:eq(2) a").click(function(){controller.move('account','transaction');});	
-	$("#user_header #account li:eq(3) a").click(function(){controller.move('account','delete');});	
-	$("#user_header #grade li:eq(0) a").click(function(){alert('성적 목록'); controller.move('grade','detail');});	
-	$("#user_header #grade li:eq(1) a").click(function(){controller.move('grade','find');});	
-});
-</script>

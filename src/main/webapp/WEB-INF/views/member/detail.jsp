@@ -38,14 +38,4 @@
 				<td colspan="2"></td>
 			</tr>
 		</table>
-		
-		<br /> 
-		<p>
-			
-		</p>
-		<a href="${context}/member/member_controller.jsp">
-			<img src="${img}/member.jpg" alt="member" style="width:30px" /></a>
-			<a href="${context}/index.jsp">
-		<img src="${img}/home.png" alt="member" style="width:30px" />
-		</a>
 	</div>

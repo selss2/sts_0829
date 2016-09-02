@@ -10,13 +10,4 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a id="free_board"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>자유 게시판</a></li></ul>
     </div>
-    
 </nav>
-<script>
-$(function(){
-$('#go_public_home').click(function(){controller.home();});
-$('#a_school_info').click(function(){controller.move('public','school_info');});
-$('#a_school_map').click(function(){controller.move('public','school_map');});
-$('#free_board').click(function(){controller.move('public','free_board');});
-});
-</script>

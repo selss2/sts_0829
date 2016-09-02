@@ -9,6 +9,5 @@
 </div>
 <script>
 $(function(){
-	$('#test').click(function(){controller.move('public','slider');});
 });
 </script>

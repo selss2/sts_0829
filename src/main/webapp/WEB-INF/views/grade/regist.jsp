@@ -29,17 +29,3 @@
 		<input id="bt_cancel" type="reset" value="취 소"/>
 	</form>
 </section>
-
-<script type="text/javascript">
-$(function() {
-	$('#grade_regist').addClass('box').css('padding-top','0');
-	$('#grade_regist #bt_send').addClass('btn').addClass(' btn-primary');
-	$('#grade_regist #bt_cancel').addClass('btn').addClass(' btn-danger');
-	$('#grade_regist_form').addClass('form-horizontal');
-	$('#grade_regist_form > div').addClass('form-group').addClass('form-group-lg');
-	$('#grade_regist_form > div > label').addClass('col-sm-2').addClass('control-label');
-	$('#grade_regist_form > div > div').addClass('col-sm-10');
-	$('#grade_regist_form > div > div > input').addClass('form-control');
-	$('#grade_regist #rd_major > label:gt(1)').addClass('radio-inline');
-});
-</script>

@@ -5,7 +5,7 @@
       <img id="img_1">
       <div class="caption">
         <h3>회원 관리</h3>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+        <p>회원관리 text~~~~~~~~~~~</p>
       </div>
     </div>
   </div>
@@ -14,7 +14,7 @@
       <img id="img_2" >
       <div class="caption">
         <h3>성적 관리</h3>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+        <p>성적관리 text~~~~~~~~~~~</p>
       </div>
     </div>
   </div>
@@ -23,17 +23,9 @@
       <img id="img_3" >
       <div class="caption">
         <h3>계좌 관리</h3>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+        <p>계좌관리 text~~~~~~~~~~~</p>
       </div>
     </div>
   </div>
 </div>
-<script>
-$(function(){
-	//$('#admin_content #img_1').attr('src',app.img()+'/member_mgmt.PNG');
-	//$('#admin_content #img_2').attr('src',app.img()+'/grade_mgmt.PNG');
-	//$('#admin_content #img_3').attr('src',app.img()+'/account_mgmt.PNG');
-});
-</script>
-
 
