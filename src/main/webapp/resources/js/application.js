@@ -29,7 +29,8 @@ var app = (function(){
 		$('#a_member').click(function(){controller.move('member','main');});
 		$('#a_grade').click(function(){controller.move('grade','main');});
 		$('#a_account').click(function(){controller.move('account','main');});
-		$('#a_shool').click(function(){controller.move('global','school_info');});
+		$('#a_shool').click(function(){controller.move('public','school_info');});
+		$('#a_shool').click(function(){controller.move('public','school_map');});
 	};
 	
 	return {
@@ -61,9 +62,8 @@ var user = (function(){
 		$('#a_count').click(function(){controller.move('account','count');});
 		$('#a_search').click(function(){controller.move('account','search');});
 		$('#a_delete').click(function(){controller.move('account','delete');});
-		$('#a_school_info').click(function() {controller.move('global','school_info');});
-		$('#a_school_map').click(function() {controller.move('global','school_map');});
-
+		$('#a_school_info').click(function() {controller.move('public','school_info');});
+		$('#a_school_map').click(function() {controller.move('public','school_map');});
 	};
 	return {
 		init : init

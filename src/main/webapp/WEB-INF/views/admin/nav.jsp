@@ -17,7 +17,6 @@
     <ul id="grade_mgmt" class="dropdown-menu">
       	<li><a id="g_regist">등록</a></li>
 		<li><a id="g_update">수정</a></li>
-		<li><a id="g_delete">삭제</a></li>
 		<li><a id="g_list">목록 </a></li>
 		<li><a id="g_count">카운트</a></li>
 		<li><a id="g_find">검색 </a></li>
@@ -36,6 +35,8 @@
 </ul>
 <script type="text/javascript">
 $(function(){
+	$('#g_regist').css(function () {alert('등록하시려면 회원리스트로 이동해 주세요');controller.move('member','list');});
+	$('#g_update').css(function () {alert('수정하시려면 회원리스트로 이동해 주세요');controller.move('member','list');});
 	$('#admin_nav').css('height','50px');
 });
 </script>

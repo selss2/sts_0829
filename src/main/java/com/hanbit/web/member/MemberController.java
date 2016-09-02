@@ -67,12 +67,18 @@ public class MemberController {
 		logger.info("GO TO Member {}", "regist");
 		return "public:member/regist.tiles";
 	}
-	@RequestMapping("/detail")
-	public String moveDetail(@RequestParam("key")String key) {
-		logger.info("GO TO Member {}", "detail");
+	@RequestMapping("/a_detail")
+	public String moveA_detail(@RequestParam("key")String key) {
+		logger.info("GO TO Member {}", "a_detail");
 		logger.info("KEY IS {}", key);
+		return "admin:member/a_detail.tiles";
+	}
+	@RequestMapping("/detail")
+	public String moveDetail() {
+		logger.info("GO TO Member {}", "detail");
 		return "user:member/detail.tiles";
 	}
+
 	@RequestMapping("/update")
 	public String moveUpdate() {
 		logger.info("GO TO Member {}", "update");

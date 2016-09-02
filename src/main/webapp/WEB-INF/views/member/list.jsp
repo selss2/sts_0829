@@ -30,7 +30,7 @@ tr:nth-child(even) {
 	    <th>생년월일</th>
 	    <th>이메일</th>
 	    <th>전화번호</th>
-	    <th>성적등록</th>
+	    <th>성적</th>
   </tr>
   <tr>
     <td>hong</td>
@@ -39,8 +39,7 @@ tr:nth-child(even) {
     <td>1980-01-01</td>
     <td>hong@test.com</td>
     <td>010-1234-5678</td>
-    <td><a class="regist">등록하기</a></td>
-  </tr>
+<td><a class="regist">등록</a>/<a class="update">수정</a></td>  </tr>
    <tr>
     <td>hong</td>
     <td><a class="name">홍길동</a></td>
@@ -48,7 +47,7 @@ tr:nth-child(even) {
     <td>1980-01-01</td>
     <td>hong@test.com</td>
     <td>010-1234-5678</td>
-    <td><a class="regist">등록하기</a></td>
+    <td><a class="regist">등록</a>/<a class="update">수정</a></td>
   </tr>
     <tr>
     <td>hong</td>
@@ -57,7 +56,7 @@ tr:nth-child(even) {
     <td>1980-01-01</td>
     <td>hong@test.com</td>
     <td>010-1234-5678</td>
-    <td><a class="regist">등록하기</a></td>
+<td><a class="regist">등록</a>/<a class="update">수정</a></td>
   </tr>
 </table>
 <nav aria-label="Page navigation">
@@ -84,7 +83,8 @@ tr:nth-child(even) {
 	
 <script type="text/javascript">
 	$(function(){
-			$("#member_list_table .name").click(function(){alert('!!!');controller.moveWithKey('member','detail','hong');});	
+			$("#member_list_table .name").click(function(){alert('!!!');controller.moveWithKey('member','a_detail','hong');});	
 			$("#member_list_table .regist").click(function(){alert('@@@');controller.moveWithKey('grade','regist','hong');});	
+			$("#member_list_table .update").click(function(){controller.moveWithKey('grade','update','hong');});	
 	});
 </script>

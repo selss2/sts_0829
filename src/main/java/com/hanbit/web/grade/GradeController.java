@@ -23,8 +23,9 @@ public class GradeController {
 		return "admin:grade/regist.tiles";
 	}
 	@RequestMapping("/update")
-	public String moveUpdate() {
+	public String moveUpdate(@RequestParam("key")String key) {
 		logger.info("GO TO {}", "update");
+		logger.info("KEY IS {}", key);
 		return "admin:grade/update.tiles";
 	}
 	@RequestMapping("/delete")

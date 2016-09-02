@@ -4,10 +4,10 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header"><img id="header_brand"></div>
       <ul class="nav navbar-nav navbar-right">
-        <li><a id="#a_school_info" href="#">학교 소개</a></li>
+        <li><a id="#a_school_info">학교 소개</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a id="#a_school_map" href="#">오시는 길</a></li>
+        <li><a id="#a_school_map">오시는 길</a></li>
       </ul>
     </div>
 </nav>
