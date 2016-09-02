@@ -1,5 +1,7 @@
 package com.hanbit.web.member;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("user")
+@SessionAttributes({"user","img","java","js"})
 @RequestMapping("/member")
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -32,7 +34,7 @@ public class MemberController {
 	public String login(@RequestParam("id") String id,
 			@RequestParam("pw")String pw,
 			@RequestParam("context")String context,
-			Model model) {
+			Model model, HttpSession session) {
 		logger.info("TO LOGIN ID {}",id);
 		logger.info("TO LOGIN PW {}",pw);
 		logger.info("CONTEXT : {}",context);
@@ -46,6 +48,7 @@ public class MemberController {
 		model.addAttribute("js", context+"/resources/js");
 		model.addAttribute("css", context+"/resources/css");
 		model.addAttribute("img", context+"/resources/img");
+
 		return "user:user/content.tiles";
 	}
 	// --- MOVE ---
