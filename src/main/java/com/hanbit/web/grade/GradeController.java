@@ -5,9 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 
 @Controller
+/*@SessionAttributes({"user","img","java","js"})*/
 @RequestMapping("/grade")
 public class GradeController {
 	private static final Logger logger = LoggerFactory.getLogger(GradeController.class);
@@ -46,6 +48,7 @@ public class GradeController {
 	@RequestMapping("/list")
 	public String moveList() {
 		logger.info("GO TO {}", "list");
-		return "user:grade/list.tiles";
+		return "admin:grade/list.tiles";
 	}
+	
 }

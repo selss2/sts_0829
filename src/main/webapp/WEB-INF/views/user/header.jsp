@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-    <img id="header_brand">
+    <a id="go_user_home"><img id="header_brand"></a>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
@@ -11,7 +11,6 @@
         <span class="icon-bar"></span>
       </button>
     </div>
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
@@ -63,6 +62,8 @@
 </nav>
 <script type="text/javascript">
 $(function(){
+	$('#go_user_home').click(function(){controller.move('member','content');});
+	$('#user_header #logout').addClass('cursor').click(function() {controller.home();});
 	$('#user_header #a_mypage').addClass('cursor').click(function() {controller.move('member','content');});
 	$('#user_header #a_detail').addClass('cursor').click(function() {controller.move('member','detail');});
 	$('#user_header #a_update').addClass('cursor').click(function() {controller.move('member','update');});

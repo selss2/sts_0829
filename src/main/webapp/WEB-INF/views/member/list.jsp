@@ -83,8 +83,8 @@ tr:nth-child(even) {
 	
 <script type="text/javascript">
 	$(function(){
-			$("#member_list_table .name").click(function(){alert('!!!');controller.moveWithKey('member','a_detail','hong');});	
-			$("#member_list_table .regist").click(function(){alert('@@@');controller.moveWithKey('grade','regist','hong');});	
+			$("#member_list_table .name").click(function(){controller.moveWithKey('member','a_detail','hong');});	
+			$("#member_list_table .regist").click(function(){controller.moveWithKey('grade','regist','hong');});	
 			$("#member_list_table .update").click(function(){controller.moveWithKey('grade','update','hong');});	
 	});
 </script>

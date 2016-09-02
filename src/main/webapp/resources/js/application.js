@@ -29,8 +29,6 @@ var app = (function(){
 		$('#a_member').click(function(){controller.move('member','main');});
 		$('#a_grade').click(function(){controller.move('grade','main');});
 		$('#a_account').click(function(){controller.move('account','main');});
-		$('#a_shool').click(function(){controller.move('public','school_info');});
-		$('#a_shool').click(function(){controller.move('public','school_map');});
 	};
 	
 	return {
@@ -62,8 +60,6 @@ var user = (function(){
 		$('#a_count').click(function(){controller.move('account','count');});
 		$('#a_search').click(function(){controller.move('account','search');});
 		$('#a_delete').click(function(){controller.move('account','delete');});
-		$('#a_school_info').click(function() {controller.move('public','school_info');});
-		$('#a_school_map').click(function() {controller.move('public','school_map');});
 	};
 	return {
 		init : init
@@ -79,10 +75,7 @@ var account = (function(){
 	var setContentView = function(){};
 	var onCreate = function(){
 		setContentView();
-		/*$('#bt_spec_show').click(member.spec());
-		$('#bt_make_account').click(this.spec());
-		$('#bt_deposit').click(this.deposit());
-		$('#bt_withdraw').click(this.withdraw());*/
+
 	};
 	return {
 		setAccountNo : setAccountNo,
@@ -91,9 +84,7 @@ var account = (function(){
 		getMoney : getMoney,
 		init : init,
 		spec : function(){
-			/*setAccountNo(Math.floor(Math.random()*899999)+100000);
-			setMoney(0);
-			document.querySelector('#result_account').innerHTML = getAccountNo();*/
+	
 		},
 		deposit : function (){
 			var r_acc = document.querySelector('#result_account').innerText;
@@ -105,7 +96,6 @@ var account = (function(){
 				default : console.log('type check fail !!');
 			}
 			if(r_acc == null){
-				// r_acc === undefined
 				alert('먼저 통장이 개설되어야 합니다');
 			}else{
 				var input_money = Number(document.querySelector('#money').value);
@@ -201,7 +191,6 @@ var kaup = (function(){
 	var setContentView = function(){};
 	var onCreate = function(){
 		setContentView();
-		//document.getElementById('bt_kaup_calc').addEventListener('click',this.calc,false);
 	};
 	return {
 		init : init,

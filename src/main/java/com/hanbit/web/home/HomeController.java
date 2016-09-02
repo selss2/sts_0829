@@ -35,14 +35,17 @@ public class HomeController {
 		return "public:public/content.tiles";
 	}
 	@RequestMapping("/public/school_info")
-	public String moveSchoolInfo(){
+	public String moveSchool_info(){
 		logger.info("HomeController! school_info..");
 		return "public:public/school_info.tiles";
 	}
 	@RequestMapping("/public/school_map")
-	public String moveWay(){
+	public String moveSchool_map(){
 		logger.info("HomeController! school_map..");
 		return "public:public/school_map.tiles";
 	}
-
+	@RequestMapping("/public/free_board")
+	public String freeBoard(){
+		return "public:public/free_board.tiles";
+	}
 }

@@ -2,7 +2,7 @@
 <nav id="admin_header" class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-    <img id="header_brand">
+    <a id="go_admin_home"><img id="header_brand"></a>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
@@ -28,6 +28,7 @@
 </nav>
 <script>
 $(function(){
+	$('#go_admin_home').click(function(){controller.move('admin','main');});
 	$('#admin_header').css('height','50px');
 	$('.navbar-header').css('height','50px');
 	$('#admin_header #exit').addClass('cursor');

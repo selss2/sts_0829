@@ -5,8 +5,8 @@
 <table id="account_list" class="table"></table>
 
 <style>
-#account_list_table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
-#account_list_table td, th {
+table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
+td, th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
@@ -17,34 +17,34 @@ tr:nth-child(even) {
 </style>
 <div class="box" style='padding-top:0; width:90%'>
 <ul class="list-group">
-  <li class="list-group-item">총계좌수 : 120개</li>
+  <li class="list-group-item">총게시글 : 120개</li>
 </ul>
 		<div class="panel panel-primary">
-  <div class="panel-heading">계좌 리스트</div>
-<table id="account_list_table">
+  <div class="panel-heading">자유게시판</div>
+<table id="free_board_table">
   <tr>
-	    <th>계좌번호</th>
-	    <th>이 름</th>
-	    <th>생년월일</th>
-	    <th>잔액</th>
+	    <th>No.</th>
+	    <th>제목</th>
+	    <th>등록일</th>
+	    <th>조회수</th>
   </tr>
   <tr>
-    <td>123-456-789</td>
-    <td><a class="name">홍길동</a></td>
-    <td>1980년 10월 02일</td>
-    <td>￦30000</td>
+    <td>12</td>
+    <td><a class="name">하이루~방가방가!!</a></td>
+    <td>1999.12.20</td>
+    <td>10000</td>
     </tr>
   <tr>
-    <td>123-456-789</td>
-    <td><a class="name">홍길동</a></td>
-    <td>1980년 10월 02일</td>
-    <td>￦30000</td>
+    <td>11</td>
+    <td><a class="name">게시판 11번글!</a></td>
+    <td>1999.12.20</td>
+    <td>10000</td>
     </tr>
   <tr>
-    <td>123-456-789</td>
-    <td><a class="name">홍길동</a></td>
-    <td>1980년 10월 02일</td>
-    <td>￦30000</td>
+    <td>10</td>
+    <td><a class="name">freeboard Test~!!</a></td>
+    <td>1999.12.20</td>
+    <td>10000</td>
     </tr>
 </table>
 <nav aria-label="Page navigation">

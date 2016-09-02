@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <title>학교 소개</title>
-<link rel="stylesheet" href="../css/member.css" />
 </head>
 <body>
 	<div class="box">

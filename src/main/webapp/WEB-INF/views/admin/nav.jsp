@@ -18,8 +18,6 @@
       	<li><a id="g_regist">등록</a></li>
 		<li><a id="g_update">수정</a></li>
 		<li><a id="g_list">목록 </a></li>
-		<li><a id="g_count">카운트</a></li>
-		<li><a id="g_find">검색 </a></li>
     </ul>
   </li>
   <li role="presentation" class="dropdown">
@@ -35,8 +33,12 @@
 </ul>
 <script type="text/javascript">
 $(function(){
-	$('#g_regist').css(function () {alert('등록하시려면 회원리스트로 이동해 주세요');controller.move('member','list');});
-	$('#g_update').css(function () {alert('수정하시려면 회원리스트로 이동해 주세요');controller.move('member','list');});
+	$('#g_regist').click(function () {alert('등록하시려면 회원리스트로 이동해 주세요');controller.move('member','list');});
+	$('#g_update').click(function () {alert('수정하시려면 회원리스트로 이동해 주세요');controller.move('member','list');});
 	$('#admin_nav').css('height','50px');
+	$('#account_mgmt #list').click(function () {controller.move('account','list');});
+	$('#account_mgmt #find').click(function () {controller.move('account','find');});
+	$('#account_mgmt #count').click(function () {controller.move('account','count');});
+
 });
 </script>
