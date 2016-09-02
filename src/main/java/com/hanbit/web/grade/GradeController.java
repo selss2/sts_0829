@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -16,8 +17,9 @@ public class GradeController {
 		return "admin:grade/content.tiles";
 	}
 	@RequestMapping("/regist")
-	public String moveRegist() {
+	public String moveRegist(@RequestParam("key")String key) {
 		logger.info("GO TO {}", "regist");
+		logger.info("KEY IS {}", key);
 		return "admin:grade/regist.tiles";
 	}
 	@RequestMapping("/update")

@@ -266,9 +266,9 @@ var admin = (function() {
     var setPass = function(pass){this._pass=pass;};
     var init = function(){onCreate();};
     var setContentView = function(){
-    	$('#admin_content #img_1').attr('src',app.img()+'/member_mgmt.PNG');
-    	$('#admin_content #img_2').attr('src',app.img()+'/grade_mgmt.PNG');
-    	$('#admin_content #img_3').attr('src',app.img()+'/account_mgmt.PNG');
+    	$('#admin_content #img_1').attr('src',app.img()+'/defalt/member_mgmt.PNG');
+    	$('#admin_content #img_2').attr('src',app.img()+'/defalt/grade_mgmt.PNG');
+    	$('#admin_content #img_3').attr('src',app.img()+'/defalt/account_mgmt.PNG');
     	$('#admin_content h3').addClass('text_center');
     };
     var onCreate = function(){
@@ -342,6 +342,7 @@ var controller = (function(){
 		moveWithKey : function(directory,page,key){
 			setDirectory(directory);
 			setPage(page);
+			setKey(key);
 			location.href = app.context()+'/'+getDirectory()+'/'+getPage()+'?key='+getKey();
 		},
 		move : function(directory,page){

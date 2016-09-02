@@ -71,7 +71,7 @@ $(function(){
 	$("#user_header #account li:eq(1) a").click(function(){controller.move('account','open');});	
 	$("#user_header #account li:eq(2) a").click(function(){controller.move('account','transaction');});	
 	$("#user_header #account li:eq(3) a").click(function(){controller.move('account','delete');});	
-	$("#user_header #grade li:eq(0) a").click(function(){/* alert('성적 목록'); */controller.move('grade','detail');});	
+	$("#user_header #grade li:eq(0) a").click(function(){alert('성적 목록'); controller.move('grade','detail');});	
 	$("#user_header #grade li:eq(1) a").click(function(){controller.move('grade','find');});	
 });
 </script>
