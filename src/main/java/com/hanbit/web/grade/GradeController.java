@@ -12,30 +12,37 @@ public class GradeController {
 	private static final Logger logger = LoggerFactory.getLogger(GradeController.class);
 	@RequestMapping("/main")
 	public String moveMain() {
-		logger.info("========GradeController ! goMain() ");	
+		logger.info("GO TO {}", "main");	
 		return "admin:grade/content.tiles";
 	}
 	@RequestMapping("/regist")
 	public String moveRegist() {
-		logger.info("===GradeController ! regist() ");
-		return "grade/regist.tiles";
+		logger.info("GO TO {}", "regist");
+		return "admin:grade/regist.tiles";
 	}
 	@RequestMapping("/update")
 	public String moveUpdate() {
-		logger.info("===GradeController ! update() ");
-		return "grade/update.tiles";
+		logger.info("GO TO {}", "update");
+		return "admin:grade/update.tiles";
 	}
 	@RequestMapping("/delete")
 	public String moveDelete() {
-		logger.info("===GradeController ! delete() ");
-		return "grade/delete.tiles";
+		logger.info("GO TO {}", "delete");
+		return "admin:grade/delete.tiles";
+	}
+	@RequestMapping("/detail")
+	public String moveDetail() {
+		logger.info("GO TO {}", "detail");
+		return "user:grade/detail.tiles";
+	}
+	@RequestMapping("/find")
+	public String moveFind() {
+		logger.info("GO TO {}", "find");
+		return "user:grade/find.tiles";
 	}
 	@RequestMapping("/list")
 	public String moveList() {
-		logger.info("===GradeController ! list() ");
-		return "grade/list.tiles";
+		logger.info("GO TO {}", "list");
+		return "user:grade/list.tiles";
 	}
-
 }
-
-
