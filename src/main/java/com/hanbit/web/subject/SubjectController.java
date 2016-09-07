@@ -16,4 +16,3 @@ public class SubjectController {
 		return "user:subject/detail.tiles";
 	}
 }
-// final
