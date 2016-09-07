@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<style>
-	div.memberClass{font-size: 20px}
-</style>
-<div id="" class="memberClass box">
+<div id="account_content" class="memberClass box">
 	
 	<h1>계좌관리</h1>
 	<div style="width: 300px;margin: 0 auto;text-align: left;">

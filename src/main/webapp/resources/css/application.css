@@ -155,3 +155,60 @@ a{cursor:pointer;}
 #member_list tr:nth-child(even) {
 	background-color: #dddddd;
 }
+
+	#account_content div.memberClass{font-size: 20px}
+	
+#account_detail table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
+#account_detail td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+#account_detail tr:nth-child(even) {
+    background-color: #dddddd;
+}	
+#account_list_table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
+#account_list_table td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+#account_list_table tr:nth-child(even) {
+    background-color: #dddddd;
+}
+#grade_detail_table table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
+#grade_detail_table td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+#grade_detail_table tr:nth-child(even) {
+    background-color: #dddddd;
+}
+#grade_list_table table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
+#grade_list_table td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+#grade_list_table tr:nth-child(even) {
+    background-color: #dddddd;
+}
+#member_list_table table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
+#member_list_table td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+#member_list_table tr:nth-child(even) {
+    background-color: #dddddd;
+}
+#free_board_table table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
+#free_board_table td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+#free_board_table tr:nth-child(even) {
+    background-color: #dddddd;
+}

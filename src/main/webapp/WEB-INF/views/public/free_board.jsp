@@ -4,17 +4,6 @@
 <div class="panel-heading">계좌 목록</div>
 <table id="account_list" class="table"></table>
 
-<style>
-table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-</style>
 <div class="box" style='padding-top:0; width:90%'>
 <ul class="list-group">
   <li class="list-group-item">총게시글 : 120개</li>

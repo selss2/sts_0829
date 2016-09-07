@@ -4,17 +4,6 @@
 <div class="panel-heading">학생 목록</div>
 <table id="member_list" class="table"></table>
 
-<style>
-table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-</style>
 <div class="box" style='padding-top:0; width:90%'>
 <ul class="list-group">
   <li class="list-group-item">홍 길 동</li>
@@ -80,9 +69,3 @@ tr:nth-child(even) {
 </nav>
 </div>
 	</div>
-	
-<script type="text/javascript">
-	$(function(){
-		
-	});
-</script>
