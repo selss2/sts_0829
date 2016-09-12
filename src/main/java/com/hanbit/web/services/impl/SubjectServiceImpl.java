@@ -7,7 +7,6 @@ import com.hanbit.web.service.SubjectService;
 
 @Service
 public class SubjectServiceImpl implements SubjectService{
-	SubjectDAOImpl dao = SubjectDAOImpl.getInstance();
 	private static SubjectServiceImpl instance
 		= new SubjectServiceImpl();
 	private SubjectServiceImpl() {
@@ -16,9 +15,9 @@ public class SubjectServiceImpl implements SubjectService{
 	public static SubjectServiceImpl getInstance() {
 		return instance;
 	}
-
 	@Override
 	public void insert(SubjectDTO s) {
-		dao.insert(s);
+		
 	}
 }
+

@@ -3,7 +3,6 @@ package com.hanbit.web.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ public class JDBCTest {
 		Statement stmt = null;
 		ResultSet rs = null;
 		String sql = "select name from member "
-				+ "where id = 'hong2'",result="";
+				+ "where mem_id = 'you'",result="";
 		
 		List<String> list = new ArrayList<String>();
 		try {

@@ -11,61 +11,11 @@ import com.hanbit.web.domains.GradeDTO;
 import com.hanbit.web.service.GradeService;
 @Service
 public class GradeServiceImpl implements GradeService {
-	GradeDAOImpl dao = GradeDAOImpl.getInstance();
 	private static GradeServiceImpl instance = new GradeServiceImpl();
 	public static GradeServiceImpl getInstance() {
 		return instance;
 	}
-	private GradeServiceImpl() {}
-	@Override
-	public int insert(GradeDTO grade) {
-		return dao.insert(grade);
-	}
-
-	@Override
-	public void update(GradeDTO grade) {
-		if (dao.update(grade)==1) {
-			System.out.println("성공");
-		} else {
-			System.out.println("실패");
-		}
-	}
-
-	@Override
-	public String delete(String del) {
-		String msg = "";
-		if (dao.delete(del) == 1) {
-			msg = "삭제완료";
-		} else {
-			msg = "실패";
-		}
-			
-		return msg;
-	}
-
-	@Override
-	public List<?> list() {
-		List<?> list = dao.list();
-		return list;
-	}
-
-	@Override
-	public List<?> findBy(String id) {
-		return dao.findById(id);
-	}
-
-	@Override
-	public GradeDTO findBySeq(String seq) {
-		return dao.findBySeq(seq);
-	}
-	@Override
-	public int count() {
-		return dao.count();
-	}
-	@Override
-	public int count(String examDate) {
-		return dao.count(examDate);
-	}
+	
 	@Override
 	public void score(String[] a) {
 		GradeDTO g = new GradeDTO();
@@ -79,8 +29,47 @@ public class GradeServiceImpl implements GradeService {
 	}
 	@Override
 	public Map<?, ?> map() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<?> list() {
+		return null;
+	}
+
+	@Override
+	public List<?> findBy(String keyword) {
+		return null;
+	}
+
+	@Override
+	public int count() {
+		return 0;
+	}
+
+	@Override
+	public int insert(GradeDTO grade) {
+		return 0;
+	}
+
+	@Override
+	public GradeDTO findBySeq(String seq) {
+		return null;
+	}
+
+	@Override
+	public void update(GradeDTO grade) {
+		
+	}
+
+	@Override
+	public String delete(String del) {
+		return null;
+	}
+
+	@Override
+	public int count(String examDate) {
+		return 0;
 	}
 	
 

@@ -1,4 +1,4 @@
-package com.hanbit.web.mapper;
+package com.hanbit.web.mappers;
 
 public interface GradeMapper {
 

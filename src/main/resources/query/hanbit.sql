@@ -1,3 +1,5 @@
+select * from MEMBER;
+
 /*
 META PROCEDURE
 */	
