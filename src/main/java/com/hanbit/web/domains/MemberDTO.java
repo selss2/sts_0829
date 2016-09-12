@@ -1,4 +1,4 @@
-package com.hanbit.web.member;
+package com.hanbit.web.domains;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -7,15 +7,15 @@ import java.text.SimpleDateFormat;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MemberVO implements Serializable{
+public class MemberDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id,pw,name,regDate,gender,ssn,
 		profileImg,email,phone; 
 	private int birth;
 	
-	public MemberVO() {}
+	public MemberDTO() {}
 	
-	public MemberVO(String id,String pw,String name,String ssn) {
+	public MemberDTO(String id,String pw,String name,String ssn) {
 		this.id = id;
 		this.pw = pw;
 		this.name = name;

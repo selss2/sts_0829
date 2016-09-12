@@ -1,4 +1,4 @@
-package com.hanbit.web.member;
+package com.hanbit.web.controllers;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.hanbit.web.domains.MemberDTO;
+import com.hanbit.web.services.impl.MemberServiceImpl;
 
 @Controller
 @SessionAttributes({"user","img","java","js"})
@@ -25,7 +28,7 @@ public class MemberController {
 			@RequestParam("context")String context,
 			Model model){
 		logger.info("MemberController ! findById : {}","??");
-		MemberVO member = (MemberVO) service.findById(keyword);
+		MemberDTO member = (MemberDTO) service.findById(keyword);
 		model.addAttribute("member", member);
 		model.addAttribute("img", context+"/resources/img");
 		return "admin:member/detail.tiles";
@@ -38,7 +41,7 @@ public class MemberController {
 		logger.info("TO LOGIN ID {}",id);
 		logger.info("TO LOGIN PW {}",pw);
 		logger.info("CONTEXT : {}",context);
-		MemberVO member = new MemberVO();
+		MemberDTO member = new MemberDTO();
 		member.setId(id);
 		member.setPw(pw);
 		

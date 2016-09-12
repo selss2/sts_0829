@@ -1,4 +1,4 @@
-package com.hanbit.web.home;
+package com.hanbit.web.controllers;
 
 import java.text.DateFormat;
 import java.util.Date;

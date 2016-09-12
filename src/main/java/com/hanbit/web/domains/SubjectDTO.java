@@ -1,11 +1,11 @@
-package com.hanbit.web.subject;
+package com.hanbit.web.domains;
 
 import java.io.Serializable;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class SubjectVO implements Serializable {
+public class SubjectDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String id,major,subject;

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.springframework.stereotype.Component;
 @Component
-public class GradeVO implements Serializable{
+public class GradeDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id,grade,seq,examDate, subject,major;
 	private int java,sql,html,javascript, score;

@@ -1,4 +1,4 @@
-package com.hanbit.web.domains;
+package com.hanbit.web.services.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+
+import com.hanbit.web.domains.GradeDTO;
+import com.hanbit.web.service.GradeService;
 @Service
 public class GradeServiceImpl implements GradeService {
 	GradeDAOImpl dao = GradeDAOImpl.getInstance();
@@ -15,12 +18,12 @@ public class GradeServiceImpl implements GradeService {
 	}
 	private GradeServiceImpl() {}
 	@Override
-	public int insert(GradeVO grade) {
+	public int insert(GradeDTO grade) {
 		return dao.insert(grade);
 	}
 
 	@Override
-	public void update(GradeVO grade) {
+	public void update(GradeDTO grade) {
 		if (dao.update(grade)==1) {
 			System.out.println("성공");
 		} else {
@@ -52,7 +55,7 @@ public class GradeServiceImpl implements GradeService {
 	}
 
 	@Override
-	public GradeVO findBySeq(String seq) {
+	public GradeDTO findBySeq(String seq) {
 		return dao.findBySeq(seq);
 	}
 	@Override
@@ -65,7 +68,7 @@ public class GradeServiceImpl implements GradeService {
 	}
 	@Override
 	public void score(String[] a) {
-		GradeVO g = new GradeVO();
+		GradeDTO g = new GradeDTO();
 		g.setId(a[0]);
 		g.setExamDate(a[1]);
 		g.setJava(Integer.parseInt(a[2]));
