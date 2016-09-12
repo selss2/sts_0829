@@ -1,4 +1,4 @@
-package com.hanbit.web.service;
+package com.hanbit.web.services;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.hanbit.web.domains.MemberDTO;
-
+@Repository(value="memberMapper")
 public interface MemberMapper {
 	public int insert(MemberDTO mem);
 	public int update(MemberDTO mem);

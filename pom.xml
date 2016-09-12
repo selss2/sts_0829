@@ -19,7 +19,7 @@
 		<jaxb-impl-version>2.2.2</jaxb-impl-version>
 		<jackson-mapper-asl-version>1.7.1</jackson-mapper-asl-version>
 		<maven-version>3.1.1</maven-version>
-		<mybatis-spring-version>1.2.2</mybatis-spring-version>
+		<mybatis-spring-version>1.3.0</mybatis-spring-version>
 		<mybatis-version>3.4.1</mybatis-version>
 		
 		<log4j-version>1.2.15</log4j-version>

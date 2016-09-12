@@ -1,4 +1,4 @@
-package com.hanbit.web.service;
+package com.hanbit.web.services;
 
 import com.hanbit.web.domains.SubjectDTO;
 
