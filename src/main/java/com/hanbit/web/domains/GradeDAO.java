@@ -1,4 +1,4 @@
-package com.hanbit.web.grade;
+package com.hanbit.web.domains;
 
 public interface GradeDAO {
 

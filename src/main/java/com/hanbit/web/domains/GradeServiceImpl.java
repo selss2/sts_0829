@@ -1,4 +1,4 @@
-package com.hanbit.web.grade;
+package com.hanbit.web.domains;
 
 import java.util.ArrayList;
 import java.util.Arrays;
