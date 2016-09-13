@@ -60,11 +60,6 @@ public class GradeServiceImpl implements GradeService {
 	public void score(String[] a) {
 		GradeDTO g = new GradeDTO();
 		g.setId(a[0]);
-		g.setExamDate(a[1]);
-		g.setJava(Integer.parseInt(a[2]));
-		g.setSql(Integer.parseInt(a[3]));
-		g.setHtml(Integer.parseInt(a[4]));
-		g.setJavascript(Integer.parseInt(a[5]));
 		this.insert(g);
 	}
 	@Override
