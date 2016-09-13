@@ -1,4 +1,4 @@
-package com.hanbit.web.services.impl;
+package com.hanbit.web.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hanbit.web.domains.GradeDTO;
+import com.hanbit.web.serviceImpl.GradeServiceImpl;
 import com.hanbit.web.services.GradeService;
 @Service
 @Transactional

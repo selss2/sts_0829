@@ -1,4 +1,4 @@
-package com.hanbit.web.services.impl;
+package com.hanbit.web.serviceImpl;
 
 import java.util.List;
 import java.util.Map;

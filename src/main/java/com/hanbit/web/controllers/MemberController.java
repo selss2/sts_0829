@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.hanbit.web.domains.MemberDTO;
-import com.hanbit.web.services.impl.MemberServiceImpl;
+import com.hanbit.web.serviceImpl.MemberServiceImpl;
 
 @Controller
 @SessionAttributes({"user","context","js","css","img"})
