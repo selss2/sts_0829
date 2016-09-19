@@ -1,4 +1,4 @@
-package com.hanbit.web.serviceImpl;
+package com.hanbit.web.services.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

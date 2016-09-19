@@ -1,31 +1,26 @@
-package com.hanbit.web.serviceImpl;
+package com.hanbit.web.services.impl;
 
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.hanbit.web.controllers.MemberController;
 import com.hanbit.web.domains.MemberDTO;
-import com.hanbit.web.domains.SubjectDTO;
+
 import com.hanbit.web.mappers.MemberMapper;
 import com.hanbit.web.services.MemberService;
+
 @Service
-@Transactional
+
 public class MemberServiceImpl implements MemberService{
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired private SqlSession sqlSession;
-	@Autowired private MemberDTO member;
-	@Autowired private SubjectDTO subject;
-	
+
 	@Override
 	public String regist(MemberDTO mem) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
@@ -60,7 +55,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	@Override
 	public MemberDTO show() {
-		return member;
+		return null;
 	}
 	@Override
 	public void delete(MemberDTO member) {
@@ -78,6 +73,8 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public MemberDTO findById(String findID) {
+	
+		
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.findById(findID);
 	}
@@ -97,11 +94,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 
-	@Override
-	public Map<?, ?> map() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 
 	@Override
@@ -126,5 +119,12 @@ public class MemberServiceImpl implements MemberService{
 		logger.info("MemberService login {}"," FAIL ");
 		mem.setId("NONE");
 		return mem;
+	}
+
+
+	@Override
+	public Map<?, ?> map() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

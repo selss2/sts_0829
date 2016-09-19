@@ -9,10 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 @Component
 @Data
-public class ExamDTO implements Serializable {
+public class ExamDTO  implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
 	@Getter @Setter private int examSeq,score,subjSeq;
 	@Getter @Setter private String term,id;
-
 }

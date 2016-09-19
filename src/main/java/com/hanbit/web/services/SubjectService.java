@@ -1,7 +1,9 @@
 package com.hanbit.web.services;
 
-import com.hanbit.web.domains.SubjectDTO;
+import org.springframework.stereotype.Component;
 
+import com.hanbit.web.domains.SubjectDTO;
+@Component
 public interface SubjectService {
 	public void insert(SubjectDTO s);
 }
