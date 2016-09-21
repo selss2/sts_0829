@@ -1,476 +1,325 @@
--- CREATE
-DROP SEQUENCE seq;
+select * from tab;
+select * from member;
+alter table member modify ssn varchar2(10) UNIQUE;
+alter table member modify phone varchar2(13) UNIQUE;
+alter table subject modify subj_name varchar2(20) UNIQUE;
+alter table board modify category varchar2(20) UNIQUE;
+
+-- select sequence_owner, sequence_name from dba_sequences where sequence_owner = 'GKSQLC';
+drop sequence seq;
+--CREATE
+DROP SEQUENCE grade_seq;
 DROP SEQUENCE art_seq;
 DROP SEQUENCE subj_seq;
 DROP SEQUENCE major_seq;
 DROP SEQUENCE exam_seq;
+
 CREATE SEQUENCE grade_seq START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE;
 CREATE SEQUENCE art_seq START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE;
 CREATE SEQUENCE subj_seq START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE;
 CREATE SEQUENCE major_seq START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE;
 CREATE SEQUENCE exam_seq START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE;
 
--- SELECT SEQUENCE_OWNER, SEQUENCE_NAME FROM ALL_SEQUENCES WHERE SEQUENCE_OWNER = 'HANBIT';
-
-DROP TABLE Major CASCADE CONSTRAINT;
-DROP TABLE Member CASCADE CONSTRAINT;
-DROP TABLE Grade CASCADE CONSTRAINT;
-DROP TABLE Board CASCADE CONSTRAINT;
-DROP TABLE Subject CASCADE CONSTRAINT;
-DROP TABLE Exam CASCADE CONSTRAINT;
-
+DROP TABLE major cascade constraint;
+DROP TABLE Member cascade constraint;
+DROP TABLE Grade cascade constraint;
+DROP TABLE Board cascade constraint;
+DROP TABLE subject cascade constraint;
+DROP TABLE exam cascade constraint;
+--- 테이블 생성순서 1
 CREATE TABLE Major(
-	major_seq INT PRIMARY KEY,
-	title VARCHAR2(20) NOT NULL
-);
+       major_seq INT CONSTRAINT major_pk PRIMARY KEY,
+       title VARCHAR2(20) NOT NULL UNIQUE
+);   
+--- 테이블 생성순서 2
 CREATE TABLE Member(
-	mem_id VARCHAR2(20) PRIMARY KEY,
-	pw VARCHAR2(20) NOT NULL,
-	name VARCHAR2(20) NOT NULL,
-	gender VARCHAR2(10) NOT NULL,
-	regDate VARCHAR2(20) NOT NULL,
-	ssn VARCHAR2(10) NOT NULL,
-	email VARCHAR2(30),
-	profile_img VARCHAR2(100) DEFAULT 'default.jpg',
-	role VARCHAR2(10) DEFAULT 'STUDENT',
-	phone VARCHAR2(13) NOT NULL,
-	major_seq INT,
-	CONSTRAINT gender_ck CHECK (gender IN ('MALE', 'FEMALE')),
-	CONSTRAINT major_member_fk FOREIGN KEY (major_seq) REFERENCES Major(major_seq) ON DELETE CASCADE
-);
+  mem_id VARCHAR2(20) CONSTRAINT member_pk PRIMARY KEY,
+  pw VARCHAR2(20) NOT NULL,
+  name VARCHAR2(20) NOT NULL,
+  gender VARCHAR2(10) NOT NULL,
+  reg_date VARCHAR2(20) NOT NULL,
+  ssn VARCHAR2(10) NOT NULL UNIQUE,
+  email VARCHAR2(30),
+  profile_img VARCHAR2(100) DEFAULT 'default.jpg',
+  role VARCHAR2(10) DEFAULT 'STUDENT',
+  phone VARCHAR2(13) NOT NULL UNIQUE,
+  major_seq INT,
+  CONSTRAINT gender_ck CHECK (gender IN ('MALE', 'FEMALE')),
+  CONSTRAINT major_member_fk FOREIGN KEY (major_seq) REFERENCES Major(major_seq) ON DELETE CASCADE
+  );
+  --- 테이블 생성순서 3        
 CREATE TABLE Grade(
-	grade_seq INT PRIMARY KEY,
-	grade VARCHAR2(5) NOT NULL,
-	term VARCHAR2(10) NOT NULL,
-	mem_id VARCHAR2(20) NOT NULL,
-	CONSTRAINT member_grade_fk FOREIGN KEY (mem_id) REFERENCES Member(mem_id) ON DELETE CASCADE
+        grade_seq INT CONSTRAINT grade_pk PRIMARY KEY,
+        grade VARCHAR2(5) NOT NULL,
+        term VARCHAR2(10) NOT NULL,
+        mem_id VARCHAR2(20) NOT NULL,
+        CONSTRAINT member_grade_fk FOREIGN KEY (mem_id) REFERENCES Member(mem_id) ON DELETE CASCADE 
 );
 CREATE TABLE Board(
-	art_seq INT PRIMARY KEY,
-	category VARCHAR2(20) NOT NULL,
-	title VARCHAR2(30) DEFAULT 'NO TITLE',
-	regDate VARCHAR2(20) NOT NULL,
-	content VARCHAR2(100) DEFAULT 'NO CONTENT',
-	mem_id VARCHAR2(20),
-	CONSTRAINT member_board_fk FOREIGN KEY (mem_id) REFERENCES Member(mem_id) ON DELETE CASCADE
-);
+       art_seq INT CONSTRAINT board_pk PRIMARY KEY,
+       category VARCHAR2(20) NOT NULL UNIQUE,
+       title VARCHAR2(30) DEFAULT 'NO TITLE',
+       reg_date VARCHAR2(20) NOT NULL,
+       content VARCHAR2(100) DEFAULT 'NO CONTENT',
+       mem_id VARCHAR2(20),
+       CONSTRAINT member_board_fk FOREIGN KEY (mem_id) REFERENCES Member(mem_id) ON DELETE CASCADE 
+);  
 CREATE TABLE Subject(
-	subj_seq INT PRIMARY KEY,
-	subj_name VARCHAR2(20) NOT NULL,
-	mem_id VARCHAR2(20)NOT NULL,
-	CONSTRAINT member_subject_fk FOREIGN KEY (mem_id) REFERENCES Member(mem_id) ON DELETE CASCADE
+       subj_seq INT CONSTRAINT subject_pk PRIMARY KEY,
+       subj_name VARCHAR2(20) NOT NULL UNIQUE,
+       mem_id VARCHAR2(20) NOT NULL,
+       CONSTRAINT member_subject_fk FOREIGN KEY (mem_id) REFERENCES Member(mem_id) ON DELETE CASCADE 
 );
 CREATE TABLE Exam(
-	exam_seq INT PRIMARY KEY,
-	term VARCHAR2(10)NOT NULL,
-	score INT DEFAULT 0,
-	subj_seq INT,
-	mem_id VARCHAR2(20),
-	CONSTRAINT subject_exam_fk FOREIGN KEY (subj_seq) REFERENCES Subject(subj_seq) ON DELETE CASCADE,
-	CONSTRAINT member_exam_fk FOREIGN KEY (mem_id) REFERENCES Member(mem_id) ON DELETE CASCADE
-);
-CREATE OR REPLACE VIEW Major_view
-AS
-SELECT 
-	m.major_seq AS majorSeq,
-	m.title AS majorTitle,
-	u.mem_id AS id,
-	u.pw AS pw,
-	u.name AS name,
-	u.gender AS gender,
-	u.regDate AS regDate,
-	u.ssn AS ssn,
-	u.email AS email,
-	u.profile_img AS profileImg,
-	u.role AS role,
-	u.phone AS phone
-FROM Major m, Member u
-WHERE m.major_seq = u.major_seq;
+       exam_seq INT CONSTRAINT exam_pk PRIMARY KEY,
+       term VARCHAR2(10) NOT NULL,
+       score INT DEFAULT 0,
+       subj_seq INT,
+       mem_id VARCHAR2(20),
+       CONSTRAINT subject_exam_fk FOREIGN KEY (subj_seq) REFERENCES Subject(subj_seq) ON DELETE CASCADE,
+       CONSTRAINT member_exam_fk FOREIGN KEY (mem_id) REFERENCES Member(mem_id) ON DELETE CASCADE 
+); 
 
-CREATE OR REPLACE VIEW Grade_view
+CREATE or replace VIEW Major_view 
+AS 
+SELECT 
+ m.major_seq as majorSeq,
+ m.title AS majorTitle,
+ u.mem_id AS id,
+ u.pw AS pw,
+ u.name AS name,
+ u.gender AS gender,
+ u.reg_date AS regDate,
+ u.ssn AS ssn,
+ u.email AS email,
+ u.profile_img AS profileImg,
+ u.role AS role,
+ u.phone AS phone
+FROM Major m, Member u 
+WHERE m.major_seq = u.major_seq; 
+
+CREATE or replace VIEW Grade_view
 AS
 SELECT 
-    x.exam_seq AS exam_seq,
-	x.score AS score,
-	s.subj_seq AS subj_seq,
-	s.subj_name AS subj_name,
-	g.grade_seq AS grade_seq,
-	g.grade AS grade,
-	g.term AS term,
-	u.mem_id AS mem_id,
-	u.pw AS pw,
-	u.name AS name,
-	u.gender AS gender,
-	u.regDate AS regDate,
-	u.ssn AS ssn,
-	u.email AS email,
-	u.profile_img AS profile_img,
-	u.role AS role,
-	u.phone AS phone
-FROM Member u, Grade g, Subject s, Exam x
+ u.mem_id AS id,
+ u.pw AS pw,
+ u.name AS name,
+ u.gender AS gender,
+ u.reg_date AS regDate,
+ u.ssn AS ssn,
+ u.email AS email,
+ u.profile_img AS profileImg,
+ u.role AS role,
+ u.birth AS birth,
+ u.phone AS phone,
+ g.grade_seq AS gradeSeq,
+ g.grade AS grade,
+ g.term AS term,
+ s.subj_seq AS subjSeq,
+ s.subj_name AS subjName,
+ x.exam_seq AS examSeq,
+ x.score AS score
+FROM Member u, Grade g, Subject s, Exam x 
 WHERE u.mem_id = g.mem_id AND u.mem_id = s.mem_id AND u.mem_id = x.mem_id;
 
-CREATE OR REPLACE VIEW Board_view
+CREATE or replace VIEW Board_view
 AS
 SELECT 
-	b.art_seq AS art_seq,
-	b.category AS category,
-	b.title AS title,
-	b.regDate AS write_date,
-	b.content AS content,
-	u.mem_id AS mem_id,
-	u.pw AS pw,
-	u.name AS name,
-	u.gender AS gender,
-	u.regDate AS regDate,
-	u.ssn AS ssn,
-	u.email AS email,
-	u.profile_img AS profile_img,
-	u.role AS role,
-	u.phone AS phone
-FROM Member u,Board b
+u.mem_id AS id,
+ u.pw AS pw,
+ u.name AS name,
+ u.gender AS gender,
+ u.reg_date AS regDate,
+ u.ssn AS ssn,
+ u.email AS email,
+ u.profile_img AS profileImg,
+ u.role AS role,
+ u.phone AS phone,
+ b.title AS title,
+ b.art_seq AS artSeq,
+ b.category AS category,
+ b.reg_date AS writeDate,
+ b.content AS content
+FROM Member u, Board b  
 WHERE u.mem_id = b.mem_id;
--- procedure
-CREATE OR REPLACE PROCEDURE insert_major(sp_title IN Major.title%TYPE) AS
-BEGIN
-	INSERT INTO Major(major_seq,title) VALUES(major_seq.nextval,sp_title);
-	
-END insert_major;
 
-CREATE OR REPLACE PROCEDURE insert_prof(
+
+EXEC insertMajor(major_seq.nextVal,'컴퓨터공학');
+EXEC insertMember('lee','1','이순신','MALE','2016-07-01','800101-1','lee@test.com','lee.jpg','STUDENT','010-1234-5789','1000');
+
+
+CREATE OR REPLACE PROCEDURE insertMajor(
+	sp_title_seq IN Major.title%TYPE
+	) AS
+BEGIN
+	INSERT INTO major(major_seq,title)
+	VALUES(major_seq.nextval,sp_title_seq)
+END insertMajor;
+
+CREATE OR REPLACE PROCEDURE insertMember(
 	sp_mem_id IN Member.mem_id%TYPE,
 	sp_pw IN Member.pw%TYPE,
 	sp_name IN Member.name%TYPE,
 	sp_gender IN Member.gender%TYPE,
-	sp_regDate IN Member.regDate%TYPE,
-	sp_ssn IN Member.ssn%TYPE,
-	sp_email IN Member.email%TYPE,
-	sp_profile_img IN Member.profile_img%TYPE,
-	sp_role IN Member.role%TYPE,
-	sp_phone IN Member.phone%TYPE
-) AS
-BEGIN
-	INSERT INTO Member(mem_id,pw,name,gender,regDate,ssn,email,profile_img,role,phone) 
-	VALUES(sp_mem_id,sp_pw,sp_name,sp_gender,sp_regDate,sp_ssn,sp_email,sp_profile_img,sp_role,sp_phone);
-END insert_prof;
-
-CREATE OR REPLACE PROCEDURE insert_student(
-	sp_mem_id IN Member.mem_id%TYPE,
-	sp_pw IN Member.pw%TYPE,
-	sp_name IN Member.name%TYPE,
-	sp_gender IN Member.gender%TYPE,
-	sp_regDate IN Member.regDate%TYPE,
+	sp_reg_date IN Member.reg_date%TYPE,
 	sp_ssn IN Member.ssn%TYPE,
 	sp_email IN Member.email%TYPE,
 	sp_profile_img IN Member.profile_img%TYPE,
 	sp_role IN Member.role%TYPE,
 	sp_phone IN Member.phone%TYPE,
-	sp_major_seq IN Member.major_seq%TYPE 
+	sp_major_seq IN Member.major_seq%TYPE
 ) AS
 BEGIN
-	INSERT INTO Member(mem_id,pw,name,gender,regDate,ssn,email,profile_img,role,phone,major_seq) 
-	VALUES(sp_mem_id,sp_pw,sp_name,sp_gender,sp_regDate,sp_ssn,sp_email,sp_profile_img,sp_role,sp_phone,sp_major_seq);
-END insert_student;
+	INSERT INTO member(mem_id,pw,name,gender,reg_date,ssn,email,profile_img,role,phone,major_seq)
+	VALUES(sp_mem_id,sp_pw,sp_name,sp_gender,sp_reg_date,sp_ssn,sp_email,sp_profile_img,sp_role,sp_phone,sp_major_seq)
+END insertMember;
 
-CREATE OR REPLACE PROCEDURE insert_subject(
-	sp_subj_name IN Subject.subj_name%TYPE,
-	sp_mem_id IN Subject.mem_id%TYPE
-) AS
-BEGIN
-	INSERT INTO Subject(subj_seq,subj_name,mem_id) 
-	VALUES(subj_seq.NEXTVAL,sp_subj_name,sp_mem_id);
-END insert_subject;
-
-CREATE OR REPLACE PROCEDURE insert_exam(
-	sp_exam_seq IN Exam.exam_seq%TYPE,
-	sp_term IN Exam.term%TYPE,
-	sp_score IN Exam.score%TYPE,
-	sp_subj_seq IN Exam.subj_seq%TYPE,
-	sp_mem_id IN Exam.mem_id%TYPE
-) AS
-BEGIN
-	INSERT INTO Exam(exam_seq,term,score,subj_seq,mem_id) 
-	VALUES(sp_exam_seq,sp_term,sp_score,sp_subj_seq,sp_mem_id);
-END insert_exam;
-
-CREATE OR REPLACE PROCEDURE insert_grade(
+CREATE OR REPLACE PROCEDURE insertGrade(
 	sp_grade_seq IN Grade.grade_seq%TYPE,
 	sp_grade IN Grade.grade%TYPE,
-	sp_term IN Grade.term%TYPE,
-	sp_mem_id IN Grade.mem_id%TYPE
-) AS
+	sp_term IN Grade.term%TYPE
+	) AS
 BEGIN
-	INSERT INTO Grade(grade_seq,grade,term,mem_id) 
-	VALUES(sp_grade_seq,sp_grade,sp_term,sp_mem_id);
-END insert_grade;
-	
-CREATE OR REPLACE PROCEDURE insert_qna(
+	INSERT INTO grade(grade_seq,grade,term)
+	VALUES(sp_grade_seq,sp_grade,sp_term)
+END insertGrade;
+
+CREATE OR REPLACE PROCEDURE insertBoard(
 	sp_art_seq IN Board.art_seq%TYPE,
 	sp_category IN Board.category%TYPE,
 	sp_title IN Board.title%TYPE,
-	sp_regDate IN Board.regDate%TYPE,
 	sp_content IN Board.content%TYPE,
 	sp_mem_id IN Board.mem_id%TYPE
-) AS
+	) AS
 BEGIN
-	INSERT INTO Board(art_seq,category,title,regDate,content,mem_id) 
-	VALUES(sp_art_seq,sp_category,sp_title,sp_regDate,sp_content,sp_mem_id);
-END insert_qna;
+	INSERT INTO board(art_seq,category,title,content,mem_id)
+	VALUES(sp_art_seq,sp_category,sp_title,sp_content,sp_mem_id)
+END insertBoard;
 
-CREATE OR REPLACE PROCEDURE insert_notice(
-	sp_art_seq IN Board.art_seq%TYPE,
-	sp_category IN Board.category%TYPE,
-	sp_title IN Board.title%TYPE,
-	sp_regDate IN Board.regDate%TYPE,
-	sp_content IN Board.content%TYPE
-) AS
+CREATE OR REPLACE PROCEDURE insertSubject(
+	sp_subj_seq IN Subject.subj_seq%TYPE,
+	sp_subj_name IN Subject.subj_name%TYPE,
+	sp_mem_id IN Subject.mem_id%TYPE
+	) AS
 BEGIN
-	INSERT INTO Board(art_seq,category,title,regDate,content) 
-	VALUES(sp_art_seq,sp_category,sp_title,sp_regDate,sp_content);
-END insert_notice;
-	
-SELECT OBJECT_NAME FROM USER_PROCEDURES;
+	INSERT INTO subject(subj_seq,subj_name,mem_id)
+	VALUES(sp_subj_seq,sp_subj_name,sp_mem_id)
+END insertSubject;
 
-DROP PROCEDURE HANBIT.INSERTMEMBER;
-
-EXEC HANBIT.INSERT_MAJOR('컴퓨터공학');
-EXEC HANBIT.INSERT_STUDENT('hong','1','홍길동','MALE','2016-06-01','800101-1','hong@test.com','default.jpg','STUDENT','010-1234-5678','1001');
-EXEC HANBIT.INSERT_PROF('profx','1','찰스','MALE','2010-06-01','700101-1','profx@test.com','default.jpg','PROF','010-1234-5678');
-EXEC HANBIT.INSERT_SUBJECT('java','profx');
-
-CREATE OR REPLACE PROCEDURE select_students(
-	mem_id OUT Member.mem_id%TYPE,
-	pw OUT Member.pw%TYPE,
-	name OUT Member.name%TYPE,
-	gender OUT Member.gender%TYPE,
-	regDate OUT Member.regDate%TYPE,
-	ssn OUT Member.ssn%TYPE,
-	email OUT Member.email%TYPE,
-	profile_img OUT Member.profile_img%TYPE,
-	role OUT Member.role%TYPE,
-	phone OUT Member.phone%TYPE,
-	major_seq OUT Member.major_seq%TYPE 
-) AS
+CREATE OR REPLACE PROCEDURE insertExam(
+	sp_exam_seq IN Exam.exam_seq%TYPE,
+	sp_term IN Exam.term%TYPE,
+	sp_score IN Exam.score%TYPE
+	) AS
 BEGIN
-	SELECT mem_id,pw,name,gender,regDate,ssn,email,profile_img,role,phone,major_seq 
-	FROM Member WHERE major_seq IS NOT NULL;
-END select_students;
-
-/*
-major stored procedure
-*/
-
--- count major
-
-CREATE OR REPLACE PROCEDURE count_major(
-	sp_count OUT NUMBER
-) AS 
-BEGIN
-	SELECT COUNT(*) into sp_count FROM Major;
-END count_major;
-
--- find major
-
-CREATE OR REPLACE PROCEDURE find_major(
-	sp_major_seq IN OUT Major.major_seq%TYPE,
-	sp_title OUT Major.title%TYPE,
-	sp_result OUT VARCHAR2
-) AS 
-    sp_temp_count NUMBER;
-BEGIN
-    SELECT COUNT(*) into SP_temp_count from major where major_seq = sp_major_seq; 
-	IF (sp_temp_count > 0) 
-	THEN
-        SELECT major_seq, title
-        INTO sp_major_seq,sp_title 
-        FROM Major 
-        WHERE major_seq = sp_major_seq;
-        sp_result :='과목번호 : '||sp_major_seq||', 과목명 : '||sp_title;
-    ELSE  
-        sp_result :='전공 과목이 없습니다';
-    END IF;
-END find_major;
-
--- list major
-CREATE OR REPLACE PROCEDURE list_major(
-	sp_major_seq IN OUT Major.major_seq%TYPE,
-	sp_title OUT Major.title%TYPE,
-	sp_result OUT VARCHAR2
-) AS 
-    sp_temp_count NUMBER;
-BEGIN
-    SELECT COUNT(*) into SP_temp_count from major where major_seq = sp_major_seq; 
-	IF (sp_temp_count > 0) 
-	THEN
-        SELECT major_seq, title
-        INTO sp_major_seq,sp_title 
-        FROM Major 
-        WHERE major_seq = sp_major_seq;
-        sp_result :='과목번호 : '||sp_major_seq||', 과목명 : '||sp_title;
-    ELSE  
-        sp_result :='전공 과목이 없습니다';
-    END IF;
-END list_major;
-
-/*
-member stored procedure
-*/
--- count_member
-
--- find_by_id_member
-
--- sp_result :='학생ID : '||??||', 이름 : '|| ?? ;
+	INSERT INTO exam(exam_seq,term,score)
+	VALUES(sp_exam_seq,sp_term,sp_score)
+END insertExam;
 
 
+INSERT INTO member(id,pw,name,reg_date,ssn,email,profile_img)
+VALUES('lee','1','이순신','2016-07-01','800101-1','lee@test.com','lee.jpg');
+INSERT INTO member(id,pw,name,reg_date,ssn,email,profile_img)
+VALUES('hong1','1','홍길동','2015-07-01','901201-1','hong@test.com','hong.jpg');
+INSERT INTO member(id,pw,name,reg_date,ssn,email,profile_img)
+VALUES('you','1','유관순','2014-07-01','010701-4','you@test.com','you.jpg');
+INSERT INTO member(id,pw,name,reg_date,ssn,email,profile_img)
+VALUES('hong','1','홍길동','2015-07-01','301201-1','hoing2@test.com','hong.jpg');
+INSERT INTO member(id,pw,name,reg_date,ssn,email,profile_img)
+VALUES('hong3','1','홍길동','2015-07-01','501201-1','hong3@test.com','hong3.jpg');
+INSERT INTO member(id,pw,name,reg_date,ssn,email,profile_img)
+VALUES('choi','1','최진실','2015-07-01','501201-1','choi@test.com','choi.jpg');
+
+--READ ()// static 개념으로 접근한다
+SELECT * FROM member;-- list
+SELECT * FROM member WHERE id = 'hong';-- findByPK map의 키값
+SELECT * FROM member WHERE gender = '남';-- findByNotPK
+SELECT count(*) AS count FROM member;--- count
+--UPDATE
+ALTER TABLE member ADD email VARCHAR2(30);
+ALTER TABLE member ADD profile_img VARCHAR2(100);
+UPDATE member SET email='hong@test.com' WHERE id = 'you';
+UPDATE member SET email= id||'@test.com';
+UPDATE member SET profile_img= id||'.jpg';
+UPDATE member SET reg_date = '2015-03-03' WHERE reg_date is null;
+UPDATE member SET phone = '010-3333-3333' WHERE mem_id = 'hong';
+--delete
+DELETE FROM member WHERE id = 'qqq';
+
+DROP TABLE member1;
 
 
---★ degugging code
+---------------grade----------------------
+SELECT * FROM tab;
+SELECT * FROM grade;
 
-DECLARE
- sp_count NUMBER;
-BEGIN
- count_major(sp_count);
- DBMS_OUTPUT.put_line ('전공 수량 : '||sp_count);
-END;
-
-DECLARE
- sp_major_seq NUMBER := 2;
- sp_title VARCHAR2(20);
- sp_num NUMBER := 0;
-BEGIN
- select count(*) into sp_num from major where major_seq = sp_major_seq; 
- IF (sp_num > 0) THEN
- select_major(sp_major_seq,sp_title);
- 
- DBMS_OUTPUT.put_line ('과목번호 : '||sp_major_seq||', 과목명 : '||sp_title);
- ELSE 
- DBMS_OUTPUT.put_line ('결과가 없습니다 ');
- END IF;
-END;
-
-DECLARE
- sp_major_seq NUMBER := 22;
- sp_result VARCHAR2(100);
- sp_title VARCHAR2(100);
-BEGIN
- select_major(sp_major_seq,sp_title,sp_result);
-  DBMS_OUTPUT.put_line (sp_result);
- END;
-
-
-select * from major where major_seq = 1001;
-select * from member;
-select * from subject; 
-
-
-select * from major;
-select * from member;
-select * from subject; 
-
--- That is below will be romoved !! Don't follow 
-
-select * from tab;
-
-DROP TABLE account CASCADE CONSTRAINTS;
-DROP view account_member CASCADE CONSTRAINTS;
-DROP TABLE grade CASCADE CONSTRAINTS;
-DROP view grade_member CASCADE CONSTRAINTS;
-DROP TABLE member CASCADE CONSTRAINTS;
-DROP TABLE subject CASCADE CONSTRAINTS;
-DROP view subject_member CASCADE CONSTRAINTS;
-DROP TABLE test CASCADE CONSTRAINTS;
-
-
-insert into member(id,pw,name,regDate,ssn,email,profile_img) 
-values('hong2','1','홍길동','2015-07-01','100701-1','hong2@test.com','hong2.jpg');
-insert into member(id,pw,name,regDate,ssn,email,profile_img) 
-values('kim','1','김유신','2013-07-01','090701-3','kim@test.com','kim.jpg');
--- READ ()
-select * from member; 
-select * from member where id = 'hong';
-select * from member where gender = '남';
-select count(*) as count from member where id = 'hong'; 
-
--- UPDATE
-update member set email = id || '@test.com'; 
-update member set email = 'hong@test.com'where id = 'hong';
-alter table member add email varchar2(30);
-alter table member add profile_img varchar2(100);
-update member set ssn = '900301-1' where id = 'park';
-update member set profile_img = id ||'.jpg' where profile_img IS NULL;
--- DELETE
-delete from member where id = 'test';
-select * from member;
-
-select * from member where id='hong';
-
-create sequence seq
+CREATE sequence seq
 increment by 1
 start with 1000
 nocycle;
 
-drop table grade;
+DROP TABLE grade;
 
 
-alter table grade add exam_date varchar2(10);
--- create
-insert into grade(seq,grade,java,sql,html,javascript,id,exam_date)values(seq.nextval,'C',75,78,72,70,'hong','2016-06');
-	
 
-	
+ALTER TABLE grade ADD exam_date VARCHAR2(10);
+--- CREATE
+INSERT INTO grade(
+seq,grade,java,sql,html,javAScript,id,exam_date
+)VALUES(
+seq.nextval,'C',75,78,72,70,'you','2016-05'
+);
+--- read : list
+SELECT * FROM grade;
+--- read : findByPk
+SELECT * FROM grade WHERE seq='1000';
+--- read : findByID
+SELECT * FROM grade WHERE id = 'you';
+---- read : count
+SELECT count(*) FROM grade;
+--- UPDATE : UPDATE
+UPDATE grade SET exam_date = '2016-05'
+WHERE seq = 1000;
 
--- read : list
-select * from grade;
--- read : findByPK
-select * from grade where seq='1000';
--- read : findByID
-select * from grade where id='hong';
--- read : count
-select count(*) from grade;
--- update : update
-update grade set exam_date = '2016-05' where seq = 1000;
--- delete : delete
-delete from grade where seq = '1000';
+DELETE FROM grade WHERE seq = '1000';
 
-
------------------------------------
-
--- 뷰 권한주기
+--------------------------------------------------------------------
+---뷰 권한주기
 sqlplus system/hanbit
 grant dba to hanbit;
 
-create view grade_view
-as select * from grade;
+CREATE VIEW grade_view
+AS SELECT * FROM grade;
 
-select * from grade_view;
+SELECT * FROM grade_view;
 
-drop view grade_view;
+DROP VIEW grade_view;
 
--- join 조인 
+--join 조인
 
-create view grade_member as
-select 
-	g.seq as seq,
-	g.grade as grade,
-	g.java as java,
-	g.sql as sql,
-	g.html as html,
-	g.javascript as js,
-	g.exam_date as exam_date,
-	m.id as id,
-	m.pw as pw,
-	m.name as name,
-	m.regDate as regDate,
-	m.ssn as ssn
-from member m,grade g
-where m.id = g.id;
 
-select 
-	id,
-	name,
-	grade,
-	java,
-	sql,
-	html,
-	js
-from grade_member;
+CREATE VIEW grade_member AS
+SELECT  
+    g.seq AS seq,
+	g.grade AS grade,
+	g.java AS java,
+	g.sql AS sql,
+	g.html AS html,
+	g.javAScript AS js,
+	g.exam_date AS exam_date,
+	m.id AS id,
+	m.pw AS pw,
+	m.name AS name,
+	m.reg_date AS reg_date,
+	m.ssn AS ssn 
+FROM member m,grade g WHERE m.id = g.id;
+
+SELECT 
+id,
+name,
+grade,
+java,
+sql,
+html,
+js
+FROM grade_member;

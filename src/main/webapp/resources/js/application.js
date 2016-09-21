@@ -1,11 +1,17 @@
+/*
+========= META_GROUP ====
+@AUTHOR : 오승준
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : 메타데이터
+==============================
+*/	
 var app = (function(){
 	var init = function(context) {
 		session.init(context);
 		onCreate();
 		member.init();
 		user.init();
-		account.init();
-		kaup.init();
 		grade.init();
 		nav.init();
 		admin.init();
@@ -15,29 +21,34 @@ var app = (function(){
 	var css = function(){return session.getCssPath('css');};
 	var img = function(){return session.getImagePath('img');};
 	var setContentView = function(){
-		$('#header_brand').attr('src',app.img()+'/hanbit.jpg').css('height','80px').css('width','100px').css('padding-bottom','20px');
+		$('#header_brand').attr('src',app.img()+'/default/hanbit.jpg').css('height','80px').css('width','100px').css('padding-bottom','20px');
 		$('#footer').addClass('bottom').addClass('footer');
 		$('#global_content').addClass('box');
 		$('#global_content a').addClass('cursor');
-		$('#global_content_a_regist').text('SIGN UP').click(function(){controller.move('member','regist');});
-		$('#global_content_a_login').text('LOG IN').click(function(){controller.move('member','login');});
+		$('#global_content_a_regist').text('SIGN UP').click(function(){member.pub_sign_up_form();});
+		$('#global_content_a_login').text('LOG IN').click(function(){member.pub_login_form();});
 		$('#global_content_a_admin').text('ADMIN MODE').click(function(){admin.check();});
-		$("#member_list_table .name").click(function(){alert('!!!');controller.moveWithKey('member','a_detail','hong');});	
-		$("#member_list_table .regist").click(function(){alert('@@@');controller.moveWithKey('account','regist','hong');});	
-		$("#member_list_table .update").click(function(){controller.moveWithKey('account','update','hong');});
-		$('#go_public_home').click(function(){controller.home();});
-		$('#a_school_info').click(function(){controller.move('public','school_info');});
-		$('#a_school_map').click(function(){controller.move('public','school_map');});
-		$('#free_board').click(function(){controller.move('public','free_board');});
 	};
 	var onCreate = function(){
 		setContentView();
-		$('#title').click(function(){controller.home();});
 		$('#a_member').click(function(){controller.move('member','main');});
 		$('#a_grade').click(function(){controller.move('grade','main');});
 		$('#a_account').click(function(){controller.move('account','main');});
-		$('#test').click(function(){controller.move('public','slider');});
-
+		$('#a_shool').click(function(){controller.move('global','school_info');});
+		$('#free_board_table .name').click(function(){controller.moveWithKey('member','a_detail','hong');});
+		$('#free_board_table .regist').click(function(){controller.moveWithKey('grade','regist','hong');});
+		$('#free_board_table .update').click(function(){controller.moveWithKey('grade','update','hong');});
+		$('#go_public_home').click(function(){controller.home()});
+		$('#school_info').click(function(){controller.move('public','school_info');});
+		$('#contact').click(function(){controller.move('public','contact');});
+		$('#free_board').click(function(){controller.move('public','free_board');});
+		$('#user_content #kaup').addClass('cursor').click(function(){controller.move('member','kaup');});
+		$('#user_content #rock_sissor_paper').addClass('cursor').click(function(){controller.move('member','rock_sissor_paper');});
+		$('#user_content #lotto').addClass('cursor').click(function(){controller.move('member','lotto');});
+		var key = $('#user_content_subject #major_subject_1 input[type="hidden"]').val();
+		$('#user_content_subject #major_subject_1 input[type="button"]').click(function(){alert('************');controller.moveWithKey('subject','detail',key)});
+		$('#user_content_subject #major_subject_2').click(function(){});
+		$('#user_content_subject #major_subject_3').click(function(){});
 	};
 	
 	return {
@@ -50,100 +61,99 @@ var app = (function(){
 		css : css
 	}
 })();
-var user = (function(){
+var session = (function(){
+	var init = function(context){
+		sessionStorage.setItem('context',context);
+		sessionStorage.setItem('js',context+'/resources/js');
+		sessionStorage.setItem('css',context+'/resources/css');
+		sessionStorage.setItem('img',context+'/resources/img');
+	};
+	var getContextPath = function(){return sessionStorage.getItem('context');};
+	var getJavascriptPath = function(){return sessionStorage.getItem('js');};
+	var getCssPath = function(){return sessionStorage.getItem('js');};
+	var getImagePath = function(){return sessionStorage.getItem('img');};
+	return {
+		init : init,
+		getContextPath : getContextPath,
+		getJavascriptPath : getJavascriptPath,
+		getCssPath : getCssPath,
+		getImagePath : getImagePath
+	};
+	
+})();
+var controller = (function(){
+	var _page,_directory,_key;
+	var setPage=function(page){this._page=page;};
+	var setDirectory=function(directory){this._directory=directory;};
+	var setKey=function(key){this._key=key;};
+	var getPage = function(){return this._page;};
+	var getDirectory = function(){return this._directory;};
+	var getKey = function(){return this._key;};
+	return {
+		setPage : setPage,
+		getPage : getPage,
+		setDirectory : setDirectory,
+		getDirectory : getDirectory,
+		setKey : setKey,
+		getKey : getKey,
+		moveWithKey : function(directory,page,key){
+			setDirectory(directory);
+			setPage(page);
+			setKey(key);
+			location.href = app.context()+'/'+getDirectory()+'/'+getPage()+'?key='+getKey();
+		},
+		move : function(directory,page){
+			setDirectory(directory);
+			setPage(page);
+			location.href = app.context()+'/'+getDirectory()+'/'+getPage();
+		},
+		home : function(){location.href=app.context()+'/'}
+	};
+})();
+var util = (function(){
+	return {
+		isNumber : function(value){
+			return typeof value === 'number' && isFinite(value);
+		}
+	};
+})();
+var nav = (function(){
 	var init = function(){onCreate();};
 	var setContentView = function(){
-		$('#member_content_img_home').attr('src',app.img()+'/home.png');
+		$('#nav ul').addClass('list_style_none').addClass('over_hidden').addClass('bg_color_black')
+		.css('margin','0').css('padding','0');
+		$('#nav li').addClass('float_left').addClass('display_inline')
+		.css('border-right','1px').css('solid','#bbb');
+		$('#nav li:last-child').css('border-right','none');
+		$('#nav li a').addClass('display_block').addClass('font_color_white').addClass('text_center').addClass('text_deco_none')
+		.css('padding','14px 16px')
+		$('#nav li a:hover:not(.active)').addClass('bg_color_green')
+		$('#nav .active').addClass('bg_color_black');
 	};
 	var onCreate = function(){
 		setContentView();
-		$('#bt_bom').click(function(){controller.move('','bom');});
-		$('#bt_dom').click(function(){controller.move('','dom');});
-		$('#bt_kaup').click(function(){controller.move('','kaup');});
-		$('#bt_account').click(function(){controller.move('','account');});
-		$('#a_regist').click(function(){controller.move('account','regist');});
-		$('#a_withdraw').click(function(){controller.move('account','withdraw');});
-		$('#a_deposit').click(function(){controller.move('account','deposit');});
-		$('#a_list').click(function(){controller.move('account','list');});
-		$('#a_update').click(function(){controller.move('account','update');});
-		$('#a_count').click(function(){controller.move('account','count');});
-		$('#a_search').click(function(){controller.move('account','search');});
-		$('#a_delete').click(function(){controller.move('account','delete');});
-		$('#user_content #kaup').addClass('cursor').click(function(){controller.move('member','kaup');});
-		$('#user_content #rock_sissor_paper').addClass('cursor').click(function(){controller.move('member','rock_sissor_paper');});
-		$('#user_content #lotto').addClass('cursor').click(function(){controller.move('member','lotto');});
-		$('#go_user_home').click(function(){controller.move('member','content');});
-		$('#user_header #logout').addClass('cursor').click(function() {controller.home();});
-		$('#user_header #a_mypage').addClass('cursor').click(function() {controller.move('member','content');});
-		$('#user_header #a_detail').addClass('cursor').click(function() {controller.move('member','detail');});
-		$('#user_header #a_update').addClass('cursor').click(function() {controller.move('member','update');});
-		$('#user_header #a_delete').addClass('cursor').click(function() {controller.move('member','delete');});
-		$("#user_header #account li:eq(0) a").click(function(){controller.move('account','detail');});	
-		$("#user_header #account li:eq(1) a").click(function(){controller.move('account','open');});	
-		$("#user_header #account li:eq(2) a").click(function(){controller.move('account','transaction');});	
-		$("#user_header #account li:eq(3) a").click(function(){controller.move('account','delete');});	
-		$("#user_header #grade li:eq(0) a").click(function(){alert('성적 목록'); controller.move('grade','detail');});	
-		$("#user_header #grade li:eq(1) a").click(function(){controller.move('grade','find');});	
-		
-		var key = $('#user_content_subject #major_subject_1 input[type="hidden"]').val();
-		$('#user_content_subject #major_subject_1 input[type="button"]').click(function(){alert('자바페이지');controller.moveWithKey('subject','detail',key)});
-		$('#user_content_subject #major_subject_2').click(function(){});
-		$('#user_content_subject #major_subject_3').click(function(){});
 	};
 	return {
 		init : init
 	};
 })();
-var account = (function(){
-	var _account_no,_money;
-	var setAccountNo = function(account_no){this._account_no=account_no;};
-	var getAccountNo = function(){return this._account_no;};
-	var setMoney = function(money){this._money=money;};
-	var getMoney = function(){return this._money;};
-	var init = function(){onCreate();};
-	var setContentView = function(){};
-	var onCreate = function(){
-		setContentView();
-		$("#member_list_table .name").click(function(){alert('!!!');controller.moveWithKey('member','a_detail','hong');});	
-		$("#member_list_table .regist").click(function(){alert('@@@');controller.moveWithKey('account','regist','hong');});	
-		$("#member_list_table .update").click(function(){controller.moveWithKey('account','update','hong');});
-	};
-	return {
-		setAccountNo : setAccountNo,
-		getAccountNo : getAccountNo,
-		setMoney : setMoney,
-		getMoney : getMoney,
-		init : init,
-		spec : function(){
-	
-		},
-		deposit : function (){
-			var r_acc = document.querySelector('#result_account').innerText;
-			console.log('ACCOUNT NO : '+r_acc);
-			switch(typeof r_acc){
-				case 'number' : console.log('this is number type');break;
-				case 'string' : console.log('this is string type');break;
-				case 'undefined' : console.log('this is undefined type');break;
-				default : console.log('type check fail !!');
-			}
-			if(r_acc == null){
-				alert('먼저 통장이 개설되어야 합니다');
-			}else{
-				var input_money = Number(document.querySelector('#money').value);
-				var rest_money = getMoney();
-				console.log('TYPE CHECK OF INPUT MONEY : '+(typeof input_money === 'number'));
-				console.log('TYPE CHECK OF REST MONEY : '+(typeof rest_money === 'number'));
-				setMoney(input_money+rest_money);
-				console.log('INPUT MONEY : '+getMoney());
-				document.querySelector('#rest_money').innerHTML=getMoney();
-			}
-		},
-		withdraw : function (){
-			setMoney(document.querySelector('#money').value);
-			document.querySelector('#rest_money').innerHTML='-'+getMoney();
-		}
-	};
-})();
+/*
+============ MAJOR_JS =====
+@AUTHOR : 오승준
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : 전공
+==============================
+*/
+var major = (function(){})();
+/*
+========= MEMBER_JS =======
+@AUTHOR : 오승준
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : 회원(가입.로그인)
+==============================
+*/
 var member = (function(){
 	var _age,_gender,_name,_ssn;
 	var setAge = function(age){this._age=age;}
@@ -184,15 +194,10 @@ var member = (function(){
 		$('#member_regist #ck_subject').addClass('checkbox');
 		$('#member_regist #ck_subject > label').addClass('checkbox-inline');
 		$('#member_find_form').attr('action',app.context()+'/member/search');
-		$('#member_find_form input[type="hidden"]')
-		.attr('name','context')
-		.attr('value',app.context());
-		$("#member_list_table .name").click(function(){alert('!!!');controller.moveWithKey('member','a_detail','hong');});
+		$('#member_find_form input[type="hidden"]').attr('name','context').attr('value',app.context());
+		$('#member_detail img').attr('src',app.img()+'/member/hong.jpg').css('width','104px').css('height','142px');
 		$('#member_login_form').attr('method','post').attr('action',app.context()+'/member/login');
 		$('#member_login_form input[type="hidden"]').attr('value',app.context());
-		$('#member_login_form input[type="submit"]').click(function() {
-			$('#member_login_form').submit();
-		});
 	};
 	var onCreate = function(){
 		setContentView();
@@ -205,10 +210,15 @@ var member = (function(){
 		$('#list').click(function(){controller.move('member','list');});
 		$('#find_by').click(function(){controller.move('member','find_by');});
 		$('#count').click(function(){controller.move('member','count');});
-		$("#member_list_table .name").click(function(){controller.moveWithKey('member','a_detail','hong');});	
-		$("#member_list_table .regist").click(function(){controller.moveWithKey('grade','regist','hong');});	
-		$("#member_list_table .update").click(function(){controller.moveWithKey('grade','update','hong');});	
 		$('#member_find_form input[type="submit"]').click(function(){$('#member_find_form').submit();});
+		$('#member_list_table .name').click(function(){controller.moveWithKey('member','a_detail','hong');});
+		$('#member_list_table .regist').click(function(){controller.moveWithKey('grade','regist','hong');});
+		$('#member_list_table .update').click(function(){controller.moveWithKey('grade','update','hong');});
+		$('#member_list_table .name').click(function(){controller.moveWithKey('member','a_detail','hong');});
+		$('#member_list_table .regist').click(function(){controller.moveWithKey('grade','regist','hong');});
+		$('#member_list_table .update').click(function(){controller.moveWithKey('grade','update','hong');});
+		
+		$('#member_login_form input[type="submit"]').click(function() {$('#member_login_form').submit();});
 	};
 	return {
 		setSSN : setSSN,
@@ -221,103 +231,254 @@ var member = (function(){
 		getGender : getGender,
 		init : init,
 		spec : function (){
+			
+		},
+		pub_login_form : function(){
+			var view = '<div class="box">'
+				+'<form id="member_login_form" class="form-signin">' 
+				+'<h2 class="form-signin-heading">Please sign in</h2>' 
+				+'<label for="inputEmail" class="sr-only">Email address</label>' 
+				+'<input type="text" id="id" name="id" class="form-control" placeholder="USER ID" required autofocus>' 
+				+'<label for="inputPassword" class="sr-only">Password</label>' 
+				+'<input type="password" id="pw" name="pw" class="form-control" placeholder="PASSWORD" required>' 
+				+'<input type="hidden" name="context">' 
+				+'<div class="checkbox">' 
+				+'<label><input type="checkbox" name="remember_me" value="remember-me"> Remember me</label></div>' 
+				+'<input id="login_btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in"/></form></div>';
+			$('#pub_article').html(view);
+			$('#login_btn').click(function(e){
+				e.preventDefault();
+				$.ajax({
+					url : app.context()+'/member/login',
+					type : 'POST',
+					data : {'id':$('#id').val(),'pw':$('#pw').val()},
+					dataType: 'json',
+					success : function(data){
+		                  if(data.id=="NONE"){
+		                  alert('아이디나 비번이 일치 하지 않습니다.');
+		                  }else{
+		                     alert('welcome .' +data.name);
+		                     var view='<section id="user_content" class="box section-padded">'
+					   +'<div>'
+					   +'<div class="row text-center title">'
+					   +'<h2>Services</h2>'
+					   +'<h4 class="light muted">Achieve the best results with our wide	variety of training options!</h4>'
+					   +'</div> <div class="row services">'
+					   +'<div class="col-md-4">'
+					   +'<div id="kaup" class="service">'
+					   +'<div class="icon-holder">'
+					   +'<img src="'+app.img()+'icons/heart-blue.png" alt="" class="icon">'
+					   +'</div>'
+					   +'<h4 class="heading">KAUP INDEX</h4>'
+					   +'<p class="description">카우프 지수</p>'
+					   +'</div>'
+					   +'</div>'
+					   +'<div class="col-md-4">'
+					   +'       <div id="rock_sissor_paper" class="service">'
+					   +'          <div class="icon-holder">'
+					   +'             <img src="'+app.img()+'icons/rockpaper.png" alt="" class="icon">'
+					   +'          </div>'
+					   +'          <h4 class="heading">ROCK SISSOR PAPER</h4>'
+					   +'          <p class="description">가위바위보</p>'
+					   +'       </div>'
+					   +'    </div>'
+					   +'    <div class="col-md-4">'
+					   +'       <div  id="lotto" class="service">'
+					   +'          <div class="icon-holder">'
+					   +'             <img src="'+app.img()+'icons/lotto.png" alt="" class="icon">'
+					   +'          </div>'
+					   +'          <h4 class="heading">LOTTO DRAWING</h4>'
+					   +'          <p class="description">로또</p>'
+					   +'       </div>'
+					   +'    </div>'
+					   +' </div>'
+					   +'</div>'
+					   +'<div class="cut cut-bottom"></div>'
+					   +'</section>'
+					   +'<section id="user_content_subject" class="section gray-bg">'
+					   +'<div class="container">'
+					   +'      <div class="row title text-center">'
+					   +'         <h2 class="margin-top">MAJOR SUBJECT</h2>'
+					   +'         <h4 class="margin-top">TOP 3</h4>'
+					   +'      </div>'
+					   +'            <div class="row">'
+					   +'      <div class="col-md-4">'
+					   +'       <div id="major_subject_1" class="team text-center" value="java">'
+					   +'          <div class="cover"'
+					   +'             style="background:url('+app.img()+'/team/bears_cover.jpg"); background-size:cover;">'
+					   +'             <div class="overlay text-center">'
+					   +'                <h3 class="white">자바</h3>'
+					   +'                <h5 class="light light-white">자바</h5>'
+					   +'             </div>'
+					   +'          </div>'
+					   +'          <img src="'+app.img()+'team/team_bears.png" alt="Team Image" class="avatar">'
+					   +'          <div class="title">'
+					   +'             <h4>Java</h4>'
+					   +'             <h5 class="muted regular">Server Program Language</h5>'
+					   +'          </div>'
+					   +'          <input type="hidden" name="major_subject_1" value="java">'
+					   +'          <input type="button" data-toggle="modal" data-target="#modal1"'
+					   +'             class="btn btn-blue-fill" value="과목 정보 보기"/>'
+					   +'       </div>'
+					   +'    </div>'
+					   +'    <div class="col-md-4">'
+					   +'       <div id="major_subject_2" class="team text-center" value="javascript">'
+					   +'          <div class="cover"'
+					   +'             style="background:url('+app.img()+'/team/tigers_cover.jpg"); background-size:cover;">'
+					   +'             <div class="overlay text-center">'
+					   +'                <h3 class="white">How are you?</h3>'
+					   +'                <h5 class="light light-white">glad to meet you</h5>'
+					   +'             </div>'
+					   +'          </div>'
+					   +'          <img src="'+app.img()+'team/team_tigers.jpg" alt="Team Image" class="avatar">'
+					   +'          <div class="title">'
+					   +'             <h4>Java script</h4>'
+					   +'             <h5 class="muted regular">UI Program Language</h5>'
+					   +'          </div>'
+					   +'          <input type="hidden" name="major_subject_2" value="javascript">'
+					   +'          <input type="button" data-toggle="modal" data-target="#modal1"'
+					   +'             class="btn btn-blue-fill" value="과목 정보 보기"/>'
+					   +'       </div>'
+					   +'    </div>'
+					   +'    <div class="col-md-4">'
+					   +'       <div id="major_subject_3" class="team text-center" value="spring">'
+					   +'          <div class="cover"'
+					   +'             style="background:url('+app.img()+'/team/twins_cover.jpg"); background-size:cover;">'
+					   +'             <div class="overlay text-center">'
+					   +'                <h3 class="white">Hi</h3>'
+					   +'                <h5 class="light light-white">happy to meet you</h5>'
+					   +'             </div>'
+					   +'          </div>'
+					   +'          <img src="'+app.img()+'team/team_twins.png" alt="Team Image" class="avatar">'
+					   +'        <div class="title">'
+					   +'             <h4>Spring</h4>'
+					   +'              <h5 class="muted regular">그냥 어려움</h5>'
+					   +'          </div>'
+					   +'          <input type="hidden" name="major_subject_3" value="spring">'
+					   +'			<input type="button" data-toggle="modal" data-target="#modal1"'
+					   +'   class="btn btn-blue-fill" value="과목 정보 보기"/>'
+					   +'       </div>'
+					   +'    </div>'
+					   +' </div>'
+					   +'</div>'
+					   +'</section>'
+					   /*$('#pub_header').html('view')*/                                                                                                                
+	                     $('#pub_article').html(view);                                                                                                                 
+	                  }                                                                                                                                                    
+	               },
+	               error : function(xhr,status,msg){
+	                  alert("로그인 실패"+msg);  
+	               }
+	            });
+	         });
+	      },
+		pub_sign_up_form : function(){
+			var view = '<section id="member_regist"><form id="member_regist_form">'
+				+'<div><label for="exampleInputEmail1">이름</label>'
+				+'<div><input type="text" id="username" placeholder="USER NAME"></div></div>'
+				+'<div><label for="exampleInputEmail1">비밀번호</label>'
+				+'<div><input type="password" id="password" placeholder="PASSWORD"></div></div>'
+				+'<div><label for="exampleInputEmail1">SSN</label>'
+				+'<div><input type="text" id="ssn" placeholder="예)800101-2"></div></div>'
+				+'<div><label for="exampleInputEmail1">E-MAIL</label>'
+				+'<div><input type="email" id="email" placeholder="EMAIL"></div></div>'
+				+'<div><label for="exampleInputEmail1">전화번호</label>'
+				+'<div><input type="text" id="phone" placeholder="PHONE"></div></div>'
+				+'<div id="rd_major">'
+				+'<label for="exampleInputEmail1">전 공</label><br>'
+				+'<label ><input type="radio" name="major" value="computer" checked> 컴공학부</label>'
+				+'<label ><input type="radio" name="major" value="mgmt"> 경영학부</label>'
+				+'<label ><input type="radio" name="major" value="math"> 수학부</label>'
+				+'<label ><input type="radio" name="major" value="eng"> 영문학부</label></div>'
+				+'<div><label for="exampleInputEmail1">수강과목</label><br>'
+				+'<div><div id="ck_subject">'
+				+'<label ><input type="checkbox" name="subject"  value="java"> Java</label>'
+				+'<label ><input type="checkbox" name="subject"  value="sql"> SQL</label>'
+				+'<label ><input type="checkbox" name="subject"  value="cpp"> C++	</label>'
+				+'<label ><input type="checkbox" name="subject"  value="python"> 파이썬</label>'
+				+'<label ><input type="checkbox" name="subject"  value="delphi"> 델파이</label>'
+				+'<label ><input type="checkbox" name="subject"  value="html"> HTML</label></div></div> </div>'
+				+'<input type="hidden" name="action" value="regist" />'
+				+'<input type="hidden" name="page" value="login" />'
+				+'<button id="bt_join" type="button" value="회원가입" >JOIN</button>'
+				+'<button id="bt_cancel" type="reset" value="취소" >CANCEL</button></form></section>';
+			$('#pub_article').empty().append(view);
+			member.init();
 		}
 		
 	};	
 })();
-var kaup = (function(){
-	var init = function(){onCreate();};
-	var setContentView = function(){};
-	var onCreate = function(){
-		setContentView();
-	};
-	return {
-		init : init,
-		calc : function (){
-			var name=document.querySelector('#name').value;
-			var height=document.querySelector('#height').value;
-			var weight=document.querySelector('#weight').value;
-			console.log('name'+name);
-			console.log('height'+height);
-			console.log('weight'+weight);
-			var result = '';
-			var kaup = weight / (height / 100) / (height / 100);
-			if (kaup < 18.5) {
-				result = "저체중";
-			} else if (kaup < 22.9 && kaup > 18.5) {
-				result = "정상";
-			} else if (kaup < 24.9 && kaup > 23.0) {
-				result = "위험체중";
-			} else if (kaup < 29.9 && kaup > 25.0) {
-				result = "비만1단계";
-			} else if (kaup < 40 && kaup > 30.0) {
-				result = "비만2단계";
-			} else if (kaup >= 40) {
-				result = "비만3단계";
-			}
-			document.getElementById('result').innerHTML=name+'의 카우푸결과'+result;
-		}
-	};
-})();
-var grade = (function(){
+/*
+============ STUDENT_JS ==========
+@AUTHOR : 오승준
+@CREATE DATE : 2016-8-1
+@UPDATE DATE : 2016-9-20
+@DESC : 학생
+==================================
+*/
+var user = (function(){
 	var init = function(){onCreate();};
 	var setContentView = function(){
 		$('#member_content_img_home').attr('src',app.img()+'/home.png');
-		$('#grade_content').addClass('box');
-		$('#img_home').css('width','30px');
-		$('#grade_content > article').css('width','300px').css('text-align','left').css('margin','0 auto');
-		$('#title').css('font-size','40px');
 	};
 	var onCreate = function(){
 		setContentView();
-		$('#g_regist').click(function(){controller.move('grade','regist');});
-		$('#g_update').click(function(){controller.move('grade','update');});
-		$('#g_delete').click(function(){controller.move('grade','delete');});
-		$('#g_list').click(function(){controller.move('grade','list');});
-		$('#g_count').click(function(){controller.move('grade','count');});
-		$('#g_find').click(function(){controller.move('grade','find');});
-		$('#a_regist').click(function() {location.href = "${context}/grade/regist.do";});
-		$('#a_update').click(function() {location.href ="${context}/grade/update.do";});
-		$('#a_delete').click(function() {location.href = "${context}/grade/delete.do";});
-		$('#a_list').click(function() {location.href = "${context}/grade/list.do";});
-		$('#a_count').click(function() {location.href = "${context}/grade/count.do";});
-		$('#a_find').click(function() {location.href = "${context}/grade/search.do";});
-		$("#member_list_table .regist").click(function(){alert('@@@');controller.moveWithKey('grade','regist','hong');});	
-		$("#member_list_table .update").click(function(){controller.moveWithKey('grade','update','hong');});
-		$('#grade_regist').addClass('box').css('padding-top','0');
-		$('#grade_regist #bt_send').addClass('btn').addClass(' btn-primary');
-		$('#grade_regist #bt_cancel').addClass('btn').addClass(' btn-danger');
-		$('#grade_regist_form').addClass('form-horizontal');
-		$('#grade_regist_form > div').addClass('form-group').addClass('form-group-lg');
-		$('#grade_regist_form > div > label').addClass('col-sm-2').addClass('control-label');
-		$('#grade_regist_form > div > div').addClass('col-sm-10');
-		$('#grade_regist_form > div > div > input').addClass('form-control');
-		$('#grade_regist #rd_major > label:gt(1)').addClass('radio-inline');
-		$('#grade_update').addClass('box').css('padding-top','0');
-		$('#grade_update #bt_send').addClass('btn').addClass(' btn-primary');
-		$('#grade_update #bt_cancel').addClass('btn').addClass(' btn-danger');
-		$('#grade_update_form').addClass('form-horizontal');
-		$('#grade_update_form > div').addClass('form-group').addClass('form-group-lg');
-		$('#grade_update_form > div > label').addClass('col-sm-2').addClass('control-label');
-		$('#grade_update_form > div > div').addClass('col-sm-10');
-		$('#grade_update_form > div > div > input').addClass('form-control');
-		$('#grade_update #rd_major > label:gt(1)').addClass('radio-inline');
+		$('#bt_bom').click(function(){controller.move('','bom');});
+		$('#bt_dom').click(function(){controller.move('','dom');});
+		$('#bt_kaup').click(function(){controller.move('','kaup');});
+		$('#bt_account').click(function(){controller.move('','account');});
+		$('#a_regist').click(function(){controller.move('account','regist');});
+		$('#a_withdraw').click(function(){controller.move('account','withdraw');});
+		$('#a_deposit').click(function(){controller.move('account','deposit');});
+		$('#a_list').click(function(){controller.move('account','list');});
+		$('#a_update').click(function(){controller.move('account','update');});
+		$('#a_count').click(function(){controller.move('account','count');});
+		$('#a_search').click(function(){controller.move('account','search');});
+		$('#a_delete').click(function(){controller.move('account','delete');});
+		$('#go_user_home').click(function(){controller.move('member','content');});
+		$('#user_header').css('height','50px');
+		$('#user_header #a_mypage').click(function(){controller.move('member','content');});
+		$('#user_header #a_detail').click(function(){controller.move('member','detail');});
+		$('#user_header #a_update').click(function(){controller.move('member','update');});
+		$('#user_header #a_delete').click(function(){controller.move('member','delete');});
+		$('.navbar-header').css('height','50px');
+		$('#user_header #logout').addClass('cursor').click(function() {controller.home();});
+		$("#user_header #account li:eq(0) a").click(function(){controller.move('account','detail');});
+		$("#user_header #account li:eq(1) a").click(function(){controller.move('account','open');});
+		$("#user_header #account li:eq(2) a").click(function(){controller.move('account','transaction');});
+		$("#user_header #account li:eq(3) a").click(function(){controller.move('account','delete');});
+		$("#user_header #grade li:eq(0) a").click(function(){controller.move('grade','detail');});
+		$("#user_header #grade li:eq(1) a").click(function(){controller.move('grade','find');});
 	};
 	return {
-		init : init,
+		init : init
 	};
 })();
-
+/*
+============ ADMIN_JS ==========
+@AUTHOR : 오승준
+@CREATE DATE : 2016-8-1
+@UPDATE DATE : 2016-9-20
+@DESC : 관리자
+==================================
+*/
 var admin = (function() {
 	var _pass;
     var	getPass = function(){return this._pass;};
     var setPass = function(pass){this._pass=pass;};
     var init = function(){onCreate();};
     var setContentView = function(){
-    	$('#admin_content #img_1').attr('src',app.img()+'/defalt/member_mgmt.PNG');
-    	$('#admin_content #img_2').attr('src',app.img()+'/defalt/grade_mgmt.PNG');
-    	$('#admin_content #img_3').attr('src',app.img()+'/defalt/account_mgmt.PNG');
+    	$('#admin_content #img_1').attr('src',app.img()+'/member_mgmt.PNG');
+    	$('#admin_content #img_2').attr('src',app.img()+'/grade_mgmt.PNG');
+    	$('#admin_content #img_3').attr('src',app.img()+'/account_mgmt.PNG');
     	$('#admin_content h3').addClass('text_center');
+    	$('#admin_content #img_1').attr('src',app.img()+'/default/member_mgmt.PNG');
+    	$('#admin_content #img_2').attr('src',app.img()+'/default/grade_mgmt.PNG');
+    	$('#admin_content #img_3').attr('src',app.img()+'/default/account_mgmt.PNG');
+    	$('#admin_header').css('height','50px');
+    	$('.navbar-header').css('height','50px');
+    	$('#admin_header #exit').addClass('cursor');
+    	$('#admin_nav').css('height','50px');
     };
     var onCreate = function(){
     	setContentView();
@@ -329,11 +490,8 @@ var admin = (function() {
     	$('#admin_nav #account_mgmt #delete').click(function(){controller.move('account','delete');});
     	$('#admin_nav #account_mgmt #find').click(function(){controller.move('account','find');});
     	$('#admin_nav #account_mgmt #count').click(function(){controller.move('account','count');});
-    	$('#go_admin_home').click(function(){controller.move('admin','main');});
-    	$('#admin_header').css('height','50px');
-    	$('.navbar-header').css('height','50px');
-    	$('#admin_header #exit').addClass('cursor');
     	$('#admin_header #exit').click(function() {controller.home();});
+    	$('#go_admin_home').click(function() {controller.move('admin','main');});
     };
     return {
     	getPass : getPass,
@@ -355,87 +513,94 @@ var admin = (function() {
 		}
     };
 })();
-var session = (function(){
-	var init = function(context){
-		sessionStorage.setItem('context',context);
-		sessionStorage.setItem('js',context+'/resources/js');
-		sessionStorage.setItem('css',context+'/resources/css');
-		sessionStorage.setItem('img',context+'/resources/img');
-	};
-	var getContextPath = function(){return sessionStorage.getItem('context');};
-	var getJavascriptPath = function(){return sessionStorage.getItem('js');};
-	var getCssPath = function(){return sessionStorage.getItem('js');};
-	var getImagePath = function(){return sessionStorage.getItem('img');};
-	return {
-		init : init,
-		getContextPath : getContextPath,
-		getJavascriptPath : getJavascriptPath,
-		getCssPath : getCssPath,
-		getImagePath : getImagePath
-	};
-	
-})();
-var controller = (function(){
-	var _page,_directory, _key;
-	var setPage=function(page){this._page=page;};
-	var setDirectory=function(directory){this._directory=directory;};
-	var setKey=function(key){this._key=key;};
-	var getPage = function(){return this._page;};
-	var getDirectory = function(){return this._directory;};
-	var getKey = function(){return this._key;};
-
-	return {
-		setKey : setKey,
-		setPage : setPage,
-		getPage : getPage,
-		getKey : getKey,
-		setDirectory : setDirectory,
-		getDirectory : getDirectory,
-		
-		moveWithKey : function(directory,page,key){
-			setDirectory(directory);
-			setPage(page);
-			setKey(key);
-			location.href = app.context()+'/'+getDirectory()+'/'+getPage()+'?key='+getKey();
-		},
-		move : function(directory,page){
-			setDirectory(directory);
-			setPage(page);
-			location.href = app.context()+'/'+getDirectory()+'/'+getPage();
-		},
-		home : function(){location.href=app.context()+'/'}
-	};
-})();
-var util = (function(){
-	return {
-		isNumber : function(value){
-			return typeof value === 'number' && isFinite(value);
-		}
-	};
-})();
-var nav = (function(){
+/*
+=========== SUBJECT_JS =========
+@AUTHOR : 오승준
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : 과목
+=============================
+*/
+var subject = (function(){})();
+/*
+=========== EXAM_JS =====
+@AUTHOR : 오승준
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : 시험
+============================
+*/
+var exam = (function(){})();
+/*
+======== GRADE_JS ======
+@AUTHOR : 오승준
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : 성적
+============================
+*/
+var grade = (function(){
 	var init = function(){onCreate();};
 	var setContentView = function(){
-		$('#nav ul').addClass('list_style_none').addClass('over_hidden').addClass('bg_color_black')
-		.css('margin','0').css('padding','0');
-		$('#nav li').addClass('float_left').addClass('display_inline')
-		.css('border-right','1px').css('solid','#bbb');
-		$('#nav li:last-child').css('border-right','none');
-		$('#nav li a').addClass('display_block').addClass('font_color_white').addClass('text_center').addClass('text_deco_none')
-		.css('padding','14px 16px')
-		$('#nav li a:hover:not(.active)').addClass('bg_color_green')
-		$('#nav .active').addClass('bg_color_black');
+		$('#member_content_img_home').attr('src',app.img()+'/home.png');
+		$('#grade_content').addClass('box');
+		$('#img_home').css('width','30px');
+		$('#grade_content > article').css('width','300px').css('text-align','left').css('margin','0 auto');
+		$('#title').css('font-size','40px');
+		$('#grade_regist').addClass('box').css('padding-top','0');
+		$('#grade_regist #bt_send').addClass('btn').addClass(' btn-primary');
+		$('#grade_regist #bt_cancel').addClass('btn').addClass(' btn-danger');
+		$('#grade_regist_form').addClass('form-horizontal');
+		$('#grade_regist_form > div').addClass('form-group').addClass('form-group-lg');
+		$('#grade_regist_form > div > label').addClass('col-sm-2').addClass('control-label');
+		$('#grade_regist_form > div > div').addClass('col-sm-10');
+		$('#grade_regist_form > div > div > input').addClass('form-control');
+		$('#grade_regist #rd_major > label:gt(1)').addClass('radio-inline');
+		$('#grade_update').addClass('box').css('padding-top','0');
+		$('#grade_update #bt_send').addClass('btn').addClass(' btn-primary');
+		$('#grade_update #bt_cancel').addClass('btn').addClass(' btn-danger');
+		$('#grade_update_form').addClass('form-horizontal');
+		$('#grade_update_form > div').addClass('form-group').addClass('form-group-lg');
+		$('#grade_update_form > div > label').addClass('col-sm-2').addClass('control-label');
+		$('#grade_update_form > div > div').addClass('col-sm-10');
+		$('#grade_update_form > div > div > input').addClass('form-control');
+		$('#grade_update #rd_major > label:gt(1)').addClass('radio-inline');
 	};
 	var onCreate = function(){
 		setContentView();
-		$('#g_regist').click(function () {alert('등록하시려면 회원리스트로 이동해 주세요');controller.move('member','list');});
-		$('#g_update').click(function () {alert('수정하시려면 회원리스트로 이동해 주세요');controller.move('member','list');});
-		$('#admin_nav').css('height','50px');
-		$('#account_mgmt #list').click(function () {controller.move('account','list');});
-		$('#account_mgmt #find').click(function () {controller.move('account','find');});
-		$('#account_mgmt #count').click(function () {controller.move('account','count');});
+		$('#g_regist').click(function(){controller.move('grade','regist');});
+		$('#g_update').click(function(){controller.move('grade','update');});
+		$('#g_delete').click(function(){controller.move('grade','delete');});
+		$('#g_list').click(function(){controller.move('grade','list');});
+		$('#g_count').click(function(){controller.move('grade','count');});
+		$('#g_find').click(function(){controller.move('grade','find');});
+		$('#a_regist').click(function() {location.href = "${context}/grade/regist.do";});
+		$('#a_update').click(function() {location.href ="${context}/grade/update.do";});
+		$('#a_delete').click(function() {location.href = "${context}/grade/delete.do";});
+		$('#a_list').click(function() {location.href = "${context}/grade/list.do";});
+		$('#a_count').click(function() {location.href = "${context}/grade/count.do";});
+		$('#a_find').click(function() {location.href = "${context}/grade/search.do";});
+		
 	};
 	return {
-		init : init
+		init : init,
 	};
 })();
+/*
+========== QNA_JS ========
+@AUTHOR : 오승준
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : QNA
+=============================
+*/
+var qna = (function(){})();
+/*
+========= NOTICE_JS ======
+@AUTHOR : 오승준
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : 공지사항
+=============================
+*/
+var notice = (function(){})();

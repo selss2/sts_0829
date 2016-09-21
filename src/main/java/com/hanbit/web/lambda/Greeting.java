@@ -1,29 +1,29 @@
 package com.hanbit.web.lambda;
 
 public class Greeting {
-	interface GreetingService {
+	interface GreetingService{
 		public void greet(String name);
 	}
+	public void sayHello(){
+		// 내부 클래스 인터페이스 구현방법1 --> 클래스가 메소드 안에 있다~!!
+		class EnglishGreeting implements GreetingService{
 
-	public void sayHello() {
-		// 내부 클래스 인터페이스 구현 방법1
-		class EnglishGreeting implements GreetingService {
 			@Override
 			public void greet(String name) {
-				System.out.println("Hello " + name);
+				System.out.println("Hello"+name);
 			}
 		}
-		GreetingService engGreeting = new EnglishGreeting();
-		
-		// 내부 클래스 인터페이스 구현 방법2
+		 GreetingService engGreeting = new EnglishGreeting();
+	
+		 // 내부 클래스 인터페이스 구현방법2
 		GreetingService korGreeting = new GreetingService() {
-			
 			@Override
 			public void greet(String name) {
-				System.out.println("안녕하세요 "+name);
+				System.out.println("안녕하세요! "+name);
 			}
 		};
-			engGreeting.greet("Tom");
-			korGreeting.greet("한효주");
+		engGreeting.greet("tom");
+		korGreeting.greet("한효주");
 	}
+
 }
