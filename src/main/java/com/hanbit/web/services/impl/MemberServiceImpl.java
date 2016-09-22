@@ -1,94 +1,78 @@
 package com.hanbit.web.services.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.hanbit.web.controllers.AdminController;
+import com.hanbit.web.controllers.MemberController;
 import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
-import com.hanbit.web.domains.SubjectDTO;
+import com.hanbit.web.domains.Retval;
 import com.hanbit.web.mappers.MemberMapper;
 import com.hanbit.web.services.MemberService;
 
-
-
-
 @Service
 public class MemberServiceImpl implements MemberService {
-	
-	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
-	@Autowired private SqlSession sqlSession;
-	@Autowired private Command command;
-	@Qualifier private MemberDTO member; /// getInstance 가 아닌 new 로 만드는 것들은 모드 Autowired 로 처리한다 이것이 문법이다
-	@Autowired private SubjectDTO sb;
-	@Qualifier private MemberMapper memberMapper;
-	
-	
+	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	@Autowired
+	private SqlSession sqlSession;
+	@Autowired
+	Command command;
+	@Autowired
+	MemberDTO member;
+
 	@Override
-	public String regist(MemberDTO bean) {
-		// 1등록
+	public String regist(MemberDTO member) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		String msg = "";
-		MemberDTO temp = this.findOne(null);
-		if (temp==null) {
-			System.out.println(bean.getId()+ "가 존재하지 않음,가입가능한 ID");
-			int result = 0;
+		command.setKeyword(member.getId());
+		MemberDTO temp = mapper.findOne(command);
+		if (temp == null) {
+			System.out.println(temp.getId() + "가 존재하지 않음,가입 가능한 ID");
+			int result = mapper.insert(temp);
 			if (result == 1) {
-			msg = "success";
-			 } else {
-			msg = "fail";
-	      	}
-		}else{
-			System.out.println(bean.getId()+ "가 존재함 ,가입 불가한 ID");
+				msg = "success";
+			} else {
+				msg = "fail";
+			}
+		} else {
+			System.out.println(temp.getId() + "가 존재함,가입 불가능한 ID");
 			msg = "fail";
 		}
+
 		return msg;
 	}
 
 	@Override
-	public MemberDTO show() {
-		// 2보기
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		memberMapper.count();
-		return member;
-	}
-
-	@Override
 	public void update(MemberDTO mem) {
-		// 3수정
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		int result = 0;
-		if (result ==1) {
-			member = this.findOne(null);
-		System.out.println("업데이트결과 성공");
-		}else{
-			System.out.println("업데이트결과 실패");
+		int result = mapper.update(mem);
+		if (result == 1) {
+			System.out.println("서비스 수정결과 성공");
+		} else {
+			System.out.println("서비스 수정결과 실패");
 		}
-	
-	
 	}
 
 	@Override
-	public void delete(MemberDTO mem) {
-		// 4삭제
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		String result = "";
-	
-		
-		}
+	public MemberDTO show() {
+		return null;
+	}
 
 	@Override
-	public int count() {
-		// 컨트롤러에서 int count = service.count(); 만들고 서비스 / 임플 까지 타고 타고옴
+	public void delete(MemberDTO member) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return 0;//토스
+		mapper.delete(member);
+	}
+
+	@Override
+	public Retval count() {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.count();
 	}
 
 	@Override
@@ -98,68 +82,48 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<MemberDTO> list() {
-		// TODO Auto-generated method stub
+	public List<?> list() {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return null;
-	}
-
-	@Override
-	public List<MemberDTO> findByName(String findName) {
-		// TODO Auto-generated method stub
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return null;
-	}
-		
-	
-
-	@Override
-	public int genderCount(String gender) {
-		// TODO Auto-generated method stub
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return 0;
-	}
-
-	@Override
-	public void logout(MemberDTO member) {
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		if (member.getId().equals(member.getId()) && 
-				member.getPw().equals(member.getPw())) {
-			member = null;
-		}
-		
+		return mapper.list();
 	}
 
 	@Override
 	public List<?> findBy(String keyword) {
-		// TODO Auto-generated method stub
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return null;
+		return mapper.findByName(keyword);
 	}
 
 	@Override
-	public Map<?, ?> map() {
-		// TODO Auto-generated method stub
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return null;
+	public void logout(MemberDTO member) {
+		if (member.getId().equals(member.getId()) && member.getPw().equals(member.getPw())) {
+			member = null;
+		}
+
 	}
 
 	@Override
-	public MemberDTO login(MemberDTO member) {
+	public MemberDTO login(MemberDTO param) {
+		logger.info("MemberService login ID is {}", member.getId());
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		command.setKeyword(member.getId());
 		command.setOption("mem_id");
-		MemberDTO mem = mapper.findOne(command);
-		logger.info("MemberService PASSWORD IS : {}",mem.getPw());
-		if (mem.getPw().equals(member.getPw())) {
-			logger.info("MemberService login IS : {}","SUCCESS");
-			logger.info("MemberService login ID == {}",mem.toString());
-			return mem;
-		}else{
-		mem.setId("NONE");
-		logger.info("MemberService login IS : {}","FAIL");
-		return mem;
+		MemberDTO retval = mapper.findOne(command);
+		logger.info("MemberService PASSWORD(param) is {}", param.getPw());
+		logger.info("MemberService PASSWORD(retval) is {}", retval.getPw());
+		if (retval.getPw().equals(param.getPw())) {
+			logger.info("MemberService login is {}", " SUCCESS ");
+			return retval;
+		} else {
+			logger.info("MemberService login is {}", " FAIL ");
+			retval.setId("NONE");
+			return retval;
 		}
-		}
-	
 	}
+
+	@Override
+	public int existId(String id) {
+		logger.info("MemberService existId ID is {}", id);
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.existId(id);
+	}
+}

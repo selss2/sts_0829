@@ -43,7 +43,7 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       
       <ul class="nav navbar-nav navbar-right">
-        <li style="text-align:right; margin-top:14px;">${user}님 환영합니다</li>
+        <li style="text-align:right; margin-top:14px;">${user.name}님 환영합니다</li>
         <li><a id="logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>로그아웃</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>  <span class="caret"></span></a>
@@ -60,3 +60,9 @@
     
   </div>
 </nav>
+
+<script type="text/javascript">
+$(function() {
+	$('#logout').click
+});
+</script>
