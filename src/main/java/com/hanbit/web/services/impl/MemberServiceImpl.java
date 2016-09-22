@@ -27,24 +27,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String regist(MemberDTO member) {
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		String msg = "";
-		command.setKeyword(member.getId());
-		MemberDTO temp = mapper.findOne(command);
-		if (temp == null) {
-			System.out.println(temp.getId() + "가 존재하지 않음,가입 가능한 ID");
-			int result = mapper.insert(temp);
-			if (result == 1) {
-				msg = "success";
-			} else {
-				msg = "fail";
-			}
-		} else {
-			System.out.println(temp.getId() + "가 존재함,가입 불가능한 ID");
-			msg = "fail";
-		}
-
-		return msg;
+		return (sqlSession.getMapper(MemberMapper.class).insert(member)==1)?"success":"fail";
 	}
 
 	@Override

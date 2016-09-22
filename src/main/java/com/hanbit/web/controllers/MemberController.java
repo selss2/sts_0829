@@ -1,6 +1,5 @@
 package com.hanbit.web.controllers;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -10,12 +9,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.condition.ConsumesRequestCondition;
 
 import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
@@ -93,23 +94,33 @@ public class MemberController {
 		logger.info("GO TO {}","main");
 		return "admin:member/content.tiles";
 	}
-	@RequestMapping("/signup")
-	public @ResponseBody Retval signup() {
+	@RequestMapping(value="/signup", method=RequestMethod.POST,
+	consumes = "application/json")
+	public @ResponseBody Retval signup(@RequestBody MemberDTO param) {
 		logger.info("SIGN UP {}","EXEUTE");
-		
+		logger.info("SIGN UP ID {}",param.getId());
+		logger.info("SIGN UP PW {}",param.getPw());
+		logger.info("SIGN UP NAME {}",param.getName());
+		logger.info("SIGN UP SSN {}",param.getSsn());
+		logger.info("SIGN UP EMAIL {}",param.getEmail());
+		logger.info("SIGN UP PHONE {}",param.getPhone());
+		/*retval.setMessage(service.regist(param));*/
+		retval.setMessage("success");
 		return retval;
 	}
 	@RequestMapping("/check_dup/{id}")
 	public @ResponseBody Retval CheckDup(@PathVariable String id) {
 		logger.info("CHECK DUP {}","EXEUTE");
 		if(service.existId(id)==1){
+			retval.setFlag("TRUE");
 			retval.setMessage("입력하신 ID는 이미 존재합니다");
 		}else{
+			retval.setFlag("FALSE");
 			retval.setMessage("입력하신 ID는 사용가능 합니다.");
 			retval.setTemp(id);
 		}
 		logger.info("RETVAL FLAG IS {}",retval.getFlag());
-		logger.info("RETVAL IS {}",retval.getMessage());
+		logger.info("RETVAL MSG IS {}",retval.getMessage());
 		return retval;
 	}
 	@RequestMapping("/a_detail")
