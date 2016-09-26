@@ -10,8 +10,8 @@ import com.hanbit.web.domains.MemberDTO;
 import com.hanbit.web.domains.Retval;
 @Repository
 public interface MemberMapper {
-	public int insert(MemberDTO mem);
-	public int update(MemberDTO mem);
+	public int insert(MemberDTO member);
+	public int update(MemberDTO member);
 	public List<MemberDTO> list();
 	public MemberDTO findOne(Command command);
 	public List<MemberDTO> findByName(String name);

@@ -137,6 +137,10 @@ public class MemberController {
 	@RequestMapping("/update")
 	public @ResponseBody Retval update(@RequestBody MemberDTO param, HttpSession session) {
 		logger.info("GO TO {}","update");
+		logger.info("update ID = {}",param.getId());
+		logger.info("update PW = {}",param.getPw());
+		logger.info("update EMAIL = {}",param.getEmail());
+		
 		MemberDTO temp = (MemberDTO) session.getAttribute("user");
 		if (param.getPw()!=null) {
 			temp.setPw(param.getPw());

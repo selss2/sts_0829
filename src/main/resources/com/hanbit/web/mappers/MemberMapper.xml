@@ -5,7 +5,22 @@
 <mapper namespace="com.hanbit.web.mappers.MemberMapper">
 
     <select id="list" resultType="com.hanbit.web.domains.MemberDTO">
-    	select * from member
+    	select t2.* from (
+select rownum seq, t.* from(
+select
+m.mem_id id,
+m.name name,
+m.gender gender,
+m.reg_date regDate,
+m.ssn ssn,
+m.email email,
+m.profile_img profileImg,
+m.role role,
+m.phone phone,
+m.major_seq majorSeq
+from Member m order by reg_date desc) t)t2
+where t2.seq between #{start} and #{end}
+order by t2.seq asc
     </select>
    <select id="findOne2"  statementType="CALLABLE"  
    	parameterType="com.hanbit.web.domains.Command"  
@@ -18,8 +33,6 @@
 }
   
 </select>
-
-    
     <select id="findOne" 
     		parameterType="com.hanbit.web.domains.Command" 
     		resultType="com.hanbit.web.domains.MemberDTO">
@@ -56,7 +69,7 @@
     </insert>
 
 	<update id="update" parameterType="com.hanbit.web.domains.MemberDTO">
-		update member set pw = #{pw} , email = #{email} where id = #{id}
+		update member set pw = #{pw} , email = #{email} where mem_id = #{id}
 	</update>
 
 	<delete id="delete" parameterType="com.hanbit.web.domains.MemberDTO" >

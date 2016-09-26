@@ -25,7 +25,7 @@
     </insert>
 
 	<update id="update" parameterType="com.hanbit.web.domains.MemberDTO">
-		update member set pw = #{pw} , email = #{email} where id = #{id}
+		update member set pw = #{pw} , email = #{email} where mem_id = #{id}
 	</update>
 
 	<delete id="delete" parameterType="com.hanbit.web.domains.MemberDTO" >

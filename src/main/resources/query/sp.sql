@@ -1,3 +1,32 @@
+select * from member;
+
+-- EXE_INSERT_STUDENT
+EXEC HANBIT.INSERT_STUDENT('ta01','1','박건우','MALE','2016-09-26','890101-1','gunwoo@test.com','default.jpg','STUDENT','010-1111-1111','1000');
+EXEC HANBIT.INSERT_STUDENT('ta02','1','오재원','MALE','2016-09-26','890102-1','jaewon@test.com','default.jpg','STUDENT','010-1111-1112','1000');
+EXEC HANBIT.INSERT_STUDENT('ta03','1','민병헌','MALE','2016-09-26','890103-1','bhunghyun@test.com','default.jpg','STUDENT','010-1111-1113','1000');
+EXEC HANBIT.INSERT_STUDENT('ta04','1','김재환','MALE','2016-09-26','890104-1','jaehwan@test.com','default.jpg','STUDENT','010-1111-1114','1000');
+EXEC HANBIT.INSERT_STUDENT('ta05','1','오재일','MALE','2016-09-26','890105-1','jaeil@test.com','default.jpg','STUDENT','010-1111-1115','1000');
+EXEC HANBIT.INSERT_STUDENT('ta06','1','양의지','MALE','2016-09-26','890106-1','manin@test.com','default.jpg','STUDENT','010-1111-1116','1000');
+EXEC HANBIT.INSERT_STUDENT('ta07','1','에반스','MALE','2016-09-26','890107-1','evance@test.com','default.jpg','STUDENT','010-1111-1117','1000');
+EXEC HANBIT.INSERT_STUDENT('ta08','1','허경민','MALE','2016-09-26','890108-1','kyungmin@test.com','default.jpg','STUDENT','010-1111-1118','1000');
+EXEC HANBIT.INSERT_STUDENT('ta09','1','김재호','MALE','2016-09-26','890109-1','jaeho@test.com','default.jpg','STUDENT','010-1111-1119','1000');
+
+EXEC HANBIT.INSERT_STUDENT('tu01','1','니퍼트','MALE','2016-09-26','880201-1','nippert@test.com','default.jpg','STUDENT','010-2222-1111','1000');
+EXEC HANBIT.INSERT_STUDENT('tu02','1','보우덴','MALE','2016-09-26','880202-1','bowden@test.com','default.jpg','STUDENT','010-2222-1112','1000');
+EXEC HANBIT.INSERT_STUDENT('tu03','1','장원준','MALE','2016-09-26','880203-1','wonjoon@test.com','default.jpg','STUDENT','010-2222-1113','1000');
+EXEC HANBIT.INSERT_STUDENT('tu04','1','유희관','MALE','2016-09-26','880204-1','hekhan@test.com','default.jpg','STUDENT','010-2222-1114','1000');
+EXEC HANBIT.INSERT_STUDENT('tu05','1','허준혁','MALE','2016-09-26','880205-1','junhyuk@test.com','default.jpg','STUDENT','010-2222-1115','1000');
+EXEC HANBIT.INSERT_STUDENT('tu06','1','정재훈','MALE','2016-09-26','880206-1','jaehoon@test.com','default.jpg','STUDENT','010-2222-1116','1000');
+EXEC HANBIT.INSERT_STUDENT('tu07','1','윤명준','MALE','2016-09-26','880207-1','mhungjoon@test.com','default.jpg','STUDENT','010-2222-1117','1000');
+
+EXEC HANBIT.INSERT_STUDENT('ta11','1','박건우','MALE','2016-09-26','890111-1','gunwoo2@test.com','default.jpg','STUDENT','010-1111-1121','1000');
+EXEC HANBIT.INSERT_STUDENT('ta12','1','오재원','MALE','2016-09-26','890112-1','jaewon2@test.com','default.jpg','STUDENT','010-1111-1122','1000');
+EXEC HANBIT.INSERT_STUDENT('ta13','1','민병헌','MALE','2016-09-26','890113-1','bhunghyun2@test.com','default.jpg','STUDENT','010-1111-1123','1000');
+EXEC HANBIT.INSERT_STUDENT('ta14','1','김재환','MALE','2016-09-26','890114-1','jaehwan2@test.com','default.jpg','STUDENT','010-1111-1124','1000');
+EXEC HANBIT.INSERT_STUDENT('ta15','1','오재일','MALE','2016-09-26','890115-1','jaeil2@test.com','default.jpg','STUDENT','010-1111-1125','1000');
+
+
+
 /*
 ========= META_PROCEDURE ====
 */	

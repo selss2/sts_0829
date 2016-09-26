@@ -424,17 +424,18 @@ var member = (function(){
 	                  $('#member_detail #regdate').text(data.regDate);
 	                  $('#member_detail #birth').text(data.ssn);
 	                  $('#go_update').click(function(){
-							$('#member_detail #u_pw').html('<input type="text" id="u_pw" value="'+data.pw+'"/>');
-							$('#member_detail #email').html('<input type="text" id="email" value="'+data.email+'"/>');
-							$('#member_detail #major').html('<input type="text" id="major" value=""/>');
-							$('#member_detail #subject').html('<input type="text" id="subject" value=""/>');
+							$('#member_detail #u_pw').html('<input type="text" id="update_u_pw" value="'+data.pw+'"/>');
+							$('#member_detail #email').html('<input type="text" id="update_email" value="'+data.email+'"/>');
+							$('#member_detail #major').html('<input type="text" id="update_major" value=""/>');
+							$('#member_detail #subject').html('<input type="text" id="update_subject" value=""/>');
 							$('#bt_box').html('<input id="update_confirm" type="button" value ="확인 " /><input id="update_cancel" type="button" value ="취소 " />')
 							$('#update_confirm').click(function(){
 								var update_info ={
-										'pw' :$('#password').val(),
-										'email':$('#email').val(),
-										'major':$('#major').val(),
-										'subject':$('#subject').val()
+										'id' : $('#member_detail #id').html(),
+										'pw' :$('#update_u_pw').val(),
+										'email':$('#update_email').val(),
+										'major':$('#update_major').val(),
+										'subject':$('#update_subject').val()
 								};
 								$.ajax({
 									url:app.context()+'/member/update',
@@ -449,7 +450,7 @@ var member = (function(){
 					    					  alert('서버는 다녀왔는데 실패함 !!');
 					    				  }
 									},
-									error:function(){
+									error:function(x,s,m){
 										 alert('정보 수정시 발생한 에러 : '+m);
 									}
 								});
