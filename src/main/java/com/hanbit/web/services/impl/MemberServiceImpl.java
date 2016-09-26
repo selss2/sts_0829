@@ -31,14 +31,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void update(MemberDTO mem) {
+	public String update(MemberDTO member) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		int result = mapper.update(mem);
+		int result = mapper.update(member);
+		String retval = "";
 		if (result == 1) {
+			retval = "success";
 			System.out.println("서비스 수정결과 성공");
 		} else {
+			retval = "fail";
 			System.out.println("서비스 수정결과 실패");
 		}
+		return retval;
 	}
 
 	@Override

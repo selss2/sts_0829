@@ -60,9 +60,7 @@
     
   </div>
 </nav>
-
 <script type="text/javascript">
-$(function() {
-	$('#logout').click
-});
+$('#logout').on('click',function(){location.href = app.context()+'/member/logout';});
+$('#a_detail').on('click',function(){member.detail()});
 </script>

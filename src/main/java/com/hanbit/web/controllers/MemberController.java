@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.condition.ConsumesRequestCondition;
 
 import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
@@ -94,18 +93,18 @@ public class MemberController {
 		logger.info("GO TO {}","main");
 		return "admin:member/content.tiles";
 	}
-	@RequestMapping(value="/signup", method=RequestMethod.POST,
-	consumes = "application/json")
+	@RequestMapping(value="/signup",method=RequestMethod.POST,
+			consumes="application/json")
 	public @ResponseBody Retval signup(@RequestBody MemberDTO param) {
 		logger.info("SIGN UP {}","EXEUTE");
-		logger.info("SIGN UP ID {}",param.getId());
-		logger.info("SIGN UP PW {}",param.getPw());
-		logger.info("SIGN UP NAME {}",param.getName());
-		logger.info("SIGN UP SSN {}",param.getSsn());
-		logger.info("SIGN UP EMAIL {}",param.getEmail());
-		logger.info("SIGN UP PHONE {}",param.getPhone());
-		/*retval.setMessage(service.regist(param));*/
-		retval.setMessage("success");
+		logger.info("SIGN UP ID = {}",param.getId());
+		logger.info("SIGN UP PW = {}",param.getPw());
+		logger.info("SIGN UP NAME = {}",param.getName());
+		logger.info("SIGN UP SSN = {}",param.getSsn());
+		logger.info("SIGN UP EMAIL = {}",param.getEmail());
+		logger.info("SIGN UP PHONE = {}",param.getPhone());
+		retval.setMessage(service.regist(param));
+		logger.info("SIGN UP REVAL = {}",retval.getMessage());
 		return retval;
 	}
 	@RequestMapping("/check_dup/{id}")
@@ -130,37 +129,26 @@ public class MemberController {
 		return "admin:member/a_detail.tiles";
 	}
 	@RequestMapping("/detail")
-	public String moveDetail() {
+	public @ResponseBody MemberDTO moveDetail(HttpSession session) {
 		logger.info("GO TO {}","detail");
-		return "user:member/detail.tiles";
+		return (MemberDTO) session.getAttribute("user");
 	}
 	
 	@RequestMapping("/update")
-	public String moveUpdate() {
+	public @ResponseBody Retval update(@RequestBody MemberDTO param, HttpSession session) {
 		logger.info("GO TO {}","update");
-		return "user:member/update.tiles";
-	}
-	@RequestMapping("/delete")
-	public String moveDelete() {
-		logger.info("GO TO {}","delete");
-		return "user:member/delete.tiles";
+		MemberDTO temp = (MemberDTO) session.getAttribute("user");
+		if (param.getPw()!=null) {
+			temp.setPw(param.getPw());
+		}
+		if (param.getEmail()!=null) {
+		temp.setEmail(param.getEmail());
+		}
+		retval.setMessage(service.update(temp));
+		logger.info("setMessage(service.update)");
+		return retval;
 	}
 	
-	@RequestMapping("/list")
-	public String moveList() {
-		logger.info("GO TO {}","list");
-		return "admin:member/list.tiles";
-	}
-	@RequestMapping("/find")
-	public String moveFindBy() {
-		logger.info("GO TO {}","find");
-		return "admin:member/find_by.tiles";
-	}
-	@RequestMapping("/count")
-	public String moveCount() {
-		logger.info("GO TO {}","count");
-		return "admin:member/count.tiles";
-	}
 	@RequestMapping("/content")
 	public String moveUserContent() {
 		logger.info("GO TO {}","content");
