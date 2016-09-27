@@ -15,7 +15,7 @@ public interface MemberMapper {
 	public List<MemberDTO> list();
 	public MemberDTO findOne(Command command);
 	public List<MemberDTO> findByName(String name);
-	public Retval count();
+	public int count();
 	public int delete(MemberDTO member);
 	public boolean login(MemberDTO param);
 	public int existId(String id);

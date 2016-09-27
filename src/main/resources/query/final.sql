@@ -371,10 +371,18 @@ BEGIN
 END insert_student;
 -- EXE_INSERT_STUDENT
 EXEC HANBIT.INSERT_STUDENT('hong','1','홍길동','MALE','2016-06-01','800101-1','hong@test.com','default.jpg','STUDENT','010-1234-5678','1001');
+
 -- SP_COUNT_STUDENT
 CREATE OR REPLACE PROCEDURE count_student(sp_count OUT NUMBER) AS 
-BEGIN SELECT COUNT(*) into sp_count FROM Member WHERE role='STUDENT'; commit; END count_student;
+BEGIN SELECT COUNT(*) into sp_count 
+FROM Member WHERE role='STUDENT'; 
+COMMIT; END count_student;
+
 -- EXE_COUNT_STUDENT
+SET serveroutput ON
+DECLARE sp_count NUMBER;
+BEGIN count_student(sp_count); DBMS_OUTPUT.put_line ('학생수 : '||sp_count); END;
+
 DECLARE sp_count NUMBER;BEGIN count_student(sp_count);DBMS_OUTPUT.put_line ('학생 인원 : '||sp_count||' 명');END;
 -- SP_FIND_BY_STUDENT_ID
 CREATE OR REPLACE PROCEDURE find_by_student_id(

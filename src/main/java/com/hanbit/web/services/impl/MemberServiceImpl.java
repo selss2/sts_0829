@@ -1,6 +1,7 @@
 package com.hanbit.web.services.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.hanbit.web.controllers.MemberController;
 import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
-import com.hanbit.web.domains.Retval;
 import com.hanbit.web.mappers.MemberMapper;
 import com.hanbit.web.services.MemberService;
 
@@ -21,13 +21,45 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private SqlSession sqlSession;
 	@Autowired
-	Command command;
+	private MemberDTO member;
 	@Autowired
-	MemberDTO member;
+	private Command command;
+
+	public void logoutSession(MemberDTO member) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		if (member.getId().equals(member.getId()) && member.getPw().equals(member.getPw())) {
+			member = null;
+		}
+	}
+
+	public List<?> findBy(String keyword) {
+		return null;
+	}
+
+	@Override
+	public Map<?, ?> map() {
+		return null;
+	}
+
+	public String myAccount() {
+		return member.toString();
+	}
+
+	@Override
+	public MemberDTO getSession() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<?> list(Command command) {
+		// TODO Auto-generated method stub
+		return list(command);
+	}
 
 	@Override
 	public String regist(MemberDTO member) {
-		return (sqlSession.getMapper(MemberMapper.class).insert(member)==1)?"success":"fail";
+		return (sqlSession.getMapper(MemberMapper.class).insert(member) == -1) ? "success" : "fail";
 	}
 
 	@Override
@@ -46,20 +78,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberDTO show() {
-		return null;
-	}
+	public void delete(MemberDTO mem) {
 
-	@Override
-	public void delete(MemberDTO member) {
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		mapper.delete(member);
-	}
-
-	@Override
-	public Retval count() {
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.count();
 	}
 
 	@Override
@@ -69,48 +89,40 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<?> list() {
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.list();
-	}
-
-	@Override
-	public List<?> findBy(String keyword) {
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.findByName(keyword);
-	}
-
-	@Override
-	public void logout(MemberDTO member) {
-		if (member.getId().equals(member.getId()) && member.getPw().equals(member.getPw())) {
-			member = null;
-		}
-
-	}
-
-	@Override
-	public MemberDTO login(MemberDTO param) {
-		logger.info("MemberService login ID is {}", member.getId());
+	public MemberDTO login(MemberDTO member) {
+		logger.info("MemberService login ID = {}", member.getId());
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		command.setKeyword(member.getId());
 		command.setOption("mem_id");
-		MemberDTO retval = mapper.findOne(command);
-		logger.info("MemberService PASSWORD(param) is {}", param.getPw());
-		logger.info("MemberService PASSWORD(retval) is {}", retval.getPw());
-		if (retval.getPw().equals(param.getPw())) {
-			logger.info("MemberService login is {}", " SUCCESS ");
-			return retval;
-		} else {
-			logger.info("MemberService login is {}", " FAIL ");
-			retval.setId("NONE");
-			return retval;
+		MemberDTO mem = mapper.findOne(command);
+		if (member.getPw().equals(mem.getPw())) {
+			logger.info("MemberService login {}", " SUCCESS ");
+			return mem;
 		}
+		logger.info("MemberService login {}", " FAIL ");
+		mem.setId("NONE");
+		return mem;
+	}
+
+	@Override
+	public MemberDTO findById(String id) {
+		return null;
 	}
 
 	@Override
 	public int existId(String id) {
-		logger.info("MemberService existId ID is {}", id);
+		logger.info("MemberService existId ID = {}", id);
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.existId(id);
+	}
+
+	@Override
+	public List<?> list() {
+		return null;
+	}
+
+	@Override
+	public int count(Command command) {
+		return 0;
 	}
 }

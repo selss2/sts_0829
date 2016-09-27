@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hanbit.web.constants.Values;
+
 public class JDBCTest {
 	public static void main(String[] args) {
 		Connection con = null;
@@ -18,11 +20,11 @@ public class JDBCTest {
 		
 		List<String> list = new ArrayList<String>();
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
+			Class.forName(Values.ORACLE_DRIVER);
 			con = DriverManager.getConnection(
-					Constants.ORACLE_URL,
-					Constants.USER_ID,
-					Constants.USER_PW);
+					Values.ORACLE_URL,
+					Values.USER_ID,
+					Values.USER_PW);
 			stmt = con.createStatement();
 			// rs = stmt.executeQuery(sql);
 			rs = stmt.executeQuery(sql);

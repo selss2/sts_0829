@@ -2,17 +2,19 @@ package com.hanbit.web.util;
 
 import java.sql.Connection;
 
+import com.hanbit.web.constants.Values;
+
 public class DatabaseFactory {
 	public static Database createDatabase(Vendor vendor,String id,String pw){
 		String driver="",url="";
 		switch (vendor) {
 		case ORACLE:
-			driver = Constants.ORACLE_DRIVER;
-			url = Constants.ORACLE_URL;
+			driver = Values.ORACLE_DRIVER;
+			url = Values.ORACLE_URL;
 			break;
 		case MYSQL:
-			driver = Constants.MYSQL_DRIVER;
-			url = Constants.MYSQL_URL;
+			driver = Values.MYSQL_DRIVER;
+			url = Values.MYSQL_URL;
 			break;
 		case MSSQL:break;
 		case MARIADB:break;

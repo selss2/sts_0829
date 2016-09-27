@@ -2,25 +2,22 @@ package com.hanbit.web.services;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
-import com.hanbit.web.domains.Retval;
+import com.hanbit.web.util.CommonService;
 
-
-@Component
-public interface MemberService{
+public interface MemberService extends CommonService{
 	public String regist(MemberDTO mem);
 	public MemberDTO findOne(Command command);
-	public String update(MemberDTO member);
-	public void delete(MemberDTO member);
-	public void logout(MemberDTO member);
-	public MemberDTO show();
+	public String update(MemberDTO mem);
+	public void delete(MemberDTO mem);
+	public MemberDTO findById(String id);
+	/*public String login(MemberDTO member);*/
+	public MemberDTO getSession();
 	public MemberDTO login(MemberDTO member);
-	public Retval count();
-	public List<?> list();
-	public List<?> findBy(String keyword);
+	public void logoutSession(MemberDTO member);
 	public int existId(String id);
+	public List<?> list(Command command);
+	public int count(Command command);
 	
 }
