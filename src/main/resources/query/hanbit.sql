@@ -235,6 +235,9 @@ SELECT * FROM member;-- list
 SELECT * FROM member WHERE id = 'hong';-- findByPK map의 키값
 SELECT * FROM member WHERE gender = '남';-- findByNotPK
 SELECT count(*) AS count FROM member;--- count
+
+SELECT count(*) AS count FROM member;
+
 --UPDATE
 ALTER TABLE member ADD email VARCHAR2(30);
 ALTER TABLE member ADD profile_img VARCHAR2(100);
@@ -276,7 +279,7 @@ SELECT * FROM grade WHERE seq='1000';
 --- read : findByID
 SELECT * FROM grade WHERE id = 'you';
 ---- read : count
-SELECT count(*) FROM grade;
+SELECT count(*) FROM member WHERE ROLE = 'STUDENT';
 --- UPDATE : UPDATE
 UPDATE grade SET exam_date = '2016-05'
 WHERE seq = 1000;

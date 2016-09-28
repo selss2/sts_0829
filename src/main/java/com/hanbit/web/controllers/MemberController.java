@@ -1,14 +1,18 @@
 package com.hanbit.web.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -126,42 +130,41 @@ public class MemberController {
 		return retval;
 	}
 	@RequestMapping("/list/{pgNum}")
-	public String list(@PathVariable String pgNum,Model model){
-		logger.info("LIST pgNum {}",pgNum);
-		List<MemberDTO> list = new ArrayList<MemberDTO>();
-		int[]rows = new int[2];
+	public @ResponseBody HashMap<String,Object> list(@PathVariable String pgNum,ModelMap model){
+		logger.info("LIST pgNum is {}",pgNum);
 		Retval r = service.count();
+		int[]pages = new int[3];
+		int[]rows = new int[2];
+		HashMap<String,Object> map = new HashMap<String,Object>();
 		int totCount = r.getCount();
-		int totPg = 0;
-		int startPg = 0,lastPg = 0;
-		int pgNum2 = Integer.parseInt(pgNum);
-		logger.info("LIST totCount {}",totCount);
-	//	int pgCount = totCount/Values.PG_SIZE;
-		rows = Pagination.getStartRow(totCount, Integer.parseInt(pgNum), Values.PG_SIZE); 
+		pages = Pagination.getPages(totCount, Integer.parseInt(pgNum));
+		rows = Pagination.getRows(totCount, Integer.parseInt(pgNum), Values.PG_SIZE); 
 		command.setStart(rows[0]);
 		command.setEnd(rows[1]);
-		model.addAttribute("list", service.list(command));
-		int pgSize = Values.PG_SIZE;
-		if(totCount % pgSize == 0){
-			totPg = totCount/pgSize;
-		}else{
-			totPg = totCount/pgSize + 1;
-		}
-		startPg = pgNum2 - ((pgNum2-1)%pgSize);
-		if(startPg + pgSize-1 <= totPg){
-			lastPg =  startPg + pgSize -1;
-		}else{
-			lastPg = totPg;
-		}
-		logger.info("LIST pgSize {}",pgSize);
-		model.addAttribute("pgSize", pgSize);
+		logger.info("LIST totCount {}",totCount);
+		logger.info("LIST pgSize {}",Values.PG_SIZE);
+		logger.info("LIST totCount {}",totCount);
+		logger.info("LIST totPg {}",pages[2]);
+		logger.info("LIST pgNum {}",pgNum);
+		logger.info("LIST startPg {}",pages[0]);
+		logger.info("LIST lastPg {}",pages[1]);
+	/*	model.addAttribute("list", service.list(command));
+		model.addAttribute("pgSize", Values.PG_SIZE);
 		model.addAttribute("totCount", totCount);
-		model.addAttribute("totPg", totPg);
-		model.addAttribute("pgNum", pgNum2);
-		model.addAttribute("startPg", startPg);
-		model.addAttribute("lastPg", lastPg);
+		model.addAttribute("totPg", pages[2]);
+		model.addAttribute("pgNum", Integer.parseInt(pgNum));
+		model.addAttribute("startPg", pages[0]);
+		model.addAttribute("lastPg", pages[1]);*/
+		map.put("list", service.list(command));
+		map.put("pgSize", Values.PG_SIZE);
+		map.put("totCount", totCount);
+		map.put("totPg", pages[2]);
+		map.put("pgNum", Integer.parseInt(pgNum));
+		map.put("startPg", pages[0]);
+		map.put("lastPg", pages[1]);
+		map.put("groupSize", Values.GROUP_SIZE);
 		
-		return "admin:member/list.tiles";
+		return map;
 	}
 	@RequestMapping("/search")
 	public String search(

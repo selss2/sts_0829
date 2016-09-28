@@ -17,9 +17,15 @@ public class AdminController {
 		logger.info("AdminController ! goMain() ");
 		return "admin:admin/content.tiles";
 	}
-	public void aaa(){
-		ListService abc = ()->null;
-		IntegerMath def = (int a,int b)->a+b;
+	@RequestMapping("/header")
+	public String adminHeader(){
+		logger.info("---- ADMIN_CONTROLLER HEADER PASS ----");
+		return "admin/header.jsp";
 	}
-	
+
+	@RequestMapping("/nav")
+	public String adminNav(){
+		logger.info("---- ADMIN_CONTROLLER NAV PASS ----");
+		return "admin/nav.jsp";
+	}
 }
