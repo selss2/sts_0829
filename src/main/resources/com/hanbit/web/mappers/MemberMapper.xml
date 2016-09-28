@@ -3,64 +3,85 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hanbit.web.mappers.MemberMapper">
+<resultMap id="RetvalMap" type="com.hanbit.web.domains.Retval">
+    <result property="count" column="COUNT"/>
+</resultMap>
+    <select id="list" resultType="com.hanbit.web.domains.MemberDTO"
+    				  parameterType="com.hanbit.web.domains.Command" >
+    	select t2.* from(
+		   select rownum seq,t.* from (
+		     select 
+		    m.mem_id id, 
+		    m.name name,
+		    m.gender gender,
+		    m.reg_date regDate,
+		    m.ssn ssn,
+		    m.email email,
+		    m.profile_img profileImg,
+		    m.role role,
+		    m.phone phone,
+		    m.major_seq majorSeq    
+		   from Member m order by reg_date desc) t)t2
+		   where t2.seq between #{start} and #{end}
+		   order by t2.seq asc
+    </select>
+   <select id="findOne2"  statementType="CALLABLE"  
+   	parameterType="com.hanbit.web.domains.Command"  
+   	resultType="com.hanbit.web.domains.MemberDTO">
+{call find_by_student_id
+	( 
+    	#{keyword}  
+   		,#{spcursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=sampleVOMap
+  	)
+}
+  
+</select>
 
-	<select id="List" resultType="com.hanbit.web.domains.MemberDTO"
-	 parameterType="com.hanbit.web.domains.Command" >	
-	select t2.* from (
-	select rownum seq, t.* from(
-	select
-	m.mem_id id,
-	m.name name,
-	m.gender gender,
-	m.reg_date regDate,
-	m.ssn ssn,
-	m.email email,
-	m.profile_img profileImg,
-	m.role role,
-	m.phone phone,
-	m.major_seq majorSeq
-	from Member m order by reg_date desc) t)t2
-	where t2.seq between #{start} and #{end}
-	order by t2.seq asc
+    
+    <select id="findOne" 
+    		parameterType="com.hanbit.web.domains.Command" 
+    		resultType="com.hanbit.web.domains.MemberDTO">
+    	select 
+	    	mem_id as id,
+	    	pw as pw,
+	    	name as name,
+	    	gender as gender,
+	    	reg_date as regDate,
+	    	email as email,
+	    	profile_img as profileImg,
+	    	role as role,
+	    	ssn as ssn,
+	    	phone as phone,
+	    	major_seq as majorSeq
+    	from member where ${option} = #{keyword}
+    </select>
+     <select id="findByName" parameterType="string" resultType="com.hanbit.web.domains.MemberDTO">
+    select * from member where name =#{name}
+    </select>
+    
+    <select id="count" resultType="com.hanbit.web.domains.Retval">
+     select count(*) as count from member where role='STUDENT'
+    </select>
+    <select id="count2" statementType="CALLABLE" parameterType="com.hanbit.web.domains.Retval">
+     { call HANBIT.COUNT_STUDENT(
+            #{count, mode=OUT,jdbcType=INTEGER}
+ 			)
+     }
+    </select>
+     
+    <select id="existId" parameterType="com.hanbit.web.domains.MemberDTO" resultType="int">
+    select count(*) as count from member where mem_id = #{id}
+    </select>
+    <insert id="insert" parameterType="com.hanbit.web.domains.MemberDTO">
+    insert into member(id,pw,name,reg_date,ssn,email,profile_img,phone)
+    values(#{id},#{pw},#{name},#{regDate},#{ssn},#{email},#{profileImg},#{phone})
+    </insert>
 
-	</select> 
-	
-	<select id="findOne" parameterType="com.hanbit.web.domains.Command" resultType="com.hanbit.web.domains.MemberDTO">
-	select 
-    	mem_id as id,
-    	pw as pw,
-    	name as name,
-    	gender as gender,
-    	reg_date as regDate,
-    	email as email,
-    	profile_img as profileImg,
-    	role as role,
-    	ssn as ssn,
-    	phone as phone
-    	 from member where ${option} = #{keyword}
-		</select>
-	<select id="findByName" parameterType="string" resultType="com.hanbit.web.domains.MemberDTO">
-	select * from member where name = #{name}
-		</select>
-	<select id="count"  statementType="CALLABLE" resultType="com.hanbit.web.domains.Retcal">
-	{ call.HANBIT.COUNT_STUDENT(
-		#{count, mode=OUT, jdbcType=NUMERIC}
-		)
-		</select>
-	
-	<select id="existId" parameterType="com.hanbit.web.domains.MemberDTO" resultType="int">
-		select count(*) as count from member where mem_id = #{id}
-	</select>
-	
-	<insert id="insert" parameterType="com.hanbit.web.domains.MemberDTO" >
-	insert into member(mem_id,pw,name,ssn,email,phone) values(#{id},#{pw},#{name},#{ssn},#{email},#{phone})
-	</insert>
-	
 	<update id="update" parameterType="com.hanbit.web.domains.MemberDTO">
-	update member set pw = #{pw}, email = #{email} where mem_id = #{id}
+		update member set pw = #{pw} , email = #{email} where id = #{id}
 	</update>
-	
-	<delete id="delete" parameterType="com.hanbit.web.domains.MemberDTO"></delete>
-  
-  
+
+	<delete id="delete" parameterType="com.hanbit.web.domains.MemberDTO" >
+		delete from member where id=#{id} and pw = #{pw}
+	</delete>
 </mapper>
