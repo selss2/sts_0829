@@ -61,7 +61,8 @@ a{cursor:pointer;}
 .box {
 	padding-top: 50px;
 	margin: 0 auto;
-	width: 600px;
+/* 	width: 600px; */
+	width: 100%;
 	text-align: center;
 }
 
@@ -194,7 +195,7 @@ a{cursor:pointer;}
 #grade_list_table tr:nth-child(even) {
     background-color: #dddddd;
 }
-#member_list_table table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
+#member_list_table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
 #member_list_table td, th {
     border: 1px solid #dddddd;
     text-align: left;
@@ -203,7 +204,7 @@ a{cursor:pointer;}
 #member_list_table tr:nth-child(even) {
     background-color: #dddddd;
 }
-#free_board_table table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
+#free_board_table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
 #free_board_table td, th {
     border: 1px solid #dddddd;
     text-align: left;

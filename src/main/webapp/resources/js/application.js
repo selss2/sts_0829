@@ -226,7 +226,7 @@ var DETAIL_FORM =
 	+'<td id="u_email"></td></tr>'
 	+'<tr><td class="font_bold bg_color_yellow">전공과목</td><td id="major"></td></tr>'
 	+'<tr><td class="font_bold bg_color_yellow">수강과목</td><td colspan="2" id="subject"></td></tr>'
-	+'<tr><td class="font_bold bg_color_yellow">생년월일</td><td colspan="2" id="birth"></td></tr>'
+	+'<tr><td class="font_bold bg_color_yellow">생년월일</td><td colspan="2" id="ssn"></td></tr>'
 	+'<tr><td class="font_bold bg_color_yellow">등록일</td><td colspan="2" id="reg_date"></td></tr></table>'
 	+'<div id="bt_box"><input type="button" value="정보수정 하러가기" id="go_update"/><input type="button" value="회원 탈퇴" id="unregist"/></div></div>';
 var member = (function(){
@@ -515,50 +515,6 @@ var STUDENT_MAIN =
 		+'<input type="button" data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill" value="과목 정보 보기"/>'
 		+'</div></div></div></div></section>';
 
-
-var aaa =
-'<nav aria-label="Page navigation">'
-'+  <ul class="pagination">'
-  '+<c:if test="${ startPg - pgSize gt 0}">'
-  	'+<li>'
-  	'+<a href="${context}/member/list/${startPg-pgSize}" aria-label="Previous">'
-      '+ <span aria-hidden="true">&laquo;</span>'
-    '+</a>'
-    '+</li>'
-  '+</c:if>'
- '+ <c:forEach begin="${startPg}" end="${lastPg}" step="1" varStatus="i">'
- '+ 	<c:choose>'
-  	'+	<c:when test="${i.index == pgNum }">'
-  		'+	<font color="red">${i.index}</font>'
-  	'+	</c:when>'
-  	'+	<c:otherwise>'
-  	'+		<a href="${context}/member/detail/${i.index}"></a>'
-  	'+	</c:otherwise>'
-  '+	</c:choose>'
-  '+</c:forEach>'
-  '+ <c:if test="${startPg + pgSize le totPg}">'
-  '+	<li>'
- '+ 	<a href="${context}/member/list/${startPg-pgSize}" aria-label="Next">'
- '+      <span aria-hidden="true">&laquo;</span>'
- '+   </a>'
-   '+ </li>'
- '+ </c:if>'
- '+ </ul>'
-'+</nav>'
-'+<div align="center">'
-'+	<form action="${context}/member/search" method="post">'
-	'+	<select name="keyField" id="">'
-	'+		<option value="name" selected>이름</option>'
-	'+		<option value="id">ID</option>'
-	'+	</select>'
-	'+	<input type="text" name="keyword">'
-	'+	<input type="hidden" name="pgNum">'
-	'+	<input type="submit" name="검 색">'
-'+	</form>'
-'+</div>'
-'+</div>'
-'+</div>';
-
 var user = (function(){
 	var init = function(){onCreate();};
 	var setContentView = function(){
@@ -613,7 +569,7 @@ var user = (function(){
 				console.log('토탈페이지'+totPg);
 				console.log('그룹사이즈'+groupSize);
 				var student_list = '<ul class="list-group">';
-				student_list += '<li class="list-group-item">총학생수 : '
+				student_list += '<li class="list-group-item" align="center">총학생수 : '
 					+data.totCount+'</li>';
 				student_list += '</ul>'
 					+'<div class="panel panel-primary">'
@@ -638,7 +594,7 @@ var user = (function(){
 							+'<td>'+member.id+'</td>'
 							+'<td><a class="name">'+member.name+'</a></td>'
 							+'<td>'+member.regDate+'</td>'
-							+'<td>'+member.birth+'</td>'
+							+'<td>'+member.ssn+'</td>'
 							+'<td>'+member.email+'</td>'
 							+'<td>'+member.phone+'</td>'
 							+'<td><a class="regist">등록</a> / <a class="update">수정</a></td>'
@@ -647,7 +603,7 @@ var user = (function(){
 					
 				}
 				student_list += '</tbody></table>'
-				var pagination='<nav aria-label="Page navigation"aligin="center"><ul class="pagination">';
+					var pagination='<nav aria-label="Page navigation" align="center"><ul class="pagination">';
 				if((startPg-lastPg) > 0){
 					pagination += 
 						+'<li>'
@@ -660,7 +616,7 @@ var user = (function(){
 					if(i==pgNum){
 						pagination +='<font color="red">'+i+'</font>';
 					}else{
-						pagination += '<a href="'+app.context()+'/member/list/'+i+'">'+i+'</a>';
+						pagination += '<a href="#" onclick="user.student_list('+i+')">'+i+'</a>';
 					}
 				}
 				if(startPg + pgSize <= totPg){
@@ -686,14 +642,24 @@ var user = (function(){
 					+'</div>'
 					+'</div>';
 				frame += student_list;
-				
-				frame += search_form;
 				frame += pagination;
+				frame += search_form;
 				$('#adm_article').html(frame);
+				$('#find_submit').click(function() {
+					if ($('#keyword').val().length>0){
+						user.find_student($('#keyword').val());
+				}else{
+					alert('검색어를 입력해 주세요');
+					$('#keyword').focus();
+					return false;
+				}
 			});
-			
+			});
+		},
+		find_student : function(keyword) {
+			alert ('검색어'+keyword);
 		}
-	};
+		};
 })();
 /*
 ============ ADMIN_JS ==========
@@ -755,12 +721,12 @@ var admin = (function() {
 				}
 			}
 		},
-	    member_list : function(){
+/*	    member_list : function(){
 	    	alert('멤버리스트');
 	    	location.href = app.context()+'/member/list/1';
-	    	/*$.getJSON(app.context()+'/member/list/1',function(){
-	    	});*/
-	    }
+	    	$.getJSON(app.context()+'/member/list/1',function(){
+	    	});
+	    }*/
     };
 })();
 /*
